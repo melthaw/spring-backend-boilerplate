@@ -1,0 +1,197 @@
+<div>
+    <section class="content-header">
+        <h1>附件管理
+            <small>（总<span>{{totalElements}}</span>条）</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <button class="btn btn-default btn-sm"
+                                ng-click="addAttachment()">
+                            <i class="fa fa-plus-square-o"></i>
+                            新增
+                        </button>
+
+                        <button class="btn btn-default btn-sm" ng-click="toggleAdvancedSearch()">
+                            <i class="fa fa-search-plus"></i>
+                            高级查询
+                        </button>
+                        <div class="box-tools pull-right" ng-show="!advancedSearch" style="margin-right: 50px;">
+                            <div class="has-feedback">
+                                <input class="form-control input-sm" type="text"
+                                       ng-model="filter.title"
+                                       placeholder="请输入标题">
+                                <span class="glyphicon glyphicon-search form-control-feedback"
+                                      style="top:-3px;" ng-click="refreshAttachments();"></span>
+                            </div>
+                        </div>
+
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-default btn-sm"
+                                    ng-click="refreshAttachments()">
+                                <i class="fa fa-fw fa-refresh"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body" style="min-height: 400px;">
+                        <div class="mailbox-controls" ng-show="advancedSearch">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-10 text-center">
+                                    <div class="row">
+                                        <div class="col-md-3 form-group ">
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" ng-model="filter.createdAtBegin"
+                                                       class="datepicker form-control input-sm pull-right"
+                                                       placeholder="请输入创建开始日期">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 form-group ">
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" ng-model="filter.createdAtEnd"
+                                                       class="datepicker form-control input-sm pull-right"
+                                                       placeholder="请输入创建结束日期">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 form-group ">
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" ng-model="filter.beginDate"
+                                                       class="datepicker form-control input-sm pull-right"
+                                                       placeholder="请输入发布开始日期">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 form-group ">
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" ng-model="filter.endDate"
+                                                       class="datepicker form-control input-sm pull-right"
+                                                       placeholder="请输入发布结束日期">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-10 text-center">
+                                    <div class="row">
+                                        <div class="col-md-3 form-group"><input
+                                                class="form-control input-sm"
+                                                type="text"
+                                                ng-model="filter.category"
+                                                placeholder="请输入分类"></div>
+                                        <div class="col-md-3 form-group"><input
+                                                class="form-control input-sm"
+                                                type="text"
+                                                ng-model="filter.title"
+                                                placeholder="请输入标题"></div>
+                                        <div class="col-md-3 form-group"><select
+                                                class="form-control input-sm"
+                                                ng-model="filter.published">
+                                            <option value="">--状态--</option>
+                                            <option value="true">已发布</option>
+                                            <option value="false">未发布</option>
+                                        </select></div>
+
+                                        <div class="col-md-3 form-group">
+                                            <button class="btn btn-default btn-sm"
+                                                    ng-click="refreshAttachments()">
+                                                <i class="fa fa-search"></i>
+                                                查询
+                                            </button>
+                                            <button class="btn btn-default btn-sm"
+                                                    ng-click="resetFilters()">
+                                                <i class="fa fa-reply"></i>
+                                                重置
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                <th class="oa-title">标题</th>
+                                <th class="oa-status">状态</th>
+                                <th class="username">发布人</th>
+                                <th class="date-time">发布时间</th>
+                                <th width="110" >操作</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-if="attachments == null || attachments.length == 0">
+                                    <td class="text-center" colspan="5">无记录。</td>
+                                </tr>
+                                <tr ng-repeat="attachment in attachments">
+                                    <td class="oa-title">
+                                        <span ng-if="attachment.category">【{{attachment.category}}】</span>
+                                        <a style="cursor:pointer"
+                                           ng-click="showDetail(attachment);">
+                                            {{attachment.title}} </a>
+                                        <a ng-if="attachment.fileObjectId" ng-click="downLoadFile(attachment.id)" title="下载" style="cursor: pointer;"> <i class="fa fa-download"></i></a></td>
+                                    <td class="oa-status"> {{attachment.published ?'已发布':'未发布'}}</td>
+                                    <td class="username"> {{attachment.publishedByName}}</td>
+                                    <td class="date-time"> {{attachment.publishedAt | date:'yyyy-MM-dd HH:mm:ss' }}
+                                    </td>
+                                    <td class="col-resource-status">
+                                        <div class="btn-group">
+                                            <button class="btn btn-default btn-xs"
+                                                    title="编辑"
+                                                    ng-show="!attachment.published"
+                                                    ng-click="editAttachment(attachment.id)">
+                                                &nbsp<i class="fa fa-edit"></i>&nbsp
+                                            </button>
+                                            <button class="btn btn-default btn-xs"
+                                                    title="删除"
+                                                    ng-show="!attachment.published"
+                                                    ng-click="deleteAttachment(attachment.id)">
+                                                &nbsp<i class="fa fa-trash-o"></i>&nbsp
+                                            </button>
+                                            <button class="btn btn-default btn-xs"
+                                                    title="发布"
+                                                    ng-show="!attachment.published"
+                                                    ng-click="publishAttachment(attachment.id)">
+                                                &nbsp<i class="fa fa-level-up"></i>&nbsp
+                                            </button>
+                                            <button class="btn btn-default btn-xs"
+                                                    title="取消发布"
+                                                    ng-show="attachment.published"
+                                                    ng-click="unPublishAttachment(attachment.id)">
+                                                &nbsp<i class="fa fa-level-down"></i>&nbsp
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <div class="mailbox-controls pull-right">
+                            <pagination ng-show="attachments.length > 0"
+                                        total-items="totalItems"
+                                        ng-model="currentPage"
+                                        ng-change="pageChanged()"
+                                        class="pagination-sm"></pagination>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

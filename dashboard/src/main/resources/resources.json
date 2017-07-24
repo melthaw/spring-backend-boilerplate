@@ -1,0 +1,178 @@
+[
+  {
+    "code": "appuser",
+    "type": "menu:dashboard",
+    "name": "应用用户",
+    "expression": "state:dashboard.appuser.list",
+    "open": true,
+    "patterns": [
+      "/api/appusers**",
+      "/api/appusers/**"
+    ],
+    "metadata": {
+      "icon": "fa fa-leaf"
+    }
+  },
+  {
+    "code": "attachment",
+    "type": "menu:dashboard",
+    "name": "附件管理",
+    "expression": "state:dashboard.attachment.list",
+    "open": true,
+    "patterns": [
+      "/api/attachments**",
+      "/api/attachments/**"
+    ],
+    "metadata": {
+      "icon": "fa fa-leaf"
+    }
+  },
+  {
+    "virtual": true,
+    "type": "menu:dashboard",
+    "code": "system",
+    "name": "系统管理",
+    "expression": "",
+    "patterns": [
+    ],
+    "metadata": {
+      "icon": "fa fa-gear"
+    },
+    "children": [
+      {
+        "code": "system.sysuser",
+        "type": "menu:dashboard",
+        "name": "系统用户",
+        "expression": "state:dashboard.sysuser.list",
+        "patterns": [
+          "/api/sysusers**",
+          "/api/sysusers/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.customRole",
+        "type": "menu:dashboard",
+        "name": "角色权限管理",
+        "expression": "state:dashboard.customRole.list",
+        "patterns": [
+          "/api/resources**",
+          "/api/resources/**",
+          "/api/permissions**",
+          "/api/permissions/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.buildinRole",
+        "type": "menu:dashboard",
+        "name": "系统内置权限",
+        "expression": "state:dashboard.buildinRole.list",
+        "patterns": [
+          "/api/resources**",
+          "/api/resources/**",
+          "/api/permissions**",
+          "/api/permissions/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.archiveduser",
+        "type": "menu:dashboard",
+        "name": "归档用户",
+        "expression": "state:dashboard.archiveduser.list",
+        "patterns": [
+          "/api/archivedusers**",
+          "/api/archivedusers/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.sms",
+        "type": "menu:dashboard",
+        "name": "短信发送记录",
+        "expression": "state:dashboard.smsHistory.list",
+        "patterns": [
+          "/api/smsHistories**",
+          "/api/smsHistories/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.sysAuditEvent",
+        "type": "menu:dashboard",
+        "name": "系统操作审计",
+        "expression": "state:dashboard.sysAuditEvent.list",
+        "patterns": [
+          "/api/sysAuditEvents**",
+          "/api/sysAuditEvents/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.sysAuthEvent",
+        "type": "menu:dashboard",
+        "name": "系统登录审计",
+        "expression": "state:dashboard.sysAuthEvent.list",
+        "patterns": [
+          "/api/sysAuthEvents**",
+          "/api/sysAuthEvents/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.appAuditEvent",
+        "type": "menu:dashboard",
+        "name": "应用操作审计",
+        "expression": "state:dashboard.appAuditEvent.list",
+        "patterns": [
+          "/api/appAuditEvents**",
+          "/api/appAuditEvents/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.appAuthEvent",
+        "type": "menu:dashboard",
+        "name": "应用登录审计",
+        "expression": "state:dashboard.appAuthEvent.list",
+        "patterns": [
+          "/api/appAuthEvents**",
+          "/api/appAuthEvents/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.setting",
+        "type": "menu:dashboard",
+        "name": "系统参数",
+        "expression": "state:dashboard.systemSetting.detail",
+        "patterns": [
+          "/api/settings**",
+          "/api/settings/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      }
+    ]
+  }
+]

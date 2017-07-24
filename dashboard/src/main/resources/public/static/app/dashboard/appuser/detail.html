@@ -1,0 +1,223 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+            ng-click="close();">&times;</button>
+    <h4>用户: {{appuser.username}}</h4>
+</div>
+
+<div class="modal-body">
+    <tabset>
+        <tab heading="基本资料">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th style="width:50%">用户名:</th>
+                        <td>{{appuser.username}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">显示名:</th>
+                        <td>{{appuser.displayName}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">手机号:</th>
+                        <td>{{appuser.cellphone}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">邮箱:</th>
+                        <td>{{appuser.email}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">性别:</th>
+                        <td>{{appuser.gender | enums_trans:'Gender'}}</td>
+                    </tr>
+
+                    <tr>
+                        <th style="width:50%">生日:</th>
+                        <td>{{appuser.birthday | date:'yyyy-MM-dd' }}</td>
+                    </tr>
+
+                    <tr>
+                        <th style="width:50%">用户状态:</th>
+                        <td>
+                            {{appuser.enabled ? '已启用':'已禁用'}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">标签:</th>
+                        <td>
+                            {{appuser.tags}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">签名:</th>
+                        <td>
+                            {{appuser.signature}}
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </tab>
+
+        <tab heading="活跃度" ng-click="getAppUserActiveData();">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th style="width:50%">得分:</th>
+                        <td>{{activeData.score}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">荣誉:</th>
+                        <td>{{activeData.honour}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">创建的任务数:</th>
+                        <td>{{activeData.createdTaskCount}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">创建的话题数:</th>
+                        <td>{{activeData.createdTopicCount}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">关注的用户数:</th>
+                        <td>{{activeData.followers}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">参与的任务数:</th>
+                        <td>{{activeData.participantTaskCount}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:50%">参与的话题数:</th>
+                        <td>{{activeData.participantTopicCount}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </tab>
+
+        <!--// 创建的任务列表-->
+        <tab heading="发布的任务列表" ng-click="getAppUserCreatedTasks();">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <td>标题</td>
+                    <td>点赞数</td>
+                    <td>回复数</td>
+                    <td>发布人</td>
+                    <td>发布积分</td>
+                    <td>发布时间</td>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="createdTasks == null || createdTasks.length == 0">
+                        <td class="text-center" colspan="6">无记录。
+                        </td>
+                    </tr>
+                    <tr ng-repeat="createdTask in createdTasks">
+                        <td>{{createdTask.title}}</td>
+                        <td>{{createdTask.likeCounter}}</td>
+                        <td>{{createdTask.replyCounter}}</td>
+                        <td>{{createdTask.author.name}}</td>
+                        <td>{{createdTask.rewardScore}}</td>
+                        <td>{{createdTask.createdAt | date:'yyyy-MM-dd'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer no-padding">
+                <div class="mailbox-controls pull-right" ng-show="createdTasks.length != 0">
+                    <pagination total-items="createdTasksQueryCriteria.totalItems"
+                                ng-model="createdTasksQueryCriteria.currentPage"
+                                ng-change="createdTasksPageChanged()"
+                                class="pagination-sm"></pagination>
+                </div>
+            </div>
+        </tab>
+
+        <!--//创建的活动列表-->
+        <tab heading="发布的活动列表" ng-click="getAppUserCreatedActivities();">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <td>社群</td>
+                    <td>标题</td>
+                    <td>点赞数</td>
+                    <td>回复数</td>
+                    <td>发布人</td>
+                    <td>发布积分</td>
+                    <td>发布时间</td>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="createdActivities == null || createdActivities.length == 0">
+                        <td class="text-center" colspan="7">无记录。
+                        </td>
+                    </tr>
+                    <tr ng-repeat="createdActivity in createdActivities">
+                        <td>{{createdActivity.socialGroupName}}</td>
+                        <td>{{createdActivity.title}}</td>
+                        <td>{{createdActivity.likeCounter}}</td>
+                        <td>{{createdActivity.replyCounter}}</td>
+                        <td>{{createdActivity.author.name}}</td>
+                        <td>{{createdActivity.rewardScore}}</td>
+                        <td>{{createdActivity.createdAt | date:'yyyy-MM-dd'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer no-padding">
+                <div class="mailbox-controls pull-right" ng-show="createdActivities.length != 0">
+                    <pagination total-items="createdActivitiesQueryCriteria.totalItems"
+                                ng-model="createdActivitiesQueryCriteria.currentPage"
+                                ng-change="createdActivitiesPageChanged()"
+                                class="pagination-sm"></pagination>
+                </div>
+            </div>
+        </tab>
+
+        <!--//创建的话题列表-->
+        <tab heading="发布的帖子列表" ng-click="getAppUserCreatedTopics();">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <td>社群</td>
+                    <td>标题</td>
+                    <td>点赞数</td>
+                    <td>回复数</td>
+                    <td>发布人</td>
+                    <td>发布积分</td>
+                    <td>发布时间</td>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="createdTopics == null || createdTopics.length == 0">
+                        <td class="text-center" colspan="7">无记录。
+                        </td>
+                    </tr>
+                    <tr ng-repeat="createdTopic in createdTopics">
+                        <td>{{createdTopic.socialGroupName}}</td>
+                        <td>{{createdTopic.title}}</td>
+                        <td>{{createdTopic.likeCounter}}</td>
+                        <td>{{createdTopic.replyCounter}}</td>
+                        <td>{{createdTopic.author.name}}</td>
+                        <td>{{createdTopic.rewardScore}}</td>
+                        <td>{{createdTopic.createdAt | date:'yyyy-MM-dd'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer no-padding">
+                <div class="mailbox-controls pull-right" ng-show="createdTopics.length != 0">
+                    <pagination total-items="createdTopicsQueryCriteria.totalItems"
+                                ng-model="createdTopicsQueryCriteria.currentPage"
+                                ng-change="createdTopicsPageChanged()"
+                                class="pagination-sm"></pagination>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">关闭</button>
+</div>

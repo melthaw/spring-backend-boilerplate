@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+            ng-click="close();">&times;</button>
+    <h4>上传附件</h4>
+</div>
+
+<div class="modal-body">
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+
+            <tr>
+                <th style="width:20%">分类:</th>
+                <td style="width:80%"><input class="form-control"
+                                             ng-model="attachment.category"/></td>
+            </tr>
+            <tr>
+                <th style="width:20%">标题:</th>
+                <td style="width:80%"><input class="form-control"
+                                             ng-model="attachment.title"/></td>
+            </tr>
+
+            <tr>
+                <th style="width:20%">附件:</th>
+                <td style="width:80%">
+                    <div class="form-group row">
+                        <div class="col-xs-12">
+                            <input ng-if="!files.length > 0" type="file" id="file1"
+                                   ui-event="{ change : 'fileChanged($event)' }" />
+                        </div>
+                        <div class="col-xs-12" ng-repeat="file in files"
+                             style="margin-top: 20px;border-bottom-color: antiquewhite;border-bottom-style: double;">
+                            <div>
+                                <span>{{file.name}}</span>
+                                <div style="float:right;">
+                                    <span>{{file.humanSize}}</span>
+                                    <a ng-if="file.id" ng-click="btn_download(file)" title="下载" style="cursor: pointer;"> <i class="fa fa-download"></i></a>
+                                    <a ng-click="btn_remove(file)" title="删除" style="cursor: pointer;"> <i class="fa fa-trash-o text-red"></i></a>
+                                </div>
+                            </div>
+                            <!--{{file.loaded}} - {{file.size}}-->
+                            <!--<progress class="progress-striped active" value="{{file.loaded}}"></progress>-->
+                            <div class="progress progress-sm active" ng-if="file.loaded">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" style="width: 100%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="100">
+                                    <span class="sr-only">100% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" id="detailSaveBtn" class="btn btn-primary"
+            ng-click="saveAttachment()">保存
+    </button>
+    <button type="button" class="btn btn-default"
+            data-dismiss="modal"
+            ng-click="close()">关闭
+    </button>
+</div>

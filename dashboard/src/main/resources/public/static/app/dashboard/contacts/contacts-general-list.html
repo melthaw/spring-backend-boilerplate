@@ -1,0 +1,151 @@
+<!-- Main content -->
+<section class="content" style="padding: 0px;">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <button class="btn btn-default btn-sm" ng-click="addGroup()">
+                        <i class="fa fa-plus-square-o"></i>
+                        新增
+                    </button>
+                    <div class="box-tools pull-right" style="margin-right: 50px;">
+                        <div class="has-feedback">
+                            <input class="form-control input-sm" style="width: 150px;" type="text"
+                                   ng-model="filter.name"
+                                   ng-keyup="onFilterKeyup($event)"
+                                   placeholder="请分组名称">
+                                <span class="glyphicon glyphicon-search form-control-feedback"
+                                      ng-click="getGroups()"
+                                      style="top:-3px;"></span>
+                        </div>
+                    </div>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-default btn-sm"
+                                ng-click="getGroups()">
+                            <i class="fa fa-fw fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body no-padding"
+                     ng-class="{true: 'tab-box-body', false: 'box-body-md'}[totalItems > 0]">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <th>分组名称</th>
+                            <th width="110">操作</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-if="groups == null || groups.length == 0">
+                                <td class="text-center" colspan="2">无记录</td>
+                            </tr>
+                            <tr ng-repeat="group in groups" style="cursor: pointer;"
+                                ng-click="selectGroup(group.id)">
+                                <td>
+                                    {{group.name}}
+                                </td>
+                                <td class="custom-operation-td">
+                                    <span class="btn-group" style="text-align: center; width: 70px;">
+                                        <button class="btn btn-default btn-sm custom-btn-sm" title="编辑"
+                                                ng-click="editGroup(group.id)">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-default btn-sm custom-btn-sm" title="删除"
+                                                ng-click="deleteGroup(group.id)">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    </span>
+                                    <span ng-if="selectedGroupId == group.id" class="fa fa-fw fa-check" style="color: green;"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer no-padding" ng-show="totalItems > 0">
+                    <div class="mailbox-controls pull-right">
+                        <pagination ng-show="groups.length > 0"
+                                    total-items="totalItems"
+                                    ng-model="currentPage"
+                                    ng-change="pageChanged()"
+                                    class="pagination-sm">
+                        </pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <button class="btn btn-default btn-sm"
+                            ng-disabled="!selectedGroupId"
+                            ng-click="selectOrgUser()">
+                        <i class="fa fa-plus-square-o"></i>
+                        添加
+                    </button>
+                    <button class="btn btn-default btn-sm" style="margin-left: 5px;"
+                            ng-disabled="!hasUserChecked"
+                            ng-click="removeUsersFromGroup()">
+                        <i class="fa fa-minus-square-o"></i>
+                        删除
+                    </button>
+                    <!--
+                    <button class="btn btn-default btn-sm" style="margin-left: 5px;"
+                            ng-click="selectUser()">
+                        测试选人组件
+                    </button>
+                    -->
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-default btn-sm"
+                                ng-disabled="!selectedGroupId"
+                                ng-click="getUsersByGroup()">
+                            <i class="fa fa-fw fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body no-padding tab-box-body" style="min-height: 471px; ">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <th class="handler">
+                            <input type="checkbox" class="custom-checkbox"
+                                   ng-model="hasUserChecked"
+                                   ng-disabled="appusers == null || appusers.length == 0"
+                                   ng-click="selectAllClick()"/>
+                        </th>
+                        <th class="account-name">联系人</th>
+                        <th class="oa-phone">联系电话</th>
+                        <th>邮箱</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-if="appusers == null || appusers.length == 0">
+                            <td class="text-center" colspan="4">无记录</td>
+                        </tr>
+                        <tr ng-repeat="appuser in appusers">
+                            <td class="handler">
+                                <input type="checkbox" class="custom-checkbox" ng-model="appuser.checked"/>
+                            </td>
+                            <td class="account-name">
+                                <a style="cursor:pointer" ng-click="showUserDetail(appuser);">
+                                    {{appuser.username}}
+                                    <span ng-if="appuser.position">({{appuser.position}})</span>
+                                </a>
+                                <span ng-if="appuser.enabled" class="fa fa-fw fa-check-circle-o" style="color: blue; "></span>
+                                <span ng-if="!appuser.enabled" class="fa fa-fw fa-ban" style="color: grey;"></span>
+                            </td>
+                            <td class="oa-phone">{{appuser.contactPhone}}</td>
+                            <td>{{appuser.email}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <!--    <div class="box-footer no-padding">
+                    <div class="mailbox-controls pull-right">
+                        <pagination total-items="totalItems"
+                                    ng-model="currentPage"
+                                    ng-change="pageChanged()"
+                                    class="pagination-sm">
+                        </pagination>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</section>

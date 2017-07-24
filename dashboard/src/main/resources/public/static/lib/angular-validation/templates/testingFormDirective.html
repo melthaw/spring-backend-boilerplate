@@ -1,0 +1,150 @@
+<div class="alert alert-info alert-dismissable">
+    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+    <a href="https://github.com/ghiscoding/angular-validation/wiki/Working-Directive-Examples">Wiki - Working Directive Examples</a><br/>
+    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+    <a href="https://github.com/ghiscoding/angular-validation/wiki/Remove-Validator-from-Element">Wiki - Remove Validator from Element</a><br/>
+    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+    <a href="https://github.com/ghiscoding/angular-validation/wiki/Reset-Form">Wiki - Reset Form</a><br/>
+    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+    <a href="https://github.com/ghiscoding/angular-validation/wiki/Regular-Expression-Pattern">Wiki - Custom Regular Expression Pattern</a>
+</div>
+
+<h3>Directive</h3>
+
+<div class="checkbox text-right" style="margin-top:-25px">
+    <label>
+      <input type="checkbox" ng-model="displayValidationSummary"> {{ 'SHOW_VALIDATION_SUMMARY' | translate }}
+    </label>
+    &nbsp;|&nbsp;
+    <span class="text-right">
+        <button name="btn_RemoveValidator2" class="btn btn-warning btn-xs text-right" ng-click="removeInputValidator('input3'); isValidator3removed=true;" ng-disabled="isValidator3removed">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Input3 Validator
+        </button>
+    </span>
+    &nbsp;|&nbsp;
+    <input type="button" name="btn_resetForm" class="btn btn-info btn-xs" ng-click="resetForm()" value="{{ 'RESET_FORM' | translate }}" />
+</div>
+
+<!-- Angular-Validation saves the summary of errors inside 2 locations: 1- $scope.$validationSummary 2- $scope.formName.$validationSummary (only accessible if you named your form) so it becomes easy to show all errors -->
+<div class="alert alert-danger alert-dismissable" ng-show="displayValidationSummary && form1.$validationSummary.length > 0">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="displayValidationSummary = false">&times;</button>
+    <h4><strong>{{ 'ERRORS' | translate }}!</strong></h4>
+    <ul>
+        <li ng-repeat="item in form1.$validationSummary">{{ item.friendlyName != '' ? item.friendlyName : item.field }}: {{item.message}}</li>
+    </ul>
+</div>
+
+<form novalidate name="form1" method="POST">
+    <fieldset>
+        <div class="form-group">
+            <label for="input1">{{ 'INPUT1' | translate }}</label>
+            <input type="text" class="form-control" name="input1" placeholder="alpha|min_len:2|remote:customRemoteValidationCall|required" validation="alpha|min_len:2|remote:customRemoteValidationCall|required" ng-model="input1" />
+            <span ng-if="form1.input1.$processing">
+              <span class="glyphicon glyphicon-refresh spinning"></span>
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="input2">{{ 'INPUT2' | translate }}</label>
+            <input type="number" class="form-control" name="input2" placeholder="numeric_signed|required" ng-model="input2" validation="numeric_signed|required" />
+        </div>
+        <div class="form-group">
+            <label for="input3">{{ 'INPUT3' | translate }}</label>
+            <input type="text" class="form-control" name="input3" placeholder="float_signed|between_num:-0.6,99.5|required" ng-model="input3" validation="float_signed|between_num:-0.6,99.5|required" />
+        </div>
+        <div class="form-group">
+            <label for="input4">{{ 'INPUT4' | translate }}</label>
+            <input type="number" class="form-control" name="input4" placeholder="exact_len:4|regex:YYWW|required|integer" ng-model="input4" validation="exact_len:4|pattern=/^(0[9]|1[0-9]|2[0-9]|3[0-9])(5[0-2]|[0-4][0-9])$/:alt={{ 'INVALID_PATTERN_DATA' | translate:translationData }}|required|integer" />
+        </div>
+        <div class="form-group">
+            <label for="input5">{{ 'INPUT5' | translate }}</label>
+            <input type="text" class="form-control" name="input5" placeholder="email|required|min_len:6" ng-model="input5" validation="email|required|min_len:6" friendly-name="{{ 'INPUT5' | translate }}" />
+        </div>
+        <div class="form-group">
+            <label for="input6">{{ 'INPUT6' | translate }}</label>
+            <input type="text" class="form-control" name="input6" placeholder="url|required" ng-model="input6" validation="url|required" />
+        </div>
+        <div class="form-group">
+            <label for="input7">{{ 'INPUT7' | translate }}</label>
+            <input type="text" class="form-control" name="input7" placeholder="ipv4|required" ng-model="input7" validation="ipv4|required"  />
+        </div>
+        <div class="form-group">
+            <label for="input8">{{ 'INPUT8' | translate }}</label>
+            <input type="text" class="form-control" name="input8" placeholder="credit_card|required" ng-model="input8" validation="credit_card|required" friendly-name="{{ 'INPUT8' | translate }}" />
+        </div>
+        <div class="form-group">
+            <label for="input9">{{ 'INPUT9' | translate }}</label>
+            <input type="text" class="form-control" name="input9" placeholder="between_len:2,6|required" ng-model="input9" validation="between_len:2,6|required" />
+        </div>
+        <div class="form-group">
+            <label for="input10">{{ 'INPUT10' | translate }}</label>
+            <input type="text" class="form-control" name="input10" placeholder="date_iso|required" ng-model="input10" validation="date_iso|required" />
+        </div>
+        <div class="form-group">
+            <label for="input11">{{ 'INPUT11' | translate }}</label>
+            <input type="text" class="form-control" name="input11" placeholder="date_us_long|required" ng-model="input11" validation="date_us_long|required" />
+        </div>
+        <div class="form-group">
+            <label for="input12">{{ 'INPUT12' | translate }}</label>
+            <input type="text" class="form-control" name="input12" placeholder="time" ng-model="input12" validation="time" />
+        </div>
+        <div class="form-group">
+            <label for="select1">{{ 'SELECT1' | translate }}</label>
+            <select class="form-control" name="select1" ng-model="select1" validation="alpha|required:alt={{ 'CHANGE_LANGUAGE' | translate }}">
+                <option value="">...</option>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">French</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="input13">{{ 'INPUT13' | translate }}</label>
+            <div class="input-group">
+                <span class="input-group-addon">@</span>
+                <input type="text" class="form-control" name="input13" placeholder="min_len:5|max_len:10|alpha_dash_spaces|required" ng-model="input13" validation="min_len:5|max_len:10|alpha_dash_spaces|required" validation-error-to=".validation-input13" />
+                <!-- since angular-validation always follow the pattern of creating/using an element to display error message with className of "validation-yourInputName", we could write it like this: validation-error-to=".validation-input13" or simply ommit it because angular-validation will automatically try using "validation-input13" in our example here -->
+                <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+            </div>
+            <span class="validation-input13 validation text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="input14">{{ 'INPUT14' | translate }}</label>
+            <input type="text" class="form-control" name="input14" placeholder="alpha|required" ng-model="input14" validation="alpha|required" ng-disabled="true" />
+        </div>
+        <div class="form-group">
+            <label for="input15">{{ 'INPUT15' | translate }}</label>
+            <input type="password" class="form-control" name="input15" placeholder="alpha|min_len:3|required" ng-model="input15" validation="alpha|min_len:3|required" />
+        </div>
+        <div class="form-group">
+            <label for="input16">{{ 'INPUT16' | translate }}</label>
+            <input type="password" class="form-control" name="input16" placeholder="match:input15|required" ng-model="input16" validation="match:input15,Password|required" />
+        </div>
+        <div class="form-group">
+            <label for="input17">{{ 'INPUT17' | translate }}</label>
+            <input type="text" class="form-control" name="input17" placeholder="alpha_spaces|exact_len:3|required" ng-model="input17" validation="alpha_spaces|exact_len:3|required" debounce="3000" />
+        </div>
+        <div class="form-group">
+            <label for="input18">{{ 'INPUT18' | translate }}</label>
+            <input type="text" class="form-control" name="input18" placeholder="date_iso_min:2001-01-01|required" ng-model="input18" validation="date_iso_min:2001-01-01|required" />
+        </div>
+        <div class="form-group">
+            <label for="input19">{{ 'INPUT19' | translate }}</label>
+            <input type="text" class="form-control" name="input19" placeholder="date_us_short_between:11/28/99,12/31/15|required" ng-model="input19" validation="date_us_short_between:11/28/99,12/31/15|required" />
+        </div>
+        <div class="form-group">
+            <label for="area1">{{ 'AREA1' | translate }}</label>
+            <textarea class="form-control" name="area1" rows="2" placeholder="alpha_dash_spaces|min_len:15|required" validation="alpha_dash_spaces|min_len:15|required" ng-model="area1"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="input20">ngDisabled =></label>
+            ON <input type="radio" id="radioDisableInput20_on" ng-model="disableInput20" value="on" ng-init="disableInput20 = 'on'">
+            OFF <input type="radio" id="radioDisableInput20_off" ng-model="disableInput20" value="off">
+            <input type="text" class="form-control" name="input20" placeholder="alpha_dash|min_len:2|required" ng-model="input20" ng-disabled="disableInput20 == 'on'" validation="alpha_dash|min_len:2|required" />
+        </div>
+    </fieldset>
+
+    <div class="form-actions">
+        <button type="submit" name="btn_ngDisabled" class="btn btn-primary" ng-disabled="form1.$invalid" >{{ 'SAVE' | translate }} (ngDisabled)</button>
+        <button type="submit" name="btn_ngSubmit" class="btn btn-primary" ng-click="submitForm()">{{ 'SAVE' | translate }} (ngSubmit)</button>
+        <button type="submit" name="btn_showValidation" class="btn btn-warning btn-xs" ng-click="showValidationSummary()">{{ 'SHOW_VALIDATION_SUMMARY' | translate }}</button>
+    </div>
+</form>

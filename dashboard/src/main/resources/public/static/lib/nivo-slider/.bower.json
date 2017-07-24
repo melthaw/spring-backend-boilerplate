@@ -1,0 +1,13 @@
+{
+  "name": "nivo-slider",
+  "homepage": "https://github.com/gilbitron/Nivo-Slider",
+  "_release": "3.2",
+  "_resolution": {
+    "type": "tag",
+    "tag": "3.2",
+    "commit": "09f8e5eae12f2111e5ca480d67634f93efeef1b2"
+  },
+  "_source": "git://github.com/gilbitron/Nivo-Slider.git",
+  "_target": "3.2",
+  "_originalSource": "nivo-slider"
+}

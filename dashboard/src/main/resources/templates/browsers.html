@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+          name="viewport"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title th:text="${systemSetting.name} + ' - 登录'"></title>
+    <link href="/static/favicon.ico" mce_href="/static/favicon.ico" rel="bookmark" type="image/x-icon" />
+    <link href="/static/favicon.ico" mce_href="/static/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/static/favicon.ico" mce_href="/static/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <link type="text/css" rel="stylesheet"
+          href="/static/lib/bootstrap/dist/css/bootstrap.min.css"
+          th:href="@{/static/lib/bootstrap/dist/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet"
+          href="/static/lib/font-awesome/css/font-awesome.min.css"
+          th:href="@{/static/lib/font-awesome/css/font-awesome.min.css}"/>
+    <link type="text/css" rel="stylesheet"
+          href="/static/lib/admin-lte/dist/css/AdminLTE.min.css"
+          th:href="@{/static/lib/admin-lte/dist/css/AdminLTE.min.css}"/>
+    <link type="text/css" rel="stylesheet"
+          href="/static/lib/admin-lte/dist/css/skins/_all-skins.min.css"
+          th:href="@{/static/lib/admin-lte/dist/css/skins/_all-skins.min.css}"/>
+    <link type="text/css" rel="stylesheet"
+          href="/static/lib/iCheck/square/blue.css"
+          th:href="@{/static/lib/iCheck/square/blue.css}"/>
+    <link type="text/css" rel="stylesheet"
+          href="/static/css/custom.css"
+          th:href="@{/static/css/custom.css}"/>
+
+    <!--[if lt IE 9]>
+    <script type="text/javascript"
+            src="/static/lib/html5shiv.min.js"
+            th:src="@{/static/lib/html5shiv.min.js}"></script>
+    <script type="text/javascript"
+            src="/static/lib/respond.min.js"
+            th:src="@{/static/lib/respond.min.js}"></script>
+    <![endif]-->
+
+</head>
+
+<body class="skin-purple-light fixed layout-top-nav indexBackGroudStyle">
+<!--<header class="main-header" style="filter:alpha(opacity=50); -moz-opacity:0.5; opacity:0.5;">
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand" th:text="${systemSetting.name}">
+                    <b>NEXTOA办公网</b><i>NextOA</i>
+                </a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>-->
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #605ca8; filter:alpha(opacity=50); -moz-opacity:0.5; opacity:0.5; border: none;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/" th:text="${systemSetting.name}" style="margin-left: 120px; color: #fff;">
+                <b>NEXTOA办公网</b><i>NextOA</i>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="wrapper" style="background-color: transparent;height: 100%;">
+
+    <div class="row">
+
+
+        <div class="col-md-10 col-md-offset-1" style="top:17%;position: absolute;">
+            <section class="content-header text-center" style="margin-bottom: 30px;">
+                <h4>很抱歉，本系统目前还不支持您使用的浏览器，推荐您使用以下浏览器。
+                </h4>
+            </section>
+            <div class="box box-solid">
+                <div class="box-body">
+                    <div class="row" style="margin-bottom: 20px;">
+                        <div class="col-md-4 text-center" style="border-right: 1px solid #f4f4f4;cursor: pointer;"
+                            onclick="javaScript:window.open('http://www.uc.cn');">
+                            <i style="display:inline;width:60px;height:60px;font-size:60px;" class="text-orange icon iconfont icon-uc"></i>
+                            <div class="knob-label">UC</div>
+                        </div>
+                        <div class="col-md-4 text-center" style="border-right: 1px solid #f4f4f4;cursor: pointer;"
+                             onclick="javaScript:window.open('http://chrome.360.cn');">
+                            <!--<i style="display:inline;width:60px;height:60px;font-size:60px;" class="text-green icon iconfont icon-ie"></i>-->
+                            <i style="display:inline;width:60px;height:60px;font-size:60px;" class="text-green icon ">
+                                <img class="img-circle" style="height: 60px;width: 60px;" alt="360" src="/static/img/360-browser.jpg"></img>
+                            </i>
+
+                            <div class="knob-label">360极速浏览器</div>
+                        </div>
+                        <div class="col-md-4 text-center" style="cursor: pointer;"
+                             onclick="javaScript:window.open('http://ie.sogou.com');">
+                            <i style="display:inline;width:60px;height:60px;font-size:60px;" class="text-light-blue icon iconfont icon-sg"></i>
+                            <div class="knob-label">搜狗</div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-4 text-center" style="border-right: 1px solid #f4f4f4;cursor: pointer;"
+                             onclick="javaScript:window.open('http://www.google.cn/chrome/browser/');">
+                            <i style="display:inline;width:60px;height:60px;font-size:60px;" class="text-yellow icon iconfont icon-chrome"></i>
+                            <div class="knob-label">Chrome</div>
+                        </div>
+                        <div class="col-md-4 text-center" style="border-right: 1px solid #f4f4f4;cursor: pointer;"
+                             onclick="javaScript:window.open('https://www.mozilla.org');">
+                            <i style="display:inline;width:60px;height:60px;font-size:60px;" class="text-red icon iconfont icon-firefox"></i>
+                            <div class="knob-label">FireFox</div>
+                        </div>
+                        <div class="col-md-4 text-center" style="cursor: pointer;"
+                             onclick="javaScript:window.open('https://www.apple.com/cn/safari/');">
+                            <i style="display:inline;width:60px;height:60px;font-size:60px;" class="text-blue icon iconfont icon-safari"></i>
+                            <div class="knob-label">Safari</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="main-footer navbar-fixed-bottom" style="filter:alpha(opacity=50); -moz-opacity:0.5; opacity:0.5;">
+        <div class="container-fluid guest-about row">
+            <p class="text-center" th:text="'Copyright &copy; 2016 ' + ${systemSetting.name}">Copyright &copy; 2016 NEXTOA科技</p>
+        </div>
+    </footer>
+</div>
+</body>
+
+</html>

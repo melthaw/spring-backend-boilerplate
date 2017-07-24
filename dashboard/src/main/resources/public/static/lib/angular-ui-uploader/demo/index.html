@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demo">
+    <head>
+        <meta charset="utf-8">
+        <title>AngularJS ui-uploader</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.js"></script>
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
+
+        <!-- ui-uploader files -->
+        <script src="../dist/uploader.js"></script>
+    </head>
+
+    <body class="container">
+        <script>
+            var app = angular.module('demo', ['ui.uploader']);
+            app.controller('uploaderCtrl', function($scope, $log, uiUploader) {
+                $scope.btn_remove = function(file) {
+                    $log.info('deleting=' + file);
+                    uiUploader.removeFile(file);
+                };
+
+                $scope.btn_clean = function() {
+                    uiUploader.removeAll();
+                };
+
+                $scope.btn_upload = function() {
+                    $log.info('uploading...');
+                    uiUploader.startUpload({
+                        url: 'http://realtica.org/ng-uploader/demo.html',
+                        concurrency: 2,
+                        onProgress: function(file) {
+                            $log.info(file.name + '=' + file.humanSize);
+                            $scope.$apply();
+                        },
+                        onCompleted: function(file, response) {
+                            $log.info(file + 'response' + response);
+                        }
+                    });
+                };
+
+                $scope.files = [];
+                var element = document.getElementById('file1');
+                element.addEventListener('change', function(e) {
+                    var files = e.target.files;
+                    uiUploader.addFiles(files);
+                    $scope.files = uiUploader.getFiles();
+                    $scope.$apply();
+                });
+            });
+        </script>
+        <div id="uploader" ng-controller="uploaderCtrl">
+            <div class="page-header">
+                <h1>Uploader</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>What?</h3>
+                    <p>Upload multiple files at the same time. See <a href="http://realtica.org/ng-uploader/demo.html">demo with upload actually working</a>.</p>
+
+                    <div class="well">
+                        <div>
+                            <div style="float:right;">
+                                <button ng-click="btn_upload()">Upload</button>
+                                <button ng-click="btn_clean()">Remove all</button>
+                            </div>
+                            <input type="file" id="file1" multiple/>
+                        </div>
+                        <div ng-repeat="file in files" style="margin-top: 20px;border-bottom-color: antiquewhite;border-bottom-style: double;">
+                            <div><span>{{file.name}}</span><div style="float:right;"><span>{{file.humanSize}}</span><a ng-click="btn_remove(file)" title="Remove from list to be uploaded"><i class="icon-remove"></i></a></div>
+                            </div>
+                            <progress style="width:400px;" value="{{file.loaded}}" max="{{file.size}}"></progress>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h3>How?</h3>
+                    <p>See <a href="https://github.com/angular-ui/ui-uploader/blob/master/demo/index.html">source of this demo</a>.</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

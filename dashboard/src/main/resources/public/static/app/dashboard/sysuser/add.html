@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">新增系统用户</h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" role="form">
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><span style="color: red">*</span> 用户名</label>
+
+            <div class="col-xs-6">
+                <input class="form-control" ng-model="sysuser.username"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><span style="color: red">*</span> 联系电话</label>
+
+            <div class="col-xs-6">
+                <input class="form-control" ng-model="sysuser.cellphone"/>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><span style="color: red">*</span> 邮箱</label>
+
+            <div class="col-xs-6">
+                <input class="form-control" ng-model="sysuser.email"/>
+            </div>
+        </div>
+
+        <div class="form-group" id="detail_password_div">
+            <label class="col-xs-3 control-label"><span style="color: red">*</span> 密码</label>
+
+            <div class="col-xs-6">
+                <input type="password" class="form-control" ng-model="sysuser.newPassword"/>
+            </div>
+        </div>
+
+        <div class="form-group" id="detail_password1_div">
+            <label class="col-xs-3 control-label"><span style="color: red">*</span> 重复密码</label>
+
+            <div class="col-xs-6">
+                <input type="password" class="form-control" ng-model="sysuser.renewPassword"/>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" id="detailSaveBtn" class="btn btn-primary" ng-click="save()">保存</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">取消</button>
+</div>

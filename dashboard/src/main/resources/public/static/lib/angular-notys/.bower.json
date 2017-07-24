@@ -1,0 +1,32 @@
+{
+  "name": "Angular-Notys",
+  "description": "Noty inspired notification for AngularJS",
+  "version": "0.2.1",
+  "main": [
+    "angular-notys.js",
+    "angular-notys.css"
+  ],
+  "keywords": [
+    "notifcation",
+    "noty"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "angular": ">1.2.6",
+    "angular-animate": ">1.2.8"
+  },
+  "homepage": "https://github.com/steve-ng/angular-notys",
+  "_release": "0.2.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.1",
+    "commit": "34fb1e5c34f1c3e09326bb917bee17fc72e2f817"
+  },
+  "_source": "git://github.com/steve-ng/angular-notys.git",
+  "_target": "~0.2.0",
+  "_originalSource": "angular-notys"
+}

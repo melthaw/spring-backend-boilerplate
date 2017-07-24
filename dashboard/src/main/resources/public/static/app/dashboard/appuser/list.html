@@ -1,0 +1,146 @@
+<div>
+    <section class="content-header">
+        <h1>注册用户
+            <small>（总<span>{{totalItems}}</span>条）</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <button class="btn btn-default btn-sm" ng-click="toggleAdvancedSearch()">
+                            <i class="fa fa-search-plus"></i>
+                            高级查询
+                        </button>
+                        <div class="box-tools pull-right" ng-show="!advancedSearch">
+                            <div class="has-feedback">
+                                <input class="form-control input-sm" type="text"
+                                       ng-model="filter.username"
+                                       placeholder="请输入手机号">
+                                <span class="glyphicon glyphicon-search form-control-feedback"
+                                      ng-click="refreshList()"
+                                      style="top:-3px;"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="mailbox-controls" ng-show="advancedSearch">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-10 text-center">
+                                    <div class="row">
+                                        <div class="col-md-3 form-group"><input
+                                                class="form-control input-sm"
+                                                type="text"
+                                                ng-model="filter.username"
+                                                placeholder="请输入用户名"></div>
+                                        <div class="col-md-3 form-group"><input
+                                                class="form-control input-sm"
+                                                type="text"
+                                                ng-model="filter.cellphone"
+                                                placeholder="请输入联系电话"></div>
+                                        <div class="col-md-3 form-group"><input
+                                                class="form-control input-sm"
+                                                type="text"
+                                                ng-model="filter.email"
+                                                placeholder="请输入邮箱"></div>
+                                        <div class="col-md-3 form-group"><select
+                                                class="form-control input-sm"
+                                                ng-model="filter.enabled">
+                                            <option value="">--状态--</option>
+                                            <option value="true">已启用</option>
+                                            <option value="false">已禁用</option>
+                                        </select></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-10 text-center">
+                                    <div class="row">
+                                        <div class="col-md-offset-4 col-md-4 form-group">
+                                            <button class="btn btn-default btn-sm"
+                                                    ng-click="refreshList()">
+                                                <i class="fa fa-search"></i>
+                                                查询
+                                            </button>
+                                            <button class="btn btn-default btn-sm"
+                                                    ng-click="resetFilter()">
+                                                <i class="fa fa-reply"></i>
+                                                重置
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table id="userTable"
+                               class="table table-hover table-striped">
+                            <thead>
+                            <th class="cellphone">手机号</th>
+                            <th class="username">显示名</th>
+                            <th class="gender">性别</th>
+                            <th class="">年龄</th>
+                            <th class="">用户类型</th>
+                            <th class="date-time">注册时间</th>
+                            <th class="oa-status">状态</th>
+                            <th width="145">操作</th>
+                            </thead>
+                            <tbody id="userTableBody">
+                            <tr ng-if="appusers == null || appusers.length == 0">
+                                <td class="text-center" colspan="8">无记录。
+                                </td>
+                            </tr>
+                            <tr ng-repeat="appuser in appusers">
+                                <td class="oa-phone">{{appuser.cellphone}}</td>
+                                <td class="username">{{appuser.displayName}}</td>
+                                <td>{{appuser.gender | enums_trans:'Gender'}}</td>
+                                <td>{{appuser.age}}</td>
+                                <td>{{appuser.userType | enums_trans:'AppUserType'}}</td>
+                                <td class="date-time">
+                                    {{appuser.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}
+                                </td>
+                                <td class="oa-status">
+                                    {{appuser.enabled?'启用':'已禁用'}}
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-xs"
+                                                title="查看"
+                                                ng-click="showDetail(appuser)">
+                                            &nbsp<i class="fa fa-eye"></i> 查看
+                                        </button>
+                                        <button class="btn btn-default btn-xs"
+                                                title="禁用"
+                                                ng-show="appuser.enabled"
+                                                ng-click="disableUser(appuser.id)">
+                                            &nbsp<i class="fa fa-ban text-red"></i> 禁用
+                                        </button>
+                                        <button class="btn btn-default btn-xs"
+                                                title="启用"
+                                                ng-show="!appuser.enabled"
+                                                ng-click="enableUser(appuser.id)">
+                                            &nbsp<i class="fa fa-check-circle-o text-blue"></i> 启用
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <div class="mailbox-controls pull-right">
+                            <pagination ng-show="appusers.length > 0" total-items="totalElements"
+                                        ng-model="currentPage"
+                                        ng-change="pageChanged()"
+                                        class="pagination-sm"></pagination>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>

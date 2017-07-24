@@ -1,0 +1,8 @@
+dependencies {
+	compile libs.springBoot
+	compile libs.springSecurity
+
+	compile project(':shared')
+	compile project(':account')
+	compile project(':rbac')
+}

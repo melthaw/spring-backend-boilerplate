@@ -1,0 +1,68 @@
+<header class="main-header" >
+    <nav class="navbar navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-brand"><b>BBT</b></a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li ng-repeat="menu in grantedPortalMenus"><a ui-sref="{{menu.expression.split('state:')[1]}}" href="javascript:void(0);">{{menu.name}}</a></li>
+                    <!--<li ng-if="isGrantedMenu('portal.index')"><a ui-sref="home.index" href="javascript:void(0);">首页</a></li>-->
+                    <!--<li ng-if="isGrantedMenu('portal.notification')"><a ui-sref="notification.index" href="javascript:void(0);">通知</a></li>-->
+                    <!--<li ng-if="isGrantedMenu('portal.news')"><a ui-sref="news.index" href="javascript:void(0);">新闻</a></li>-->
+                    <!--<li ng-if="isGrantedMenu('portal.attachment')"><a ui-sref="attachment.index" href="javascript:void(0);">下载</a></li>-->
+                    <!--<li ng-if="isGrantedMenu('portal.dashboard')"><a ui-sref="dashboard.paper.list({type:'processing'})" href="javascript:void(0);">我的工作台</a></li>-->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+
+                    <!-- User Account Menu -->
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" dropdown-toggle data-toggle="dropdown">
+                            <!-- The user image in the navbar-->
+                            <img ng-if="currentUser.avatarId" ng-src="{{currentUser.avatarId | escape}}" class="user-image" />
+                            <img ng-if="!currentUser.avatarId" src="/static/lib/admin-lte/img/avatar5.png" class="user-image" />
+                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                            <span class="hidden-xs" >{{currentUser.username}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- The user image in the menu -->
+                            <li class="user-header" style="height: auto;">
+                                <img ng-if="currentUser.avatarId" ng-src="{{currentUser.avatarId | escape}}" class="img-circle" alt="图片不存在" />
+                                <img ng-if="!currentUser.avatarId" src="/static/lib/admin-lte/img/avatar5.png" class="img-circle" />
+                                <p>{{currentUser.username}}</p>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a ng-click="profile()"
+                                       class="btn btn-default btn-flat">个人资料</a>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <a ng-click="changePwd()"
+                                       class="btn btn-default btn-flat"
+                                       id="changePwdBtn">修改密码</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="logout"
+                                       class="btn btn-default btn-flat">注销</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-custom-menu -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</header>

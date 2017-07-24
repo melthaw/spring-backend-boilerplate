@@ -1,0 +1,39 @@
+{
+  "name": "angular-tree-control",
+  "version": "0.2.26",
+  "author": "Yoav Abrahami",
+  "contributors": [
+    "Benjamin Orozco <benoror@gmail.com>"
+  ],
+  "main": [
+    "./angular-tree-control.js",
+    "./css/tree-control.css"
+  ],
+  "ignore": [
+    "Gruntfile.js",
+    "package.json",
+    "test",
+    "karma.conf.js"
+  ],
+  "dependencies": {
+    "angular": "~1.4.4"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.4",
+    "jquery": "~2.2.2",
+    "bootstrap": "~3.1.1",
+    "angular-bootstrap": "~0.11.0",
+    "google-code-prettify": "1.0.1"
+  },
+  "homepage": "https://github.com/wix/angular-tree-control",
+  "_release": "0.2.26",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.26",
+    "commit": "b197cc3b2d0697e48f10c2245911f138443e2f04"
+  },
+  "_source": "https://github.com/wix/angular-tree-control.git",
+  "_target": "~0.2.26",
+  "_originalSource": "angular-tree-control",
+  "_direct": true
+}

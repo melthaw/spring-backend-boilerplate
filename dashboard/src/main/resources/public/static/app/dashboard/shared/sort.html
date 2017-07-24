@@ -1,0 +1,30 @@
+<div class="modal-header no-border">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+            ng-click="close();">&times;</button>
+    <h4 class="modal-title">排序(无需发布直接生效)</h4>
+</div>
+
+<div class="modal-body">
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td width="20%" class="td-form-label">排序值:</td>
+                <td>
+                    <div class="col-xs-11">
+                        <input type="text" class="form-control" ng-model="item.sorting"/>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-sm btn-default" ng-click="ok();">
+        <i class="fa fa-ok"></i>
+        保存
+    </button>
+    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" ng-click="close()">关闭</button>
+</div>

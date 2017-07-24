@@ -1,0 +1,46 @@
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar" id="scrollspy">
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img ng-if="currentUser.avatarId"
+                     ng-src="{{currentUser.avatarId | escape}}"
+                     class="img-circle"/>
+                <img ng-if="!currentUser.avatarId"
+                     src="/static/lib/admin-lte/img/avatar5.png"
+                     class="img-circle"/>
+            </div>
+            <div class="pull-left info">
+                <p>{{currentUser.username}}</p>
+                <a href="javascript:void(0);">
+                    <i class="fa fa-circle text-success"></i>
+                    在线
+                </a>
+            </div>
+        </div>
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="nav sidebar-menu">
+            <li ui-sref-active="active" ng-repeat="menu in grantedDashboardMenus" ng-click="showTab(-1);"
+                ng-class="menu.children ? 'treeview':''">
+                <a ng-if="!menu.children"
+                   ui-sref="{{menu.expression.split('state:').length > 0 ? menu.expression.split('state:')[1]:''}}">
+                    <i ng-class="menu.metadata.icon"></i>
+                    <span>{{menu.name}}</span>
+                </a>
+
+                <a ng-if="menu.children">
+                    <i class="fa fa-stack-exchange"></i> <span>{{menu.name}}</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul ng-if="menu.children" class="treeview-menu">
+                    <li ui-sref-active="active" ng-repeat="child in menu.children" ng-click="showTab(-1);">
+                        <a ui-sref="{{child.expression.split('state:').length > 0 ? child.expression.split('state:')[1]:''}}">
+                            <i class="fa fa-circle-o"></i> <span>{{child.name}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

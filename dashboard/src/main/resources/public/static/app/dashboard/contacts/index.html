@@ -1,0 +1,33 @@
+<div>
+    <section class="content-header">
+        <h1>我的通讯录</h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Custom Tabs -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li ng-class="{true: 'active', false: ''}[currentTab == 'OrgTreeTab']">
+                            <a ui-sref="dashboard.contacts.orgtree" ng-click="switchTab('OrgTreeTab')" >部门</a>
+                        </li>
+                        <li ng-class="{true: 'active', false: ''}[currentTab == 'ListTab']">
+                            <a ui-sref="dashboard.contacts.list" ng-click="switchTab('ListTab')">联系人 &nbsp;<span class="label label-warning pull-right">{{totalItems}}</span></a>
+                        </li>
+                        <li ng-class="{true: 'active', false: ''}[currentTab == 'GeneralTab']">
+                            <a ui-sref="dashboard.contacts.general"  ng-click="switchTab('GeneralTab')">常用联系人</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <div ui-view=""></div>
+                        </div>
+                    </div><!-- /.tab-content -->
+                </div><!-- nav-tabs-custom -->
+            </div>
+        </div>
+    </section>
+
+</div>

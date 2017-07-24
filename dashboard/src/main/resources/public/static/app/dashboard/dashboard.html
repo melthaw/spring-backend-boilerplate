@@ -1,0 +1,26 @@
+
+<div class="container">
+    <div class="row">
+        <section class="content">
+            <div class="box box-success">
+                <div class="box-header ui-sortable-handle with-border">
+                    <i class="fa fa-comments-o"></i>
+                    <h3 class="box-title">我的待处理</h3>
+                </div>
+                <div class="box-body" style="min-height: 250px;">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>标题</th>
+                        </tr>
+                        <tr ng-repeat="notice in notices">
+                            <td><a style="cursor:pointer" href="javascript:void(0);"> {{notice.title}} </a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="box-footer clearfix">
+                    <button type="button" class="pull-right btn btn-default">更多...</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

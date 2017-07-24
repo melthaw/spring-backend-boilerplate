@@ -1,0 +1,178 @@
+package in.clouthink.daas.sbb.rbac.impl.service.impl;
+
+import in.clouthink.daas.sbb.account.domain.model.SysRole;
+import in.clouthink.daas.sbb.rbac.impl.model.ResourceRoleRelationship;
+import in.clouthink.daas.sbb.rbac.impl.repository.ResourceRoleRelationshipRepository;
+import in.clouthink.daas.sbb.rbac.model.*;
+import in.clouthink.daas.sbb.rbac.service.PermissionService;
+import in.clouthink.daas.sbb.rbac.service.ResourceService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ *
+ */
+@Service
+public class PermissionServiceImpl implements PermissionService {
+
+	@Autowired
+	private ResourceService resourceService;
+
+	@Autowired
+	private ResourceRoleRelationshipRepository resourceRoleRelationshipRepository;
+
+	@Override
+	public Resource findResourceByCode(String resourceCode) {
+		return resourceService.findByCode(resourceCode);
+	}
+
+	@Override
+	public Resource getMatchedResource(String resourceUri) {
+		return resourceService.getFirstMatchedResource(resourceUri);
+	}
+
+	@Override
+	public List<Role> getGrantedRoles(String resourceCode) {
+		List<ResourceRoleRelationship> relationshipList = resourceRoleRelationshipRepository.findByResourceCode(
+				resourceCode);
+		if (relationshipList == null) {
+			return Collections.unmodifiableList(Collections.emptyList());
+		}
+
+		return relationshipList.stream().map(relationship -> {
+			DefaultPermission permission = new DefaultPermission();
+			permission.setResource(resourceService.findByCode(relationship.getResourceCode()));
+			permission.setRole(relationship.getRoleCode());
+			return permission;
+		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Role> getGrantedRoles(Resource resource) {
+		List<ResourceRoleRelationship> relationshipList = resourceRoleRelationshipRepository.findByResourceCode(resource.getCode());
+		if (relationshipList == null) {
+			return Collections.unmodifiableList(Collections.emptyList());
+		}
+
+		return relationshipList.stream().map(relationship -> {
+			DefaultPermission permission = new DefaultPermission();
+			permission.setResource(resource);
+			permission.setRole(relationship.getRoleCode());
+			return permission;
+		}).collect(Collectors.toList());
+	}
+
+
+	@Override
+	public Permission getPermission(String resourceCode, GrantedAuthority role) {
+		return null;
+	}
+
+	public List<ResourceWithChildren> getGrantedResources(GrantedAuthority role, String resourceType) {
+		return null;
+	}
+
+	public List<ResourceWithChildren> getGrantedResources(List<GrantedAuthority> roles, String resourceType) {
+		return null;
+	}
+
+	@Override
+	public List<ResourceWithChildren> getGrantedResources(GrantedAuthority role) {
+		if (role == null) {
+			return null;
+		}
+
+		return getGrantedResources(Arrays.asList(role));
+	}
+
+	@Override
+	public List<ResourceWithChildren> getGrantedResources(List<GrantedAuthority> roles) {
+		if (roles == null || roles.isEmpty()) {
+			return null;
+		}
+
+		for (GrantedAuthority role : roles) {
+			if (SysRole.ROLE_ADMIN == role) {
+				List<ResourceWithChildren> result = new ArrayList<>();
+				resourceService.getRootResources()
+							   .stream()
+							   .forEach(resource -> result.add((ResourceWithChildren) resource));
+				return result;
+			}
+		}
+
+		return doGetAllowedResources(resourceService.getRootResources(), roles);
+	}
+
+
+	private List<ResourceWithChildren> doGetAllowedResources(List<? extends Resource> existedResources,
+															 List<GrantedAuthority> roles) {
+		List<ResourceWithChildren> result = new ArrayList<>();
+		existedResources.stream().forEach(resource -> {
+			if (resource.isOpen()) {
+				result.add((ResourceWithChildren) resource);
+				return;
+			}
+
+			boolean granted = false;
+			String resourceCode = resource.getCode();
+			for (GrantedAuthority role : roles) {
+				ResourceRoleRelationship resourceRoleRelationship = resourceRoleRelationshipRepository.findByResourceCodeAndRoleCode(
+						resourceCode,
+						RbacUtils.buildRoleCode(role));
+				if (resourceRoleRelationship != null) {
+					granted = true;
+					break;
+				}
+			}
+
+			if (granted) {
+				DefaultResourceWithChildren resourceWithChildren = new DefaultResourceWithChildren();
+				BeanUtils.copyProperties(resource, resourceWithChildren, "children");
+				if (((ResourceWithChildren) resource).hasChildren()) {
+					resourceWithChildren.setChildren(doGetAllowedResources(((ResourceWithChildren) resource).getChildren(),
+																		   roles));
+				}
+				//虚父节点有权限,但是子节点无权限,虚父节点不需要返回
+				if (resourceWithChildren.isVirtual() && !resourceWithChildren.hasChildren()) {
+					return;
+				}
+				result.add(resourceWithChildren);
+			}
+		});
+
+		return result;
+	}
+
+
+	@Override
+	public boolean isGranted(String resourceCode, GrantedAuthority role) {
+		if (SysRole.ROLE_ADMIN.getCode().equalsIgnoreCase(role.getAuthority())) {
+			return true;
+		}
+		ResourceRoleRelationship result = resourceRoleRelationshipRepository.findByResourceCodeAndRoleCode(resourceCode,
+																										   RbacUtils.buildRoleCode(
+																												   role));
+		return result != null;
+	}
+
+	@Override
+	public boolean isGranted(Resource resource, GrantedAuthority role) {
+		if (SysRole.ROLE_ADMIN.getCode().equalsIgnoreCase(role.getAuthority())) {
+			return true;
+		}
+		ResourceRoleRelationship result = resourceRoleRelationshipRepository.findByResourceCodeAndRoleCode(resource.getCode(),
+																										   RbacUtils.buildRoleCode(
+																												   role));
+		return (result != null);
+	}
+
+}

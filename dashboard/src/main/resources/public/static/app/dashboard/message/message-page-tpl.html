@@ -1,0 +1,55 @@
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <div class="row">
+            <div class="col-md-5">
+                <button class="btn btn-default btn-sm"
+                        ng-click="addPaper()">
+                    <i class="fa fa-plus-square-o"></i>
+                    新增
+                </button>
+            </div>
+            <div class="col-md-3 has-feedback">
+                <select class="form-control input-sm" ng-model="messageFilter.category"
+                        ng-change="refreshPapers();">
+                    <option value="">--全部--</option>
+                    <option value="周报">周报</option>
+                    <option value="报销">报销</option>
+                    <option value="开票">开票</option>
+                    <option value="费用申请">费用申请</option>
+                    <option value="入职/转正/离职">入职/转正/离职</option>
+                    <option value="请假">请假</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <div class="has-feedback">
+                    <input class="form-control input-sm" type="text"
+                           ng-model="messageFilter.title"
+                           placeholder="请输入标题">
+                    <span class="glyphicon glyphicon-search form-control-feedback"
+                          style="top:-3px;" ng-click="refreshPapers();"></span>
+                </div>
+            </div>
+            <div class="col-md-1 text-right">
+                <button class="btn btn-default btn-sm"
+                        ng-click="refreshPapers()">
+                    <i class="fa fa-fw fa-refresh"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="box-body" style="min-height: 400px;">
+        <div class="table-responsive mailbox-messages">
+            <messagetable></messagetable>
+        </div>
+    </div>
+    <div class="box-footer no-padding no-border">
+        <div class="mailbox-controls pull-right">
+            <pagination ng-show="messages.length > 0"
+                        total-items="totalElements"
+                        ng-model="currentPage"
+                        ng-change="pageChanged(currentPage)"
+                        class="pagination-sm"></pagination>
+        </div>
+    </div>
+
+</div>

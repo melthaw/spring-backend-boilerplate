@@ -1,0 +1,14 @@
+<div class="box-footer no-padding ">
+    <div class="mailbox-controls pull-right"  ng-show="pageData.totalElements > 0">
+        <ul class="pagination">
+            <li ng-class="{disabled: pageData.first}"><a ng-click="firstPage()">&laquo;</a></li>
+            <li ng-repeat="page in navPages" ng-class="{active: isCurrentPage(page.number)}">
+                <a ng-click="gotoPage(page.number)">{{page.number}}</a>
+            </li>
+            <li ng-class="{disabled:pageData.last}" ><a ng-click="lastPage()" >&raquo;</a></li>
+        </ul>
+    </div>
+    <div ng-show="pageData.totalElements <= 0">
+        暂无数据。
+    </div>
+</div>

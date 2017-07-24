@@ -1,0 +1,240 @@
+<div class="modal-header" style="padding: 8px;">
+    <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">人员选择</h4>
+</div>
+<div class="modal-body" style="padding: 8px 10px 8px 10px;background-color: #ecf0f5;">
+    <div class="row">
+        <div class="col-md-4" style="padding-left: 10px; padding-right: 10px;">
+            <contactsorgtree onnodeselect="onNodeSelect(bizId, bizType)"/>
+            <orgtree onnodeselect="onNodeSelect(orgId)" readonly="true" minimode="true"/>
+        </div>
+
+        <div class="col-md-3" style="padding-left: 1px; padding-right: 1px; margin-left: -5px; margin-right: -10px;">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div style="padding: 5px 10px;">&nbsp;</div>
+                    <div class="box-tools pull-right">
+                        <div class="has-feedback">
+                            <input class="form-control input-sm" type="text"
+                                   ng-model="filter.username"
+                                   placeholder="请输入用户名">
+                                <span class="glyphicon glyphicon-search form-control-feedback"
+                                      ng-click="filterUsers()"
+                                      style="top:-3px;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body no-padding tab-box-body"
+                     ng-class="{true: 'select-user-has-pagebar', false: 'select-user-without-pagebar'}[needPageBar]">
+                    <table id="userTable"
+                           class="table table-hover table-striped">
+                        <thead>
+                        <th>
+                            <input type="checkbox" style="width: 15px; height: 15px;"
+                                   ng-model="hasUserChecked"
+                                   ng-disabled="appusers == null || appusers.length == 0"
+                                   ng-click="selectAllClick()"/>
+                        </th>
+                        <th>联系人</th>
+                        </thead>
+                        <tbody id="userTableBody">
+                        <tr ng-if="appusers == null || appusers.length == 0">
+                            <td class="text-center" colspan="2">无记录</td>
+                        </tr>
+                        <tr ng-repeat="appuser in appusers" ng-show="appuser.shownable == null || appuser.shownable === true">
+                            <td>
+                                <input type="checkbox" style="width: 15px; height: 15px;"
+                                       ng-model="appuser.checked"/>
+                            </td>
+                            <td>
+                                {{appuser.username}}
+                                <span ng-if="appuser.position">({{appuser.position}})</span>
+                                <span ng-if="appuser.enabled" class="fa fa-fw fa-check-circle-o" style="color: blue; "></span>
+                                <span ng-if="!appuser.enabled" class="fa fa-fw fa-ban" style="color: grey;"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer no-padding" ng-show="needPageBar">
+                    <div class="mailbox-controls pull-right">
+                        <pagination ng-show="appusers.length > 0"
+                                    total-items="totalItems"
+                                    items-per-page="{{filter.limit}}"
+                                    ng-model="currentPage"
+                                    ng-change="pageChanged()"
+                                    class="pagination-sm">
+                        </pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-1" style="width: 5%; padding-left: 5px; padding-right: 5px;">
+            <div style="text-align: center;">
+                <div class="box-body no-padding tab-box-body" style="min-height: 273px; max-height: 273px;">
+                    <div class="box-body no-padding tab-box-body" style="min-height: 273px; max-height: 273px;">
+                        <button class="btn btn-default btn-sm text-center" style="margin-top: 130px;width: 20px;padding:5px 2px; "
+                                ng-disabled="!hasUserChecked"
+                                ng-click="addToReceiver()">
+                            <i class="fa fa-fw fa-caret-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 10px; text-align: center;" >
+                <div class="box-body no-padding tab-box-body" style="min-height: 273px; max-height: 273px;">
+                    <button class="btn btn-default btn-sm" style="margin-top: 130px;width: 20px;padding:5px 2px; "
+                            ng-disabled="!hasUserChecked"
+                            ng-click="addToCCUser()">
+                        <i class="fa fa-fw fa-caret-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4" style="padding-left: 1px; padding-right: 1px; margin-left: -10px; width: 36.4%;">
+            <div class="box box-primary">
+                <div class="box-header with-border" >
+                    <div style="padding: 5px 10px;">
+                        主送人
+                    </div>
+                    <div class="box-tools pull-right" style="margin-right: 90px;">
+                        <div class="has-feedback">
+                            <input class="form-control input-sm" style="width: 140px;" type="text"
+                                   ng-model="receiverFilter.username"
+                                   placeholder="请输入用户名">
+                            <span class="glyphicon glyphicon-search form-control-feedback"
+                                  ng-click="filterReceivers()"
+                                  style="top:-3px;"></span>
+                        </div>
+                    </div>
+                    <div class="box-tools pull-right" style="margin-top: 3px; margin-right: 3px;">
+                        <label for="receiver">短信提醒</label>
+                        <input type="checkbox" style="width: 15px; height: 15px;" id="receiver"
+                               ng-model="hasReceiverChecked"
+                               ng-disabled="receivers == null || receivers.length == 0"
+                               ng-click="selectAllReceivers()"/>
+                    </div>
+                </div>
+                <div class="box-body no-padding tab-box-body" style="min-height: 222px; max-height: 222px;">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                        <tr ng-if="receivers == null || receivers.length == 0">
+                            <td class="text-center">无记录</td>
+                        </tr>
+                        <tr ng-repeat="receiver in receivers">
+                            <td>
+                                {{receiver.username}}
+                                <span ng-if="receiver.position">({{receiver.position}})</span>
+                                <span ng-if="receiver.enabled" class="fa fa-fw fa-check-circle-o" style="color: blue; "></span>
+                                <span ng-if="!receiver.enabled" class="fa fa-fw fa-ban" style="color: grey;"></span>
+                            </td>
+                            <td>
+                                <span class="btn-group" style="text-align: center; width: 35px;">
+                                    <button class="btn btn-default btn-sm" title="删除"
+                                            ng-click="deleteReceiver(receiver.id)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </span>
+                            </td>
+                            <td align="center">
+                                <input type="checkbox" style="width: 15px; height: 15px;"
+                                       ng-model="receiver.sendSMS"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="box box-primary" style="margin-top: 10px;">
+                <div class="box-header with-border">
+                    <div style="padding: 5px 10px;">抄送人</div>
+                    <div class="box-tools pull-right" style="margin-right: 90px;">
+                        <div class="has-feedback">
+                            <input class="form-control input-sm" style="width: 140px;" type="text"
+                                   ng-model="ccUserFilter.username"
+                                   placeholder="请输入用户名">
+                                <span class="glyphicon glyphicon-search form-control-feedback"
+                                      ng-click="filterCCUsers()"
+                                      style="top:-3px;"></span>
+                        </div>
+                    </div>
+                    <div class="box-tools pull-right" style="margin-top: 3px; margin-right: 3px;">
+                        <label for="ccUser" style="margin-left: 2px;">短信提醒</label>
+                        <input type="checkbox" style="width: 15px; height: 15px;" id="ccUser"
+                               ng-model="hasCCUserChecked"
+                               ng-disabled="ccUsers == null || ccUsers.length == 0"
+                               ng-click="selectAllCCUsers()"/>
+                    </div>
+                </div>
+                <div class="box-body no-padding tab-box-body" style="min-height: 222px; max-height: 222px;">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                        <tr ng-if="ccUsers == null || ccUsers.length == 0">
+                            <td class="text-center">无记录</td>
+                        </tr>
+                        <tr ng-repeat="ccUser in ccUsers">
+                            <td>
+                                {{ccUser.username}}
+                                <span ng-if="ccUser.position">({{ccUser.position}})</span>
+                                <span ng-if="ccUser.enabled" class="fa fa-fw fa-check-circle-o" style="color: blue; "></span>
+                                <span ng-if="!ccUser.enabled" class="fa fa-fw fa-ban" style="color: grey;"></span>
+                            </td>
+                            <td>
+                                <span class="btn-group" style="text-align: center; width: 35px;">
+                                    <button class="btn btn-default btn-sm" title="删除"
+                                            ng-click="deleteCCUser(ccUser.id)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </span>
+                            </td>
+                            <td align="center">
+                                <input type="checkbox" style="width: 15px; height: 15px;"
+                                       ng-model="ccUser.sendSMS"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-xs-12">
+            <div class="form-group well well-sm no-shadow text-center no-margin">
+                <span>
+                    <input type="checkbox" ng-model="deniedActions[0]"
+                           ng-true-value="PRINT"
+                           ng-false-value="">
+                    禁止打印
+                </span>
+                <span>
+                    <input type="checkbox" ng-model="deniedActions[1]"
+                           ng-true-value="EDIT"
+                           ng-false-value="" >
+                    禁止编辑
+                </span>
+                <span>
+                    <input type="checkbox"
+                           ng-model="deniedActions[2]"
+                           ng-true-value="FORWARD"
+                           ng-false-value="">
+                    禁止转发
+                </span>
+                <span>
+                    <input type="checkbox" ng-model="deniedActions[3]"
+                           ng-true-value="COPY"
+                           ng-false-value="">
+                    禁止再处理
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" style="margin-top: 0px; padding: 8px 20px 8px;">
+    <button type="button" id="detailSaveBtn" class="btn btn-primary" ng-click="confirm()">确定</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">取消</button>
+</div>

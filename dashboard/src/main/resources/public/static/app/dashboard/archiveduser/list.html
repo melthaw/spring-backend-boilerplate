@@ -1,0 +1,78 @@
+<div>
+    <section class="content-header">
+        <h1>归档用户
+            <small>（总<span>{{totalItems}}</span>条）</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div style="padding: 5px 10px;">&nbsp;</div>
+                        <div class="box-tools pull-right" style="margin-right: 50px;">
+                            <div class="has-feedback">
+                                <input class="form-control input-sm" type="text"
+                                       ng-model="filter.username"
+                                       placeholder="请输入用户名">
+                                <span class="glyphicon glyphicon-search form-control-feedback"
+                                      ng-click="refreshList()"
+                                      style="top:-3px;"></span>
+                            </div>
+                        </div>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-default btn-sm"
+                                    ng-click="refreshList()">
+                                <i class="fa fa-fw fa-refresh"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table id="userTable"
+                               class="table table-hover table-striped">
+                            <thead>
+                                <th width="200">用户名</th>
+                                <th width="200">手机号</th>
+                                <th>电子邮箱</th>
+                                <th width="80">用户类型</th>
+                                <th class="date-time">归档时间</th>
+                            </thead>
+                            <tbody id="userTableBody">
+                            <tr ng-if="archivedusers == null || archivedusers.length == 0">
+                                <td class="text-center" colspan="6">无记录</td>
+                            </tr>
+                            <tr ng-repeat="archiveduser in archivedusers">
+                                <td width="200">
+                                    <a style="cursor:pointer"
+                                       ng-click="showDetail(archiveduser);">{{archiveduser.username}}</a>
+                                </td>
+                                <td width="200">{{archiveduser.cellphone}}</td>
+                                <td>{{archiveduser.email}}</td>
+                                <td>
+                                    <span ng-if="archiveduser.userType == 'APPUSER'">应用用户</span>
+                                    <span ng-if="archiveduser.userType == 'SYSUSER'">系统用户</span>
+                                </td>
+                                <td class="date-time">
+                                    {{archiveduser.deletedAt | date:'yyyy-MM-dd HH:mm:ss'}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <div class="mailbox-controls pull-right">
+                            <pagination ng-show="archivedusers.length > 0" total-items="totalElements"
+                                        ng-model="currentPage"
+                                        ng-change="pageChanged()"
+                                        class="pagination-sm"></pagination>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>

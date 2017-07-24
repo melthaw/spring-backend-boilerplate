@@ -1,0 +1,89 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()" data-dismiss="modal"
+            aria-hidden="true">&times;</button>
+    <h4 class="modal-title">用户信息</h4>
+</div>
+<div class="modal-body no-padding">
+    <!--<div class="table-responsive">-->
+        <!--<table class="table">-->
+            <!--<tbody>-->
+                <!--<tr>-->
+                    <!--<td width="30%" class="custom-label">用户名:</td>-->
+                    <!--<td>{{profile.username}}</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td width="30%" class="custom-label">头像:</td>-->
+                    <!--<td>-->
+                        <!--<img class="img-polaroid" ng-if="profile.avatarId" ng-src="{{profile.avatarId | escape}}"-->
+                             <!--alt="Image Not Found"-->
+                             <!--width="80"-->
+                             <!--height="80">-->
+                        <!--<img class="img-polaroid" ng-if="!profile.avatarId" src="/static/lib/admin-lte/img/avatar5.png"-->
+                             <!--width="80"-->
+                             <!--height="80">-->
+                    <!--</td>-->
+                <!--</tr>-->
+
+                <!--<tr>-->
+                    <!--<td width="30%" class="custom-label">联系电话:</td>-->
+                    <!--<td>{{profile.contactPhone}}</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td width="30%" class="custom-label">办公电话:</td>-->
+                    <!--<td>{{profile.officePhone}}</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td width="30%" class="custom-label">短号码:</td>-->
+                    <!--<td>{{profile.extensionNumber}}</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td width="30%" class="custom-label">邮箱:</td>-->
+                    <!--<td>{{profile.email}}</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td width="30%" class="custom-label">性别:</td>-->
+                    <!--<td>{{profile.gender == 'MALE' ? '男' : '女'}}</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td width="30%" class="custom-label">出生日期:</td>-->
+                    <!--<td> {{profile.birthday | date: 'yyyy年MM月dd日'}}</td>-->
+                <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+
+    <div class="box-body box-profile">
+        <img class="profile-user-img img-responsive img-circle"
+             style="width: 100px;height: 100px;"
+             ng-if="profile.avatarId"
+             ng-src="{{profile.avatarId | escape}}" alt="头像">
+        <img class="profile-user-img img-responsive img-circle"
+             style="width: 100px;height: 100px;"
+             ng-if="!profile.avatarId"
+             src="/static/lib/admin-lte/img/avatar5.png" alt="头像">
+
+        <h3 class="profile-username text-center">{{profile.username}}</h3>
+
+        <p class="text-muted text-center"{{profile.organizationName}}></p>
+
+        <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+                <b>联系电话</b> <a class="pull-right">{{profile.cellphone}}</a>
+            </li>
+            <li class="list-group-item">
+                <b>邮箱</b> <a class="pull-right">{{profile.email}}</a>
+            </li>
+            <li class="list-group-item">
+                <b>性别</b> <a class="pull-right">{{profile.gender == 'MALE' ? '男' : '女'}}</a>
+            </li>
+            <li class="list-group-item">
+                <b>出生日期</b> <a class="pull-right">{{profile.birthday | date: 'yyyy年MM月dd日'}}</a>
+            </li>
+        </ul>
+        <button class="btn btn-primary btn-block" ng-click="edit();" >
+            <i class="fa fa-edit"></i>
+            修改
+        </button>
+
+    </div>
+</div>
