@@ -1,0 +1,12 @@
+dependencies {
+    compile libs.commons
+    compile libs.springBoot
+    compile libs.springSecurity
+    compile libs.daas
+
+    compile project(':shared')
+    compile project(':dashapi')
+    compile project(':audit')
+    compile project(':storage')
+
+}

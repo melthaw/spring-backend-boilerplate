@@ -1,0 +1,82 @@
+ext {
+    libs = [
+            commons          : [
+                    "commons-codec:commons-codec:${version_commons_codec}",
+                    "org.apache.commons:commons-lang3:3.4",
+                    "commons-io:commons-io:2.5",
+                    "com.google.guava:guava:${version_google_guava}",
+                    "com.google.code.gson:gson:${version_google_gson}",
+                    "cz.mallat.uasparser:uasparser:0.6.2",
+                    "com.belerweb:pinyin4j:2.5.0",
+                    "org.im4java:im4java:1.4.0",
+                    "org.hibernate:hibernate-validator:${version_hibernate_validator}",
+                    "org.apache.httpcomponents:httpclient:4.3.6"
+            ],
+            daas             : [
+                    "in.clouthink.daas:daas-token:1.4.6",
+                    "in.clouthink.daas:daas-we:2.1.1",
+                    "in.clouthink.daas:daas-edm:1.0.2",
+                    "in.clouthink.daas:daas-edm-email:1.0.0",
+                    "in.clouthink.daas:daas-edm-sms:1.1.0",
+                    "in.clouthink.daas:daas-edm-push:1.1.3",
+                    "in.clouthink.daas:daas-bm-core:1.0.3",
+                    "in.clouthink.daas:daas-bm-mongodb:1.0.3",
+                    "in.clouthink.daas:daas-bm-push:1.0.0",
+                    "in.clouthink.daas:daas-fss-core:2.0.0",
+                    "in.clouthink.daas:daas-fss-mongodb:2.0.0",
+                    "in.clouthink.daas:daas-fss-alioss:2.0.0",
+                    "in.clouthink.daas:daas-audit:1.0.2",
+                    "com.aliyun.oss:aliyun-sdk-oss:2.2.1",
+                    "org.apache.httpcomponents:httpcore:4.4.5",
+                    "org.apache.httpcomponents:httpclient:4.4.1"
+            ],
+            aliyun           : [
+                    "com.aliyun:aliyun-java-sdk-core:2.4.2",
+                    "com.aliyun:aliyun-java-sdk-sms:3.0.0-rc1"
+            ],
+            springBoot       : [
+                    "org.springframework.boot:spring-boot-starter:${version_spring_boot}",
+                    "org.springframework.boot:spring-boot-starter-web:${version_spring_boot}",
+                    "org.springframework.boot:spring-boot-starter-mail:${version_spring_boot}",
+                    "org.springframework.boot:spring-boot-starter-aop:${version_spring_boot}",
+                    "org.springframework.boot:spring-boot-devtools:${version_spring_boot}"
+            ],
+            springThymeleaf  : [
+                    "org.springframework.boot:spring-boot-starter-thymeleaf:${version_spring_boot}",
+                    "org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.2.RELEASE"
+            ],
+            springDataMongodb: [
+                    "org.springframework.boot:spring-boot-starter-data-mongodb:${version_spring_boot}",
+            ],
+            springSecurity   : [
+                    "org.springframework.boot:spring-boot-starter-security:${version_spring_boot}"
+            ],
+            springOAuth2     : [
+                    "org.springframework.security.oauth:spring-security-oauth2:2.0.7.RELEASE"
+            ],
+            springRedis      : [
+                    "org.springframework.boot:spring-boot-starter-redis:${version_spring_boot}"
+            ],
+            springBootTomcat : [
+                    "org.springframework.boot:spring-boot-starter-tomcat:${version_spring_boot}"
+            ],
+            jackson2         : [
+                    "com.fasterxml.jackson.core:jackson-annotations:${version_fasterxml_jackson_annotations}",
+                    "com.fasterxml.jackson.core:jackson-core:${version_fasterxml_jackson_core}",
+                    "com.fasterxml.jackson.core:jackson-databind:${version_fasterxml_jackson_databind}"
+            ],
+            springfox        : [
+                    "io.springfox:springfox-swagger2:${version_springfox_swagger2}",
+                    "io.springfox:springfox-swagger-ui:${version_springfox_swagger_ui}"
+            ],
+            swagger2         : [
+                    "io.swagger:swagger-annotations:${version_io_swagger_swagger}"
+            ],
+            test             : [
+                    "junit:junit:${version_junit}",
+                    "org.springframework.boot:spring-boot-starter-test:${version_spring_boot}",
+                    "org.springframework.security:spring-security-test:${version_spring_security}",
+                    "com.github.fakemongo:fongo:1.6.5"
+            ]
+    ]
+}

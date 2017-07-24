@@ -1,0 +1,65 @@
+apply from: "$rootDir/dependencies.gradle"
+apply plugin: 'idea'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.10'
+}
+
+allprojects {
+
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        mavenCentral()
+        maven { url "http://repo.spring.io/release" }
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+        maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2/" }
+    }
+
+    buildscript {
+        repositories {
+            mavenLocal()
+            maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+            mavenCentral()
+            maven { url "http://repo.spring.io/release" }
+            maven { url "http://repo.spring.io/snapshot" }
+            maven { url "http://repo.spring.io/milestone" }
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'base'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+
+    jar {
+        baseName = project['artifactId']
+        version = project['version']
+    }
+
+    task sourcesJar(type: Jar) {
+        baseName = project['artifactId']
+        version = project['version']
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives sourcesJar
+    }
+
+    dependencies {
+        testCompile libs.test
+    }
+
+}
