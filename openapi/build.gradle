@@ -5,7 +5,6 @@ dependencies {
 
     compile project(':shared')
     compile project(':account')
-    compile project(':exception')
     compile project(':setting')
     compile project(':audit')
     compile project(':security')

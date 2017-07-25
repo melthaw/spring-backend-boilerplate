@@ -2,6 +2,5 @@ dependencies {
 	compile libs.springBoot
 
 	compile project(':shared')
-	compile project(':exception')
 
 }
