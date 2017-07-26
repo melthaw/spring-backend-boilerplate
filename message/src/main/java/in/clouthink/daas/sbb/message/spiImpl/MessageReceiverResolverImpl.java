@@ -1,13 +1,13 @@
 package in.clouthink.daas.sbb.message.spiImpl;
 
-import in.clouthink.daas.sbb.account.domain.model.AppUser;
-import in.clouthink.daas.sbb.account.repository.AppUserRepository;
 import in.clouthink.daas.bm.core.BusinessMessageTarget;
 import in.clouthink.daas.bm.core.MessageReceiver;
 import in.clouthink.daas.bm.core.MessageReceiverResolver;
 import in.clouthink.daas.bm.core.MessageReceiverVisitable;
 import in.clouthink.daas.bm.core.impl.MessageReceiverImpl;
 import in.clouthink.daas.bm.exception.UnsupportedTargetTypeException;
+import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.repository.SysUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +17,7 @@ import org.springframework.data.domain.PageRequest;
 public class MessageReceiverResolverImpl implements MessageReceiverResolver {
 
 	@Autowired
-	private AppUserRepository appUserRepository;
+	private SysUserRepository appUserRepository;
 
 	public MessageReceiverResolverImpl() {
 	}
@@ -27,7 +27,7 @@ public class MessageReceiverResolverImpl implements MessageReceiverResolver {
 		if (BusinessMessageTarget.TYPE_ALL.equalsIgnoreCase(target.getType())) {
 			return visitor -> {
 				int i = 0;
-				Page<AppUser> appUserPage = appUserRepository.queryPageByEnabled(new PageRequest(i++, 100));
+				Page<SysUser> appUserPage = appUserRepository.queryPageByEnabled(new PageRequest(i++, 100));
 				while (appUserPage.hasContent()) {
 					appUserPage.getContent().stream().forEach(user -> visitor.visit(convert(user)));
 
@@ -39,7 +39,7 @@ public class MessageReceiverResolverImpl implements MessageReceiverResolver {
 		if (BusinessMessageTarget.TYPE_OR.equalsIgnoreCase(target.getType())) {
 			return visitor -> {
 				int i = 0;
-				Page<AppUser> appUserPage = appUserRepository.queryPageByOrTag(target.getValues(),
+				Page<SysUser> appUserPage = appUserRepository.queryPageByOrTag(target.getValues(),
 																			   new PageRequest(i++, 100));
 				while (appUserPage.hasContent()) {
 					appUserPage.getContent().stream().forEach(user -> visitor.visit(convert(user)));
@@ -52,7 +52,7 @@ public class MessageReceiverResolverImpl implements MessageReceiverResolver {
 		if (BusinessMessageTarget.TYPE_AND.equalsIgnoreCase(target.getType())) {
 			return visitor -> {
 				int i = 0;
-				Page<AppUser> appUserPage = appUserRepository.queryPageByAndTag(target.getValues(),
+				Page<SysUser> appUserPage = appUserRepository.queryPageByAndTag(target.getValues(),
 																				new PageRequest(i++, 100));
 				while (appUserPage.hasContent()) {
 					appUserPage.getContent().stream().forEach(user -> visitor.visit(convert(user)));
@@ -64,7 +64,7 @@ public class MessageReceiverResolverImpl implements MessageReceiverResolver {
 
 		if (BusinessMessageTarget.TYPE_ALIAS.equalsIgnoreCase(target.getType())) {
 			for (String id : target.getValues()) {
-				AppUser appUser = appUserRepository.findById(id);
+				SysUser appUser = appUserRepository.findById(id);
 				return visitor -> visitor.visit(convert(appUser));
 			}
 		}
@@ -72,7 +72,7 @@ public class MessageReceiverResolverImpl implements MessageReceiverResolver {
 		throw new UnsupportedTargetTypeException(String.format("Unsupported target type '%s'", target.getType()));
 	}
 
-	public MessageReceiver convert(AppUser appUser) {
+	public MessageReceiver convert(SysUser appUser) {
 		if (appUser == null) {
 			return null;
 		}

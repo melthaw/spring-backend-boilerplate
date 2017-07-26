@@ -1,0 +1,8 @@
+dependencies {
+	compile libs.commons
+	compile libs.springBoot
+	compile libs.daas
+	compile libs.aliyun
+
+	compile project(':account/core')
+}

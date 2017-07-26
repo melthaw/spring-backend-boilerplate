@@ -1,8 +1,8 @@
 package in.clouthink.daas.sbb.message.spiImpl;
 
-import in.clouthink.daas.sbb.account.domain.model.AppUser;
-import in.clouthink.daas.sbb.account.exception.AppUserRequiredException;
-import in.clouthink.daas.sbb.security.frontend.spring.AppUserDetails;
+import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.exception.SysUserRequiredException;
+import in.clouthink.daas.sbb.security.frontend.spring.SysUserDetails;
 import in.clouthink.daas.bm.core.MessageReceiver;
 import in.clouthink.daas.bm.core.impl.MessageReceiverImpl;
 import in.clouthink.daas.bm.domain.model.BusinessMessage;
@@ -15,17 +15,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  */
-public class SecurityContextImpl implements SecurityContext<AppUser> {
+public class SecurityContextImpl implements SecurityContext<SysUser> {
 
 	private static final Log logger = LogFactory.getLog(SecurityContextImpl.class);
 
 	@Override
-	public AppUser getPrincipal() {
+	public SysUser getPrincipal() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication != null) {
 			Object principal = authentication.getPrincipal();
-			if (principal instanceof AppUserDetails) {
-				return ((AppUserDetails) principal).getUser();
+			if (principal instanceof SysUserDetails) {
+				return ((SysUserDetails) principal).getUser();
 			}
 		}
 
@@ -34,15 +34,15 @@ public class SecurityContextImpl implements SecurityContext<AppUser> {
 	}
 
 	@Override
-	public boolean isReceiver(BusinessMessage businessMessage, AppUser principal) {
+	public boolean isReceiver(BusinessMessage businessMessage, SysUser principal) {
 		return businessMessage.getReceiverId().equalsIgnoreCase(principal.getId());
 	}
 
 	@Override
 	public MessageReceiver asReceiver() {
-		AppUser appUser = getPrincipal();
+		SysUser appUser = getPrincipal();
 		if (appUser == null) {
-			throw new AppUserRequiredException();
+			throw new SysUserRequiredException();
 		}
 
 		MessageReceiverImpl result = new MessageReceiverImpl();
