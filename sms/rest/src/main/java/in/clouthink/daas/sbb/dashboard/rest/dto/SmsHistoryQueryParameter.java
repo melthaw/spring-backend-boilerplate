@@ -1,9 +1,9 @@
 package in.clouthink.daas.sbb.dashboard.rest.dto;
 
 
-import in.clouthink.daas.sbb.event.sms.history.domain.model.SmsHistory;
-import in.clouthink.daas.sbb.event.sms.history.domain.request.SmsHistoryQueryRequest;
 import in.clouthink.daas.sbb.shared.domain.request.impl.DateRangedQueryParameter;
+import in.clouthink.daas.sbb.sms.history.domain.model.SmsHistory;
+import in.clouthink.daas.sbb.sms.history.domain.request.SmsHistoryQueryRequest;
 import io.swagger.annotations.ApiModel;
 
 @ApiModel

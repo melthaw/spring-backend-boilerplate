@@ -2,9 +2,9 @@ package in.clouthink.daas.sbb.dashboard.rest.support.impl;
 
 import in.clouthink.daas.sbb.dashboard.rest.dto.SmsHistorySummary;
 import in.clouthink.daas.sbb.dashboard.rest.support.SmsHistorySupport;
-import in.clouthink.daas.sbb.event.sms.history.domain.model.SmsHistory;
-import in.clouthink.daas.sbb.event.sms.history.domain.request.SmsHistoryQueryRequest;
-import in.clouthink.daas.sbb.event.sms.history.service.SmsHistoryService;
+import in.clouthink.daas.sbb.sms.history.domain.model.SmsHistory;
+import in.clouthink.daas.sbb.sms.history.domain.request.SmsHistoryQueryRequest;
+import in.clouthink.daas.sbb.sms.history.service.SmsHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.dashboard.rest.dto;
 
-import in.clouthink.daas.sbb.event.sms.history.domain.model.SmsHistory;
+import in.clouthink.daas.sbb.sms.history.domain.model.SmsHistory;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Date;

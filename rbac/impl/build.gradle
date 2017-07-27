@@ -4,5 +4,6 @@ dependencies {
 
 	compile project(':shared')
 	compile project(':account/core')
+	compile project(':account/impl')
 	compile project(':rbac/core')
 }

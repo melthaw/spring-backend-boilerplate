@@ -1,19 +1,40 @@
 rootProject.name = 'spring-backend-boilerplate'
 include 'shared'
+
 include 'account/core'
 include 'account/impl'
-include 'security'
+include 'account/rest'
+
+include 'passcode/core'
+include 'passcode/impl'
+
+include 'security/core'
+include 'security/impl'
+
 include 'rbac/core'
 include 'rbac/impl'
+
 include 'audit/core'
 include 'audit/impl'
 include 'audit/rest'
+
 include 'storage/core'
+include 'storage/gridfs'
+include 'storage/alioss'
+include 'storage/local'
+include 'storage/rest'
+
 include 'attachment/core'
 include 'attachment/impl'
 include 'attachment/rest'
+include 'attachment/event'
+
 include 'sms/core'
+include 'sms/history'
+include 'sms/impl'
+include 'sms/mock'
+include 'sms/event'
 include 'sms/rest'
-include 'message'
+
 include 'setting/core'
 include 'setting/impl'

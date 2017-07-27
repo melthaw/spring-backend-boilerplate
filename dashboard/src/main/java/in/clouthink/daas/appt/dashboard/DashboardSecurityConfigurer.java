@@ -1,11 +1,11 @@
 package in.clouthink.daas.sbb.dashboard;
 
-import in.clouthink.daas.sbb.security.backend.spring.UserDetailsAuthenticationProviderImpl;
-import in.clouthink.daas.sbb.security.backend.spring.UserDetailsServiceImpl;
-import in.clouthink.daas.sbb.security.backend.spring.mvc.AccessDeniedHandlerMvcImpl;
-import in.clouthink.daas.sbb.security.backend.spring.mvc.AuthenticationEntryPointMvcImpl;
-import in.clouthink.daas.sbb.security.backend.spring.mvc.AuthenticationFailureHandlerMvcImpl;
-import in.clouthink.daas.sbb.security.backend.spring.mvc.AuthenticationSuccessHandlerMvcImpl;
+import in.clouthink.daas.sbb.security.impl.spring.UserDetailsAuthenticationProviderImpl;
+import in.clouthink.daas.sbb.security.impl.spring.UserDetailsServiceImpl;
+import in.clouthink.daas.sbb.security.impl.spring.mvc.AccessDeniedHandlerMvcImpl;
+import in.clouthink.daas.sbb.security.impl.spring.mvc.AuthenticationEntryPointMvcImpl;
+import in.clouthink.daas.sbb.security.impl.spring.mvc.AuthenticationFailureHandlerMvcImpl;
+import in.clouthink.daas.sbb.security.impl.spring.mvc.AuthenticationSuccessHandlerMvcImpl;
 import in.clouthink.daas.sbb.rbac.impl.spring.security.RbacWebSecurityExpressionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

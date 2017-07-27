@@ -4,8 +4,8 @@ dependencies {
 	compile libs.daas
 
 	compile project(':shared')
-	compile project(':security')
-	compile project(':account/core')
-	compile project(':audit/core')
+	compile project(':security/core')
+	compile project(':sms/core')
+	compile project(':sms/history')
 
 }

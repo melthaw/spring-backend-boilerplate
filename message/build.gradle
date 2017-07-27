@@ -1,7 +1,0 @@
-dependencies {
-	compile libs.commons
-	compile libs.springBoot
-	compile libs.daas
-
-	compile project(':account/core')
-}
