@@ -8,60 +8,64 @@
 # 功能特征 - Features
 
 
-## 安全
+## 安全 - Security
 
-### 基础设施
-
-
-### 认证策略
+### 基础设施 - Foundation
 
 
-### 授权策略
+### 认证策略 - Authentication 
 
 
-### 双因子
+### 授权策略 - Authorization
 
 
-
-## 多套账户示例
-
-
-## 文件上传下载
+### 用户设备 - User Device
 
 
-## 访问审计
-
-### 登录审计
+### 双因子 - Two Factor Support
 
 
-### 操作审计
+## 多套账户示例 - Multi-Account Template
 
 
-### 统计报表
+## 文件上传下载 - File Storage
 
 
-## 消息通知
+## 访问审计 - Audit
 
-### 短信通知
-
-
-### 邮件通知
+### 登录审计 - Login
 
 
-### 移动端通知
+### 操作审计 - Operation
 
 
-### 微信通知
+### 统计报表 - Report
 
+
+## 消息通知 - Message
+
+### 短信通知 - SMS
+
+
+### 邮件通知 - Email
+
+
+### 移动端通知 - Mobile
+
+
+### 微信通知 - Wechat
+
+
+# 模块化设计 - Modularization
 
 
 # 使用指南 - Get Started
  
-## 源码组织结构
+## 源码组织结构 - Source Code Inside
 
 
 
-# 参数配置 - configuration
+# 参数配置 - Configuration
 
 ## app
 
