@@ -1,7 +1,7 @@
 package in.clouthink.daas.appt.dashboard.rest.controller;
 
 import in.clouthink.daas.appt.dashboard.rest.support.SystemSettingRestSupport;
-import in.clouthink.daas.appt.setting.domain.model.SystemSetting;
+import in.clouthink.daas.sbb.setting.domain.model.SystemSetting;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

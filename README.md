@@ -79,8 +79,10 @@
  
 ## IDEA 导入 - how to import the project to IDEA IDE
 
+```
 > gradle cleanIdea
 > gradle idea
+```
 
 ## IDEA 调试 - how to debug in IDEA IDE
 
@@ -88,8 +90,8 @@ Create new debug configuration (type of gradle), and pop it with following value
 
 name | value
 -----|-----
-Gradle Project | in.clouthink.daas.sbb:dashboard
+Gradle Project | in.clouthink.daas.sbb:openapiServer
 Tasks | clean bootRun
 VM Options | <keep it empty>
-Script parameters | -PjvmArgs="-Dspring.config.location=/var/appt/etc/dashboard/application.properties"
+Script parameters | -PjvmArgs="-Dspring.config.location=/var/sbb/etc/openapiServer/application.properties"
 

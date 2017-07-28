@@ -1,8 +1,8 @@
 package in.clouthink.daas.appt.dashboard.rest.support.impl;
 
 import in.clouthink.daas.appt.dashboard.rest.support.SystemSettingRestSupport;
-import in.clouthink.daas.appt.setting.domain.model.SystemSetting;
-import in.clouthink.daas.appt.setting.service.SystemSettingService;
+import in.clouthink.daas.sbb.setting.domain.model.SystemSetting;
+import in.clouthink.daas.sbb.setting.service.SystemSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
