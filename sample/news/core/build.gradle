@@ -1,0 +1,7 @@
+dependencies {
+	compile libs.springBoot
+
+	compile project(':shared')
+	compile project(':account/core')
+
+}

@@ -36,6 +36,14 @@ include 'sample/setting/core'
 include 'sample/setting/impl'
 include 'sample/setting/rest'
 
+include 'sample/news/core'
+include 'sample/news/impl'
+include 'sample/news/rest'
+
+include 'sample/notice/core'
+include 'sample/notice/impl'
+include 'sample/notice/rest'
+
 include 'sample/attachment/core'
 include 'sample/attachment/impl'
 include 'sample/attachment/rest'

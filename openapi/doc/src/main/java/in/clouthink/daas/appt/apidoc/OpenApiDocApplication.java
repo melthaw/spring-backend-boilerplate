@@ -1,8 +1,8 @@
 package in.clouthink.daas.sbb.apidoc;
 
 import in.clouthink.daas.sbb.openapi.OpenApiModuleConfiguration;
-import in.clouthink.daas.sbb.setting.repository.RepositoryModuleConfiguration;
-import in.clouthink.daas.sbb.setting.service.ServiceModuleConfiguration;
+import in.clouthink.daas.sbb.news.repository.RepositoryModuleConfiguration;
+import in.clouthink.daas.sbb.news.service.ServiceModuleConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

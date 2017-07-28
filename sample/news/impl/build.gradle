@@ -1,0 +1,9 @@
+dependencies {
+    compile libs.commons
+    compile libs.springBoot
+    compile libs.daas
+
+    compile project(':shared')
+    compile project(':sample/news/core')
+
+}
