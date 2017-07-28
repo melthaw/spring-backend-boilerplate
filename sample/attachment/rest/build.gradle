@@ -7,7 +7,7 @@ dependencies {
     compile project(':shared')
     compile project(':security/core')
     compile project(':account/core')
-    compile project(':attachment/core')
-    compile project(':attachment/impl')
+    compile project(':sample/attachment/core')
+    compile project(':sample/attachment/impl')
 
 }

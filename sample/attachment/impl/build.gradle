@@ -5,6 +5,6 @@ dependencies {
     compile libs.daas
 
     compile project(':shared')
-    compile project(':attachment/core')
+    compile project(':sample/attachment/core')
 
 }

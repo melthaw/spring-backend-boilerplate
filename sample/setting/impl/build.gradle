@@ -4,6 +4,6 @@ dependencies {
     compile libs.daas
 
     compile project(':shared')
-    compile project(':setting/core')
+    compile project(':sample/setting/core')
 
 }

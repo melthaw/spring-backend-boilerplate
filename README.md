@@ -67,82 +67,12 @@
 
 # 参数配置 - Configuration
 
-## app
 
-```
-app.name=daas-appt
-app.description=daas application template
-```
-
-
-## file storage - aliyun
-
-```
-
-in.clouthink.daas.sbb.attachment.alioss.keyId=
-in.clouthink.daas.sbb.attachment.alioss.secret=
-in.clouthink.daas.sbb.attachment.alioss.ossDomain=
-in.clouthink.daas.sbb.attachment.alioss.imgDomain=
-in.clouthink.daas.sbb.attachment.alioss.defaultBucket=
-in.clouthink.daas.sbb.attachment.alioss.buckets.image=
-```
-
-
-## file storage - mongodb gridfs
-
-```
-
-```
-
-
-## sms
-```
-
-in.clouthink.daas.sbb.sms.key=
-in.clouthink.daas.sbb.sms.secret=
-in.clouthink.daas.sbb.sms.templateId=
-in.clouthink.daas.sbb.sms.registerTemplateId=
-in.clouthink.daas.sbb.sms.forgetPasswordTemplateId=
-
-```
-
-## email
-```
-in.clouthink.daas.sbb.email.smtp.host=
-in.clouthink.daas.sbb.email.smtp.port=
-in.clouthink.daas.sbb.email.smtp.username=
-in.clouthink.daas.sbb.email.stmp.password=
-in.clouthink.daas.sbb.email.sender.from=
-in.clouthink.daas.sbb.email.sender.fromAlias=
-```
-
-
-## jpush
-
-```
-in.clouthink.daas.edm.push.jpush.appKey=
-in.clouthink.daas.edm.push.jpush.appSecret=
-in.clouthink.daas.edm.push.jpush.maxRetries=
-in.clouthink.daas.edm.push.jpush.timeToLive=
-in.clouthink.daas.edm.push.jpush.apnsProduction=
-```
-
-## administrator user 
-
-```
-in.clouthink.daas.sbb.dashboard.administrator.email=
-in.clouthink.daas.sbb.dashboard.administrator.username=
-in.clouthink.daas.sbb.dashboard.administrator.cellphone=
-in.clouthink.daas.sbb.dashboard.administrator.password=
-
-```
-
-## rbac
-
-```
-in.clouthink.daas.sbb.rbac.resourceFile=resources.json
-```
-
+参数配置支持四种方式
+* 文件配置
+* 数据库配置
+* zookeeper配置
+* 自定义配置
 
  
 # 附录 - 开发环境

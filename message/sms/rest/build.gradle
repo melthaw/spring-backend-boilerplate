@@ -5,7 +5,7 @@ dependencies {
 
 	compile project(':shared')
 	compile project(':security/core')
-	compile project(':sms/core')
-	compile project(':sms/history')
+	compile project(':message/sms/core')
+	compile project(':message/sms/history')
 
 }
