@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.dashboard.rest.support;
 
-import in.clouthink.daas.sbb.dashboard.rest.dto.ResourceSummary;
-import in.clouthink.daas.sbb.dashboard.rest.dto.TypedRoleSummary;
+import in.clouthink.daas.appt.dashboard.rest.dto.ResourceSummary;
+import in.clouthink.daas.appt.dashboard.rest.dto.TypedRoleSummary;
 
 import java.util.List;
 

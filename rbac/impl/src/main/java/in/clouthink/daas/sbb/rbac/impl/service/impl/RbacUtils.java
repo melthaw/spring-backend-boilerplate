@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.impl.service.impl;
 
-import in.clouthink.daas.sbb.rbac.model.RoleType;
+import in.clouthink.daas.sbb.account.domain.model.RoleType;
 import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.rbac.impl.model.TypedRole;

@@ -1,8 +1,8 @@
 package in.clouthink.daas.sbb.dashboard.rest.dto;
 
-import in.clouthink.daas.sbb.account.domain.model.RoleType;
 import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
+import in.clouthink.daas.sbb.rbac.model.RoleType;
 
 public class RoleSummary {
 

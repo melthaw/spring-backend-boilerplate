@@ -3,7 +3,6 @@ package in.clouthink.daas.sbb.dashboard.rest.controller;
 import in.clouthink.daas.sbb.account.domain.model.SysUser;
 import in.clouthink.daas.sbb.dashboard.rest.dto.ChangeMyPasswordRequest;
 import in.clouthink.daas.sbb.dashboard.rest.dto.ChangeMyProfileParameter;
-import in.clouthink.daas.sbb.dashboard.rest.dto.MenuSummary;
 import in.clouthink.daas.sbb.dashboard.rest.dto.SysUserProfile;
 import in.clouthink.daas.sbb.dashboard.rest.support.SysUserProfileRestSupport;
 import in.clouthink.daas.sbb.security.SecurityContexts;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  *
@@ -47,13 +44,6 @@ public class SysUserProfileRestController {
 	public void changeMyPassword(@RequestBody ChangeMyPasswordRequest request) {
 		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
 		userProfileRestSupport.changeMyPassword(request, user);
-	}
-
-	@ApiOperation(value = "查看我的菜单(已授权的)")
-	@RequestMapping(value = "/my/menus", method = RequestMethod.GET)
-	public List<MenuSummary> getUserGrantedMenus() {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
-		return userProfileRestSupport.getUserGrantedMenus(user);
 	}
 
 }

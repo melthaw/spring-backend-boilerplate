@@ -1,6 +1,7 @@
 package in.clouthink.daas.sbb.dashboard.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import in.clouthink.daas.sbb.account.domain.model.Gender;
 import in.clouthink.daas.sbb.account.domain.request.ChangeUserProfileRequest;
 import io.swagger.annotations.ApiModel;
@@ -10,6 +11,7 @@ import java.util.Date;
 /**
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 @ApiModel
 public class ChangeMyProfileParameter implements ChangeUserProfileRequest {
 
@@ -39,6 +41,7 @@ public class ChangeMyProfileParameter implements ChangeUserProfileRequest {
 		this.displayName = displayName;
 	}
 
+	@Override
 	public String getCellphone() {
 		return cellphone;
 	}
@@ -47,6 +50,7 @@ public class ChangeMyProfileParameter implements ChangeUserProfileRequest {
 		this.cellphone = cellphone;
 	}
 
+	@Override
 	public String getEmail() {
 		return email;
 	}
@@ -55,6 +59,7 @@ public class ChangeMyProfileParameter implements ChangeUserProfileRequest {
 		this.email = email;
 	}
 
+	@Override
 	public Gender getGender() {
 		return gender;
 	}
@@ -63,6 +68,7 @@ public class ChangeMyProfileParameter implements ChangeUserProfileRequest {
 		this.gender = gender;
 	}
 
+	@Override
 	public Date getBirthday() {
 		return birthday;
 	}

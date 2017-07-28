@@ -1,4 +1,4 @@
-package in.clouthink.daas.sbb.account.dto;
+package in.clouthink.daas.sbb.dashboard.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;

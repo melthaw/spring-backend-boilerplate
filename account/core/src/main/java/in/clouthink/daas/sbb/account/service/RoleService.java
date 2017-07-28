@@ -1,4 +1,4 @@
-package in.clouthink.daas.sbb.rbac.impl.service;
+package in.clouthink.daas.sbb.account.service;
 
 import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
 import in.clouthink.daas.sbb.account.domain.model.SysUser;

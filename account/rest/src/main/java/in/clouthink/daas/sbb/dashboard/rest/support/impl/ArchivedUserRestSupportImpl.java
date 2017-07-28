@@ -1,10 +1,6 @@
 package in.clouthink.daas.sbb.dashboard.rest.support.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
 import in.clouthink.daas.sbb.account.service.SysUserAccountService;
-import in.clouthink.daas.sbb.dashboard.rest.dto.SysUserDetail;
-import in.clouthink.daas.sbb.dashboard.rest.dto.SysUserQueryParameter;
-import in.clouthink.daas.sbb.dashboard.rest.dto.SysUserSummary;
 import in.clouthink.daas.sbb.dashboard.rest.support.ArchivedSysUserRestSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

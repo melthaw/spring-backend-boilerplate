@@ -19,7 +19,8 @@ public class RbacModuleConfiguration {
 	@Autowired
 	public ResourceService resourceServiceImpl(RbacConfigurationProperties rbacConfigurationProperties) {
 		ResourceServiceImpl result = new ResourceServiceImpl();
-		result.setResourceFile(rbacConfigurationProperties.getResourceFile());
+		//TODO change to registered 
+		//		result.setResourceFile(rbacConfigurationProperties.getResourceFile());
 		return result;
 	}
 

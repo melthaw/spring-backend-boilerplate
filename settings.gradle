@@ -13,6 +13,7 @@ include 'security/impl'
 
 include 'rbac/core'
 include 'rbac/impl'
+include 'rbac/rest'
 
 include 'audit/core'
 include 'audit/impl'

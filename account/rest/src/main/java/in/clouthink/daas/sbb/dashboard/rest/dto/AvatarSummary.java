@@ -1,4 +1,4 @@
-package in.clouthink.daas.sbb.account.dto;
+package in.clouthink.daas.sbb.dashboard.rest.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

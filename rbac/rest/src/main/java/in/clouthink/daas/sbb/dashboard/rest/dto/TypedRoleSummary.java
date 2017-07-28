@@ -1,7 +1,5 @@
 package in.clouthink.daas.sbb.dashboard.rest.dto;
 
-import in.clouthink.daas.sbb.rbac.model.RoleType;
-import in.clouthink.daas.sbb.rbac.impl.model.TypedRole;
 
 /**
  */

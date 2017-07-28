@@ -2,6 +2,7 @@ package in.clouthink.daas.sbb.dashboard.rest.dto;
 
 import in.clouthink.daas.sbb.account.domain.model.Gender;
 import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.shared.util.DateTimeUtils;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.BeanUtils;
 
@@ -10,11 +11,14 @@ import java.util.Date;
 /**
  *
  */
-@ApiModel
+@ApiModel("用户摘要信息")
 public class SysUserSummary {
 
 	static void convert(SysUser user, SysUserSummary result) {
 		BeanUtils.copyProperties(user, result, "expired", "locked");
+		if (user.getBirthday() != null) {
+			result.setAge(DateTimeUtils.howOldAreYou(user.getBirthday()));
+		}
 	}
 
 	public static SysUserSummary from(SysUser user) {
@@ -28,21 +32,31 @@ public class SysUserSummary {
 
 	private String id;
 
-	private String username;
+	private String displayName;
 
 	private String cellphone;
 
-	private String email;
+	private String username;
+
+	private String avatarId;
+
+	private String avatarUrl;
 
 	private Gender gender;
 
 	private Date birthday;
 
+	private Integer age;
+
+	private String province;
+
+	private String city;
+
+	private String signature;
+
 	private boolean enabled;
 
 	private Date createdAt;
-
-	private Date deletedAt;
 
 	public String getId() {
 		return id;
@@ -50,6 +64,14 @@ public class SysUserSummary {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public String getUsername() {
@@ -68,12 +90,20 @@ public class SysUserSummary {
 		this.cellphone = cellphone;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getAvatarId() {
+		return avatarId;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setAvatarId(String avatarId) {
+		this.avatarId = avatarId;
+	}
+
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
+
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
 	}
 
 	public Gender getGender() {
@@ -92,12 +122,44 @@ public class SysUserSummary {
 		this.birthday = birthday;
 	}
 
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
 	}
 
 	public Date getCreatedAt() {
@@ -108,11 +170,4 @@ public class SysUserSummary {
 		this.createdAt = createdAt;
 	}
 
-	public Date getDeletedAt() {
-		return deletedAt;
-	}
-
-	public void setDeletedAt(Date deletedAt) {
-		this.deletedAt = deletedAt;
-	}
 }

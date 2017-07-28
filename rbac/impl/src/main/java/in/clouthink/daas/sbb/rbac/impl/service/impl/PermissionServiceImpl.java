@@ -1,11 +1,15 @@
 package in.clouthink.daas.sbb.rbac.impl.service.impl;
 
+import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
+import in.clouthink.daas.sbb.account.service.RoleService;
 import in.clouthink.daas.sbb.rbac.impl.model.ResourceRoleRelationship;
+import in.clouthink.daas.sbb.rbac.impl.model.TypedRole;
 import in.clouthink.daas.sbb.rbac.impl.repository.ResourceRoleRelationshipRepository;
 import in.clouthink.daas.sbb.rbac.model.*;
 import in.clouthink.daas.sbb.rbac.service.PermissionService;
 import in.clouthink.daas.sbb.rbac.service.ResourceService;
+import in.clouthink.daas.sbb.rbac.support.matcher.ResourceMatchers;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +31,9 @@ public class PermissionServiceImpl implements PermissionService {
 	private ResourceService resourceService;
 
 	@Autowired
+	private RoleService roleService;
+
+	@Autowired
 	private ResourceRoleRelationshipRepository resourceRoleRelationshipRepository;
 
 	@Override
@@ -36,7 +43,7 @@ public class PermissionServiceImpl implements PermissionService {
 
 	@Override
 	public Resource getMatchedResource(String resourceUri) {
-		return resourceService.getFirstMatchedResource(resourceUri);
+		return resourceService.getFirstMatchedResource(ResourceMatchers.matchAntPath(resourceUri));
 	}
 
 	@Override
@@ -47,29 +54,24 @@ public class PermissionServiceImpl implements PermissionService {
 			return Collections.unmodifiableList(Collections.emptyList());
 		}
 
-		return relationshipList.stream().map(relationship -> {
-			DefaultPermission permission = new DefaultPermission();
-			permission.setResource(resourceService.findByCode(relationship.getResourceCode()));
-			permission.setRole(relationship.getRoleCode());
-			return permission;
-		}).collect(Collectors.toList());
+		return relationshipList.stream()
+							   .map(relationship -> relationship.getRoleCode())
+							   .collect(Collectors.toSet())
+							   .stream()
+							   .map(roleCode -> {
+								   SysExtRole role = roleService.findByCode(roleCode);
+								   TypedRole result = TypedRole.newSysRole();
+								   result.setCode(role.getCode());
+								   result.setName(role.getName());
+								   return result;
+							   })
+							   .collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Role> getGrantedRoles(Resource resource) {
-		List<ResourceRoleRelationship> relationshipList = resourceRoleRelationshipRepository.findByResourceCode(resource.getCode());
-		if (relationshipList == null) {
-			return Collections.unmodifiableList(Collections.emptyList());
-		}
-
-		return relationshipList.stream().map(relationship -> {
-			DefaultPermission permission = new DefaultPermission();
-			permission.setResource(resource);
-			permission.setRole(relationship.getRoleCode());
-			return permission;
-		}).collect(Collectors.toList());
+		return getGrantedRoles(resource.getCode());
 	}
-
 
 	@Override
 	public Permission getPermission(String resourceCode, GrantedAuthority role) {
@@ -152,6 +154,15 @@ public class PermissionServiceImpl implements PermissionService {
 		return result;
 	}
 
+	@Override
+	public List<ResourceWithChildren> getGrantedResources(GrantedAuthority role, ResourceMatcher filter) {
+		return null;
+	}
+
+	@Override
+	public List<ResourceWithChildren> getGrantedResources(List<GrantedAuthority> roles, ResourceMatcher filter) {
+		return null;
+	}
 
 	@Override
 	public boolean isGranted(String resourceCode, GrantedAuthority role) {

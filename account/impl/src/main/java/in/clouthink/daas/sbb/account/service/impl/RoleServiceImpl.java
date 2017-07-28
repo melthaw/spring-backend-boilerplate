@@ -1,7 +1,10 @@
-package in.clouthink.daas.sbb.rbac.impl.service.impl;
+package in.clouthink.daas.sbb.account.service.impl;
 
 import com.google.common.collect.Lists;
-import in.clouthink.daas.sbb.account.domain.model.*;
+import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
+import in.clouthink.daas.sbb.account.domain.model.SysRole;
+import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.SysUserRoleRelationship;
 import in.clouthink.daas.sbb.account.domain.request.RoleQueryRequest;
 import in.clouthink.daas.sbb.account.domain.request.SaveRoleRequest;
 import in.clouthink.daas.sbb.account.domain.request.SysUserQueryRequest;
@@ -11,9 +14,8 @@ import in.clouthink.daas.sbb.account.exception.RoleNotFoundException;
 import in.clouthink.daas.sbb.account.repository.SysExtRoleRepository;
 import in.clouthink.daas.sbb.account.repository.SysUserRepository;
 import in.clouthink.daas.sbb.account.repository.SysUserRoleRelationshipRepository;
-import in.clouthink.daas.sbb.rbac.model.RoleType;
-import in.clouthink.daas.sbb.rbac.impl.repository.ResourceRoleRelationshipRepository;
-import in.clouthink.daas.sbb.rbac.impl.service.RoleService;
+import in.clouthink.daas.sbb.account.service.RoleService;
+import in.clouthink.daas.sbb.account.spi.RoleReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,6 +23,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.validation.ValidationException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +32,7 @@ import java.util.stream.Collectors;
 public class RoleServiceImpl implements RoleService {
 
 	@Autowired
-	private SysExtRoleRepository appRoleRepository;
+	private SysExtRoleRepository sysExtRoleRepository;
 
 	@Autowired
 	private SysUserRepository userRepository;
@@ -38,17 +41,17 @@ public class RoleServiceImpl implements RoleService {
 	private SysUserRoleRelationshipRepository relationshipRepository;
 
 	@Autowired
-	private ResourceRoleRelationshipRepository resourceRoleRelationshipRepository;
+	private List<RoleReference> roleReferenceList;
 
 	@Override
 	public Page<SysExtRole> listAppRoles(RoleQueryRequest request) {
 		// TODO 查询条件
-		return appRoleRepository.findAll(new PageRequest(request.getStart(), request.getLimit()));
+		return sysExtRoleRepository.findAll(new PageRequest(request.getStart(), request.getLimit()));
 	}
 
 	@Override
 	public List<SysExtRole> listAppRoles() {
-		return Lists.newArrayList(appRoleRepository.findAll());
+		return Lists.newArrayList(sysExtRoleRepository.findAll());
 	}
 
 	@Override
@@ -67,7 +70,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public SysExtRole findById(String id) {
-		return appRoleRepository.findById(id);
+		return sysExtRoleRepository.findById(id);
 	}
 
 	@Override
@@ -75,7 +78,7 @@ public class RoleServiceImpl implements RoleService {
 		if (code == null) {
 			return null;
 		}
-		return appRoleRepository.findByCode(code.toUpperCase());
+		return sysExtRoleRepository.findByCode(code.toUpperCase());
 	}
 
 	@Override
@@ -95,12 +98,12 @@ public class RoleServiceImpl implements RoleService {
 
 		String roleCode = "ROLE_" + request.getCode();
 
-		SysExtRole roleByCode = appRoleRepository.findByCode(roleCode);
+		SysExtRole roleByCode = sysExtRoleRepository.findByCode(roleCode);
 		if (roleByCode != null) {
 			throw new RoleException("角色编码不能重复");
 		}
 
-		SysExtRole roleByName = appRoleRepository.findByName(request.getName());
+		SysExtRole roleByName = sysExtRoleRepository.findByName(request.getName());
 		if (roleByName != null) {
 			throw new RoleException("角色名称不能重复");
 		}
@@ -111,7 +114,7 @@ public class RoleServiceImpl implements RoleService {
 		appRole.setDescription(request.getDescription());
 		appRole.setCreatedAt(new Date());
 		appRole.setModifiedAt(new Date());
-		return appRoleRepository.save(appRole);
+		return sysExtRoleRepository.save(appRole);
 	}
 
 	@Override
@@ -125,7 +128,7 @@ public class RoleServiceImpl implements RoleService {
 			throw new RoleNotFoundException(id);
 		}
 
-		SysExtRole roleByName = appRoleRepository.findByName(request.getName());
+		SysExtRole roleByName = sysExtRoleRepository.findByName(request.getName());
 		if (roleByName != null && !roleByName.getId().equals(target.getId())) {
 			throw new RoleException("角色名称不能重复");
 		}
@@ -133,12 +136,12 @@ public class RoleServiceImpl implements RoleService {
 		target.setName(request.getName());
 		target.setDescription(request.getDescription());
 		target.setModifiedAt(new Date());
-		appRoleRepository.save(target);
+		sysExtRoleRepository.save(target);
 	}
 
 	@Override
 	public void deleteAppRole(String id) {
-		SysExtRole role = appRoleRepository.findById(id);
+		SysExtRole role = sysExtRoleRepository.findById(id);
 		if (role == null) {
 			return;
 		}
@@ -146,11 +149,15 @@ public class RoleServiceImpl implements RoleService {
 			throw new RoleException("该角色下已绑定用户,请解除和用户的关系后再进行删除角色操作");
 		}
 
-		if (resourceRoleRelationshipRepository.findFirstByRoleCode(RoleType.APP_ROLE.name() + ":" + role.getCode()) !=
-			null) {
-			throw new RoleException("该角色已授权访问资源,请收回访问资源的权限后再进行删除角色操作");
+		if (roleReferenceList != null) {
+			roleReferenceList.forEach(ref -> {
+				if (ref.hasReference(role)) {
+					throw new ValidationException("该数据已经被其他数据引用,不能删除");
+				}
+			});
 		}
-		appRoleRepository.delete(role);
+
+		sysExtRoleRepository.delete(role);
 	}
 
 	@Override
