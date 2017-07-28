@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author dz
  */
-@ConfigurationProperties(prefix = "in.clouthink.daas.appt.openapi.cors")
+@ConfigurationProperties(prefix = "in.clouthink.daas.sbb.openapi.cors")
 public class OpenApiWebCorsProperites {
 
 	private boolean allowCredentials = true;

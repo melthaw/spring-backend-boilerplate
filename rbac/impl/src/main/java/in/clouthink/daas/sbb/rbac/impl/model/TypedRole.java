@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.rbac.impl.model;
 
+import in.clouthink.daas.sbb.account.domain.model.RoleType;
 import in.clouthink.daas.sbb.rbac.model.DefaultRole;
-import in.clouthink.daas.sbb.rbac.model.RoleType;
 
 /**
  */

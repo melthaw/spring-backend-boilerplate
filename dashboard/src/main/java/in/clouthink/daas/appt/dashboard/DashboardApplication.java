@@ -35,11 +35,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
-@ComponentScan({"in.clouthink.daas.appt.dashboard"})
+@ComponentScan({"in.clouthink.daas.sbb.dashboard"})
 @Import({DashboardSecurityConfigurer.class, DashboardWebMvcConfigurer.class})
 @EnableConfigurationProperties(DashboardConfigurationProperties.class)
-@EnableMongoRepositories({"in.clouthink.daas.appt.security.backend.audit.repository",
-						  "in.clouthink.daas.appt.security.backend.auth.repository"})
+@EnableMongoRepositories({"in.clouthink.daas.sbb.security.backend.audit.repository",
+						  "in.clouthink.daas.sbb.security.backend.auth.repository"})
 @EnableScheduling
 @EnableAsync
 @EnableAudit

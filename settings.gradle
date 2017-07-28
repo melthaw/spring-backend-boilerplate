@@ -25,11 +25,6 @@ include 'storage/alioss'
 include 'storage/local'
 include 'storage/rest'
 
-include 'attachment/core'
-include 'attachment/impl'
-include 'attachment/rest'
-include 'attachment/event'
-
 include 'sms/core'
 include 'sms/history'
 include 'sms/impl'
@@ -39,3 +34,8 @@ include 'sms/rest'
 
 include 'setting/core'
 include 'setting/impl'
+include 'setting/rest'
+
+include 'attachment/core'
+include 'attachment/impl'
+include 'attachment/rest'

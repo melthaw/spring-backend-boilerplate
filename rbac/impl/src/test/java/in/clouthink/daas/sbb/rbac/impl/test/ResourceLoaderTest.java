@@ -16,7 +16,7 @@ public class ResourceLoaderTest {
 	public void testLoadJsonFile() {
 		InputStream inputStream = ResourceJsonLoader.class.getClassLoader()
 														  .getResourceAsStream(
-																  "in.clouthink.daas.appt.rbac.impl.sample.json");
+																  "in.clouthink.daas.sbb.rbac.impl.sample.json");
 		List<ResourceWithChildren> result = new ResourceJsonLoader().load(inputStream);
 		Assert.assertEquals(8, result.size());
 		Assert.assertFalse(result.get(0).isVirtual());

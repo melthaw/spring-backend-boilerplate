@@ -18,7 +18,7 @@ import java.time.LocalDate;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan("in.clouthink.daas.appt.openapi")
+@ComponentScan("in.clouthink.daas.sbb.openapi")
 public class SpringfoxConfiguration {
 
 	@Autowired

@@ -2,7 +2,7 @@ package in.clouthink.daas.sbb.dashboard;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "in.clouthink.daas.appt.dashboard")
+@ConfigurationProperties(prefix = "in.clouthink.daas.sbb.dashboard")
 public class DashboardConfigurationProperties {
 
 	private Administrator administrator = new Administrator();

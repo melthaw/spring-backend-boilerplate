@@ -1,56 +1,67 @@
+# 介绍 - Introduction
 
-# Introduction
-
-The daas development libs based application template.
+基于Spring(Boot)的快速开发框架,覆盖了应用系统后端常用需求,
+例如账户系统,安全设施,访问审计,文件或图片的上传下载,消息通知等.
+我们希望达到的目标是使用者熟悉框架后,对代码进行微调或者调整后,
+只需要关注业务,往里面添加业务模块,进行一些简单的配置,就可开发出满足业务需求的系统.
  
-## Features
-`TODO`
+# 功能特征 - Features
 
-## Dependencies
-`TODO`
 
-# Get Started
+## 安全
+
+### 基础设施
+
+
+### 认证策略
+
+
+### 授权策略
+
+
+### 双因子
+
+
+
+## 多套账户示例
+
+
+## 文件上传下载
+
+
+## 访问审计
+
+### 登录审计
+
+
+### 操作审计
+
+
+### 统计报表
+
+
+## 消息通知
+
+### 短信通知
+
+
+### 邮件通知
+
+
+### 移动端通知
+
+
+### 微信通知
+
+
+
+# 使用指南 - Get Started
  
-## shared module
-
-## account module
-
-## audit module
-
-## security module
-
-## rbac module
-
-## storage module
-
-## attachment module
-
-## event module
-
-## message module
-
-## dashapi module
-
-## openapi module
- 
-# Appendix - how to import the project to IDEA IDE
-
-> gradle cleanIdea
-> gradle idea
-
-# Appendix - how to debug in IDEA IDE
-
-Create new debug configuration (type of gradle), and pop it with following value.
-
-name | value
------|-----
-Gradle Project | in.clouthink.daas.sbb:dashboard
-Tasks | clean bootRun
-VM Options | <keep it empty>
-Script parameters | -PjvmArgs="-Dspring.config.location=/var/appt/etc/dashboard/application.properties"
+## 源码组织结构
 
 
-# Appendix - configuration
+
+# 参数配置 - configuration
 
 ## app
 
@@ -127,3 +138,24 @@ in.clouthink.daas.sbb.dashboard.administrator.password=
 ```
 in.clouthink.daas.sbb.rbac.resourceFile=resources.json
 ```
+
+
+ 
+# 附录 - 开发环境
+ 
+## IDEA 导入 - how to import the project to IDEA IDE
+
+> gradle cleanIdea
+> gradle idea
+
+## IDEA 调试 - how to debug in IDEA IDE
+
+Create new debug configuration (type of gradle), and pop it with following value.
+
+name | value
+-----|-----
+Gradle Project | in.clouthink.daas.sbb:dashboard
+Tasks | clean bootRun
+VM Options | <keep it empty>
+Script parameters | -PjvmArgs="-Dspring.config.location=/var/appt/etc/dashboard/application.properties"
+
