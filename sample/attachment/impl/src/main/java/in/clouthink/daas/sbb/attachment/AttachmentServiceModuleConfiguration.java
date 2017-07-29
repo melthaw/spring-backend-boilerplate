@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@ComponentScan({"in.clouthink.daas.sbb.attachment"})
-@EnableMongoRepositories({"in.clouthink.daas.sbb.attachment"})
+@ComponentScan({"in.clouthink.daas.sbb.attachment.service", "in.clouthink.daas.sbb.attachment.event"})
+@EnableMongoRepositories({"in.clouthink.daas.sbb.attachment.repository"})
 @EnableConfigurationProperties(AttachmentConfigurationProperties.class)
 public class AttachmentServiceModuleConfiguration {
 

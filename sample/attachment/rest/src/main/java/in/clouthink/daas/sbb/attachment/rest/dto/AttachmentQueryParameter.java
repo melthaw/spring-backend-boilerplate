@@ -1,4 +1,4 @@
-package in.clouthink.daas.sbb.attachment.web.dto;
+package in.clouthink.daas.sbb.attachment.rest.dto;
 
 import in.clouthink.daas.sbb.attachment.domain.request.AttachmentQueryRequest;
 import in.clouthink.daas.sbb.shared.domain.request.impl.DateRangedQueryParameter;

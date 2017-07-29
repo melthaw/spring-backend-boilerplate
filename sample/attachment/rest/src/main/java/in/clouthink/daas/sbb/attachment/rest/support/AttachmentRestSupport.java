@@ -1,7 +1,7 @@
-package in.clouthink.daas.sbb.attachment.web.support;
+package in.clouthink.daas.sbb.attachment.rest.support;
 
 import in.clouthink.daas.sbb.account.domain.model.SysUser;
-import in.clouthink.daas.sbb.attachment.web.dto.*;
+import in.clouthink.daas.sbb.attachment.rest.dto.*;
 import in.clouthink.daas.sbb.shared.domain.request.impl.PageQueryParameter;
 import in.clouthink.daas.fss.core.FileObject;
 import in.clouthink.daas.fss.rest.UploadFileRequest;

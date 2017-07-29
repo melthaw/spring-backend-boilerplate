@@ -1,6 +1,6 @@
-package in.clouthink.daas.sbb.rest.controller;
+package in.clouthink.daas.sbb.setting.rest.controller;
 
-import in.clouthink.daas.sbb.rest.support.SystemSettingRestSupport;
+import in.clouthink.daas.sbb.setting.rest.support.SystemSettingRestSupport;
 import in.clouthink.daas.sbb.setting.domain.model.SystemSetting;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +29,5 @@ public class SystemSettingRestController {
 	public void updateSystemSetting(@RequestBody SystemSetting updateSystemSetting) {
 		systemSettingRestSupport.updateSystemSetting(updateSystemSetting);
 	}
-
 
 }

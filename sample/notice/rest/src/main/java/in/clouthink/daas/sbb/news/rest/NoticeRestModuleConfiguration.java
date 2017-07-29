@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @ComponentScan({"in.clouthink.daas.sbb.notice.rest"})
 @Import(NoticeServiceModuleConfiguration.class)
-public class NoticeRestApiModuleConfiguration {
+public class NoticeRestModuleConfiguration {
 
 }

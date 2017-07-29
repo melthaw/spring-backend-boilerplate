@@ -1,4 +1,4 @@
-package in.clouthink.daas.sbb.rest.support;
+package in.clouthink.daas.sbb.setting.rest.support;
 
 
 import in.clouthink.daas.sbb.setting.domain.model.SystemSetting;

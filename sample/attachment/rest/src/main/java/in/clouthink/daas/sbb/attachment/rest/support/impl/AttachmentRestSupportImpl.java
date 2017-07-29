@@ -1,4 +1,4 @@
-package in.clouthink.daas.sbb.attachment.web.support.impl;
+package in.clouthink.daas.sbb.attachment.rest.support.impl;
 
 import in.clouthink.daas.sbb.account.domain.model.SysUser;
 import in.clouthink.daas.sbb.attachment.domain.model.Attachment;
@@ -6,8 +6,8 @@ import in.clouthink.daas.sbb.attachment.domain.model.AttachmentDownloadHistory;
 import in.clouthink.daas.sbb.attachment.domain.request.DownloadAttachmentEvent;
 import in.clouthink.daas.sbb.attachment.event.DownloadAttachmentEventObject;
 import in.clouthink.daas.sbb.attachment.service.AttachmentService;
-import in.clouthink.daas.sbb.attachment.web.dto.*;
-import in.clouthink.daas.sbb.attachment.web.support.AttachmentRestSupport;
+import in.clouthink.daas.sbb.attachment.rest.dto.*;
+import in.clouthink.daas.sbb.attachment.rest.support.AttachmentRestSupport;
 import in.clouthink.daas.sbb.shared.domain.request.impl.PageQueryParameter;
 import in.clouthink.daas.sbb.shared.util.ImageUtils;
 import in.clouthink.daas.edm.Edms;
