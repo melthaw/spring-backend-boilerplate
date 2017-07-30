@@ -1,6 +1,7 @@
-package in.clouthink.daas.sbb.security.impl.spring;
+package in.clouthink.daas.sbb.security.impl.auth;
 
 import in.clouthink.daas.sbb.audit.domain.model.AuthEvent;
+import in.clouthink.daas.sbb.security.impl.spring.UserDetails;
 import in.clouthink.daas.sbb.shared.util.UserAgentUtils;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,9 +25,9 @@ public class AuthEventHelper {
 		result.setIpAddress(request.getRemoteAddr());
 		result.setFailureReason(exception + "");
 		try {
-			SysUserDetails user = (SysUserDetails) SecurityContextHolder.getContext()
-																		.getAuthentication()
-																		.getPrincipal();
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+																  .getAuthentication()
+																  .getPrincipal();
 			result.setUserId(user.getUserId());
 			result.setUsername(user.getUsername());
 		}
@@ -48,9 +49,9 @@ public class AuthEventHelper {
 		result.setLoginAt(new Date());
 		result.setIpAddress(request.getRemoteAddr());
 		try {
-			SysUserDetails user = (SysUserDetails) SecurityContextHolder.getContext()
-																		.getAuthentication()
-																		.getPrincipal();
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+																  .getAuthentication()
+																  .getPrincipal();
 			result.setUserId(user.getUserId());
 			result.setUsername(user.getUsername());
 		}

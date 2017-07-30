@@ -18,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 * @param username the account name (may be in email format)
 	 */
 	@Transactional(readOnly = true)
-	public SysUserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
 		if (!StringUtils.isEmpty(username)) {
 			username = username.trim().toLowerCase();
 		}
@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException(String.format("无效的用户名%s", username));
 		}
 
-		return new SysUserDetails(user);
+		return new UserDetails(user);
 	}
 
 }

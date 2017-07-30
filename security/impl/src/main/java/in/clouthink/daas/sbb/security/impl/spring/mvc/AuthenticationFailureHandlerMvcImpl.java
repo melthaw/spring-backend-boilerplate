@@ -2,7 +2,7 @@ package in.clouthink.daas.sbb.security.impl.spring.mvc;
 
 import in.clouthink.daas.sbb.audit.domain.model.AuthEvent;
 import in.clouthink.daas.sbb.audit.service.AuthEventService;
-import in.clouthink.daas.sbb.security.impl.spring.AuthEventHelper;
+import in.clouthink.daas.sbb.security.impl.auth.AuthEventHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

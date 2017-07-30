@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.security.impl.audit;
 
-import in.clouthink.daas.sbb.security.impl.spring.SysUserDetails;
+import in.clouthink.daas.sbb.security.impl.spring.UserDetails;
 import in.clouthink.daas.audit.security.SecurityContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,8 +18,8 @@ public class SecurityContextImpl implements SecurityContext {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication != null) {
 			Object principal = authentication.getPrincipal();
-			if (principal instanceof SysUserDetails) {
-				return ((SysUserDetails) principal).getUsername();
+			if (principal instanceof UserDetails) {
+				return ((UserDetails) principal).getUsername();
 			}
 		}
 

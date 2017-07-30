@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.security.impl.spring.rest;
 
 import in.clouthink.daas.sbb.audit.service.AuthEventService;
-import in.clouthink.daas.sbb.security.impl.spring.AuthEventHelper;
+import in.clouthink.daas.sbb.security.impl.auth.AuthEventHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;

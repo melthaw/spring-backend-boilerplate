@@ -19,8 +19,8 @@ public class SecurityContextImpl implements SecurityContext {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication != null) {
 			Object principal = authentication.getPrincipal();
-			if (principal instanceof SysUserDetails) {
-				return ((SysUserDetails) principal).getUser();
+			if (principal instanceof UserDetails) {
+				return ((UserDetails) principal).getUser();
 			}
 		}
 

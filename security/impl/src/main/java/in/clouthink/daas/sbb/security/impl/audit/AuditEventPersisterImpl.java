@@ -1,13 +1,14 @@
 package in.clouthink.daas.sbb.security.impl.audit;
 
+import in.clouthink.daas.audit.spi.AuditEventPersister;
 import in.clouthink.daas.sbb.audit.domain.model.AuditEvent;
 import in.clouthink.daas.sbb.audit.repository.AuditEventRepository;
-import in.clouthink.daas.audit.spi.AuditEventPersister;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class AuditEventPersisterImpl implements AuditEventPersister {
 
 	@Autowired

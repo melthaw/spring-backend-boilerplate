@@ -5,11 +5,11 @@ import in.clouthink.daas.sbb.account.domain.model.User;
 /**
  *
  */
-public class SysUserDetails extends org.springframework.security.core.userdetails.User {
+public class UserDetails extends org.springframework.security.core.userdetails.User {
 
 	private User user;
 
-	public SysUserDetails(User user) {
+	public UserDetails(User user) {
 		super(user.getUsername(),
 			  user.getPassword(),
 			  user.isEnabled(),
