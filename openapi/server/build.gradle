@@ -24,12 +24,7 @@ dependencies {
 	compile libs.daas
 
 	compile project(':shared')
-	compile project(':account')
-	compile project(':settingImpl')
-	compile project(':audit')
-	compile project(':openapi')
-	compile project(':storage')
-	compile project(':securityFrontendImpl')
+ 
 }
 
 bootRun {

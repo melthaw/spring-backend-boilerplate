@@ -47,3 +47,6 @@ include 'sample/notice/rest'
 include 'sample/attachment/core'
 include 'sample/attachment/impl'
 include 'sample/attachment/rest'
+
+include 'openapi/doc'
+include 'openapi/server'

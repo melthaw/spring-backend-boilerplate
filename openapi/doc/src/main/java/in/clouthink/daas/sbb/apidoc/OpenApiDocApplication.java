@@ -22,9 +22,7 @@ public class OpenApiDocApplication extends SpringBootServletInitializer {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(new Object[]{RepositoryModuleConfiguration.class,
-										   ServiceModuleConfiguration.class,
-										   OpenApiModuleConfiguration.class,
+		SpringApplication.run(new Object[]{
 										   OpenApiDocApplication.class,
 										   SpringfoxConfiguration.class}, args);
 	}

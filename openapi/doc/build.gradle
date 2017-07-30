@@ -24,12 +24,6 @@ dependencies {
     compile libs.springBootTomcat
 
     compile project(':shared')
-    compile project(':domain')
-    compile project(':repository')
-    compile project(':repositoryImpl')
-    compile project(':service')
-    compile project(':serviceImpl')
-    compile project(':openapi')
 }
 
 bootRun {
