@@ -6,8 +6,9 @@ import org.springframework.scheduling.annotation.Async;
 import java.util.Date;
 
 /**
+ * The statistics service for auth event
  */
-public interface AdvancedAuthEventService {
+public interface AuthEventStatisticsService {
 
 	/**
 	 * 以天为单位统计数据

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@ComponentScan({"in.clouthink.daas.sbb.account.service"})
+@ComponentScan({"in.clouthink.daas.sbb.account.service", "in.clouthink.daas.sbb.account.repository"})
 @EnableMongoRepositories({"in.clouthink.daas.sbb.account.repository"})
 @EnableConfigurationProperties(AccountConfigurationProperties.class)
 public class AccountServiceModuleConfiguration {

@@ -1,5 +1,7 @@
 package in.clouthink.daas.sbb.audit.service.impl;
 
+import in.clouthink.daas.audit.spi.AuditEventDispatcher;
+import in.clouthink.daas.edm.Edms;
 import in.clouthink.daas.sbb.audit.domain.model.AuthEvent;
 import in.clouthink.daas.sbb.audit.domain.request.AuthEventQueryRequest;
 import in.clouthink.daas.sbb.audit.event.RemoveEventConstants;
@@ -9,8 +11,6 @@ import in.clouthink.daas.sbb.audit.repository.AuthEventRepository;
 import in.clouthink.daas.sbb.audit.service.AuthEventService;
 import in.clouthink.daas.sbb.shared.DomainConstants;
 import in.clouthink.daas.sbb.shared.util.DateTimeUtils;
-import in.clouthink.daas.audit.spi.AuditEventDispatcher;
-import in.clouthink.daas.edm.Edms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -18,9 +18,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
-/**
- *
- */
 @Service
 public class AuthEventServiceImpl implements AuthEventService {
 

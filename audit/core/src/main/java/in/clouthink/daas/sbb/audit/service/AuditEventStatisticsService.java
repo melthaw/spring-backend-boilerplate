@@ -6,8 +6,9 @@ import org.springframework.scheduling.annotation.Async;
 import java.util.Date;
 
 /**
+ * the statistics service for audit event
  */
-public interface AdvancedAuditEventService {
+public interface AuditEventStatisticsService {
 
 	/**
 	 * 以天为单位统计数据

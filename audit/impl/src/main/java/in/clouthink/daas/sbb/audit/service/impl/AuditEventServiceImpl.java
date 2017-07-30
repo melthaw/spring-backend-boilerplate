@@ -18,8 +18,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
-/**
- */
 @Service
 public class AuditEventServiceImpl implements AuditEventService {
 

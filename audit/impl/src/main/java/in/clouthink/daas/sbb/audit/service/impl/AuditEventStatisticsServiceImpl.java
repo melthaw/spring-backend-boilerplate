@@ -7,7 +7,7 @@ import in.clouthink.daas.sbb.audit.domain.model.AuditEventAggregation;
 import in.clouthink.daas.sbb.audit.exception.AuditEventException;
 import in.clouthink.daas.sbb.audit.repository.AuditEventAggregationRepository;
 import in.clouthink.daas.sbb.audit.repository.AuditEventRepository;
-import in.clouthink.daas.sbb.audit.service.AdvancedAuditEventService;
+import in.clouthink.daas.sbb.audit.service.AuditEventStatisticsService;
 import in.clouthink.daas.sbb.shared.DomainConstants;
 import in.clouthink.daas.sbb.shared.util.DateTimeUtils;
 import org.apache.commons.logging.Log;
@@ -20,13 +20,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author dz
- */
 @Service
-public class AdvancedAuditEventServiceImpl implements AdvancedAuditEventService {
+public class AuditEventStatisticsServiceImpl implements AuditEventStatisticsService {
 
-	private static final Log logger = LogFactory.getLog(AdvancedAuditEventServiceImpl.class);
+	private static final Log logger = LogFactory.getLog(AuditEventStatisticsServiceImpl.class);
 
 	@Autowired
 	private AuditEventRepository auditEventRepository;
