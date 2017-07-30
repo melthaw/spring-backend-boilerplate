@@ -1,8 +1,8 @@
-package in.clouthink.daas.sbb.dashboard.rest.controller;
+package in.clouthink.daas.sbb.sms.rest.controller;
 
-import in.clouthink.daas.sbb.dashboard.rest.dto.SmsHistoriesQueryParameter;
-import in.clouthink.daas.sbb.dashboard.rest.dto.SmsHistorySummary;
-import in.clouthink.daas.sbb.dashboard.rest.support.SmsHistorySupport;
+import in.clouthink.daas.sbb.sms.rest.dto.SmsHistoriesQueryParameter;
+import in.clouthink.daas.sbb.sms.rest.dto.SmsHistorySummary;
+import in.clouthink.daas.sbb.sms.rest.support.SmsHistorySupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

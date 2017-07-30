@@ -1,7 +1,7 @@
-package in.clouthink.daas.sbb.dashboard.rest.support.impl;
+package in.clouthink.daas.sbb.sms.rest.support.impl;
 
-import in.clouthink.daas.sbb.dashboard.rest.dto.SmsHistorySummary;
-import in.clouthink.daas.sbb.dashboard.rest.support.SmsHistorySupport;
+import in.clouthink.daas.sbb.sms.rest.dto.SmsHistorySummary;
+import in.clouthink.daas.sbb.sms.rest.support.SmsHistorySupport;
 import in.clouthink.daas.sbb.sms.history.domain.model.SmsHistory;
 import in.clouthink.daas.sbb.sms.history.domain.request.SmsHistoryQueryRequest;
 import in.clouthink.daas.sbb.sms.history.service.SmsHistoryService;

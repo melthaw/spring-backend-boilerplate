@@ -1,4 +1,4 @@
-package in.clouthink.daas.sbb.dashboard.rest.dto;
+package in.clouthink.daas.sbb.sms.rest.dto;
 
 import in.clouthink.daas.sbb.sms.history.domain.model.SmsHistory;
 import org.springframework.beans.BeanUtils;

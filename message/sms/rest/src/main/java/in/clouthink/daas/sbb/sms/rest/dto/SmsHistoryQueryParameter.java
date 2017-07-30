@@ -1,10 +1,13 @@
-package in.clouthink.daas.sbb.dashboard.rest.dto;
+package in.clouthink.daas.sbb.sms.rest.dto;
+
 
 import in.clouthink.daas.sbb.shared.domain.request.impl.DateRangedQueryParameter;
 import in.clouthink.daas.sbb.sms.history.domain.model.SmsHistory;
 import in.clouthink.daas.sbb.sms.history.domain.request.SmsHistoryQueryRequest;
+import io.swagger.annotations.ApiModel;
 
-public class SmsHistoriesQueryParameter extends DateRangedQueryParameter implements SmsHistoryQueryRequest {
+@ApiModel
+public class SmsHistoryQueryParameter extends DateRangedQueryParameter implements SmsHistoryQueryRequest {
 
 	private String cellphone;
 
@@ -12,7 +15,6 @@ public class SmsHistoriesQueryParameter extends DateRangedQueryParameter impleme
 
 	private SmsHistory.SmsStatus status;
 
-	@Override
 	public String getCellphone() {
 		return cellphone;
 	}
@@ -21,7 +23,6 @@ public class SmsHistoriesQueryParameter extends DateRangedQueryParameter impleme
 		this.cellphone = cellphone;
 	}
 
-	@Override
 	public String getCategory() {
 		return category;
 	}
@@ -30,7 +31,6 @@ public class SmsHistoriesQueryParameter extends DateRangedQueryParameter impleme
 		this.category = category;
 	}
 
-	@Override
 	public SmsHistory.SmsStatus getStatus() {
 		return status;
 	}

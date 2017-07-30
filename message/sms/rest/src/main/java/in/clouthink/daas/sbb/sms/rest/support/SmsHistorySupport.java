@@ -1,6 +1,6 @@
-package in.clouthink.daas.sbb.dashboard.rest.support;
+package in.clouthink.daas.sbb.sms.rest.support;
 
-import in.clouthink.daas.sbb.dashboard.rest.dto.SmsHistorySummary;
+import in.clouthink.daas.sbb.sms.rest.dto.SmsHistorySummary;
 import in.clouthink.daas.sbb.sms.history.domain.request.SmsHistoryQueryRequest;
 import org.springframework.data.domain.Page;
 
