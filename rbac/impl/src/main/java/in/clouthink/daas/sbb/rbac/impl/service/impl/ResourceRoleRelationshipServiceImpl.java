@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.impl.service.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
+import in.clouthink.daas.sbb.account.domain.model.ExtRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.account.service.RoleService;
 import in.clouthink.daas.sbb.rbac.impl.model.ResourceRoleRelationship;
@@ -92,7 +92,7 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 			String role = relationship.getRoleCode();
 			TypedCode typedCode = roleParser.parse(role.toUpperCase());
 			if (TypedRole.isAppRole(typedCode.getType())) {
-				SysExtRole appRole = roleService.findByCode(typedCode.getCode());
+				ExtRole appRole = roleService.findByCode(typedCode.getCode());
 				if (appRole != null) {
 					return appRole;
 				}

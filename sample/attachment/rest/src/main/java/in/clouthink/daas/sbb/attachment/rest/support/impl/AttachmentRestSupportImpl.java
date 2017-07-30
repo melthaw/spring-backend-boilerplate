@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.attachment.rest.support.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.attachment.domain.model.Attachment;
 import in.clouthink.daas.sbb.attachment.domain.model.AttachmentDownloadHistory;
 import in.clouthink.daas.sbb.attachment.domain.request.DownloadAttachmentEvent;
@@ -74,27 +74,27 @@ public class AttachmentRestSupportImpl implements AttachmentRestSupport, Initial
 	}
 
 	@Override
-	public String createAttachment(SaveAttachmentParameter request, SysUser user) {
+	public String createAttachment(SaveAttachmentParameter request, User user) {
 		return attachmentService.createAttachment(request, user).getId();
 	}
 
 	@Override
-	public void updateAttachment(String id, SaveAttachmentParameter request, SysUser user) {
+	public void updateAttachment(String id, SaveAttachmentParameter request, User user) {
 		attachmentService.updateAttachment(id, request, user);
 	}
 
 	@Override
-	public void deleteAttachment(String id, SysUser user) {
+	public void deleteAttachment(String id, User user) {
 		attachmentService.deleteAttachment(id, user);
 	}
 
 	@Override
-	public void publishAttachment(String id, SysUser user) {
+	public void publishAttachment(String id, User user) {
 		attachmentService.publishAttachment(id, user);
 	}
 
 	@Override
-	public void unpublishAttachment(String id, SysUser user) {
+	public void unpublishAttachment(String id, User user) {
 		attachmentService.unpublishAttachment(id, user);
 	}
 
@@ -110,7 +110,7 @@ public class AttachmentRestSupportImpl implements AttachmentRestSupport, Initial
 	}
 
 	@Override
-	public void downloadAttachment(String id, SysUser user, HttpServletResponse response) throws IOException {
+	public void downloadAttachment(String id, User user, HttpServletResponse response) throws IOException {
 		Attachment attachment = attachmentService.findAttachmentById(id);
 		if (attachment == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);

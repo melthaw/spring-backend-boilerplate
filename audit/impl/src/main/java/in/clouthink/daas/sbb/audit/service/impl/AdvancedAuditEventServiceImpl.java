@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.audit.service.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.audit.domain.model.AggregationType;
 import in.clouthink.daas.sbb.audit.domain.model.AuditEvent;
 import in.clouthink.daas.sbb.audit.domain.model.AuditEventAggregation;
@@ -119,7 +119,7 @@ public class AdvancedAuditEventServiceImpl implements AdvancedAuditEventService 
 
 
 	@Override
-	public void scanAllAuditEventsAndDoStatistics(String realm, SysUser byWho) {
+	public void scanAllAuditEventsAndDoStatistics(String realm, User byWho) {
 		if (StringUtils.isEmpty(realm)) {
 			return;
 		}

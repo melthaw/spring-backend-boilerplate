@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.attachment.service.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.attachment.domain.model.Attachment;
 import in.clouthink.daas.sbb.attachment.domain.model.AttachmentDownloadHistory;
 import in.clouthink.daas.sbb.attachment.domain.request.AttachmentQueryRequest;
@@ -48,7 +48,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	@Override
-	public Attachment createAttachment(SaveAttachmentRequest request, SysUser user) {
+	public Attachment createAttachment(SaveAttachmentRequest request, User user) {
 		checkSaveAttachmentRequest(request);
 
 		Attachment attachment = new Attachment();
@@ -62,7 +62,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	@Override
-	public void updateAttachment(String id, SaveAttachmentRequest request, SysUser user) {
+	public void updateAttachment(String id, SaveAttachmentRequest request, User user) {
 		checkSaveAttachmentRequest(request);
 
 		Attachment attachment = attachmentRepository.findById(id);
@@ -79,7 +79,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	@Override
-	public void deleteAttachment(String id, SysUser user) {
+	public void deleteAttachment(String id, User user) {
 		Attachment attachment = attachmentRepository.findById(id);
 		if (attachment == null) {
 			throw new AttachmentNotFoundException(id);
@@ -102,7 +102,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	@Override
-	public void markAttachmentAsDownloaded(Attachment attachment, SysUser user) {
+	public void markAttachmentAsDownloaded(Attachment attachment, User user) {
 		AttachmentDownloadHistory attachmentDownloadHistory = attachmentDownloadHistoryRepository.findByAttachmentAndDownloadedBy(
 				attachment,
 				user);
@@ -119,7 +119,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	@Override
-	public boolean isAttachmentDownloadedByUser(Attachment attachment, SysUser user) {
+	public boolean isAttachmentDownloadedByUser(Attachment attachment, User user) {
 		return attachmentDownloadHistoryRepository.findByAttachmentAndDownloadedBy(attachment, user) != null;
 	}
 
@@ -129,7 +129,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	@Override
-	public void publishAttachment(String id, SysUser user) {
+	public void publishAttachment(String id, User user) {
 		Attachment attachment = attachmentRepository.findById(id);
 		if (attachment == null) {
 			throw new AttachmentNotFoundException(id);
@@ -144,7 +144,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	@Override
-	public void unpublishAttachment(String id, SysUser user) {
+	public void unpublishAttachment(String id, User user) {
 		Attachment attachment = attachmentRepository.findById(id);
 		if (attachment == null) {
 			throw new AttachmentNotFoundException(id);

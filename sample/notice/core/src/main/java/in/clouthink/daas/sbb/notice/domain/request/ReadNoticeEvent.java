@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.notice.domain.request;
 
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.notice.domain.model.Notice;
 
 /**
@@ -12,6 +12,6 @@ public interface ReadNoticeEvent {
 
 	Notice getNotice();
 
-	SysUser getUser();
+	User getUser();
 
 }

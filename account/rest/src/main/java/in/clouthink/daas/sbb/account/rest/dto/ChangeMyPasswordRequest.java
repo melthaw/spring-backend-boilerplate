@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModel;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ApiModel
+@ApiModel("修改当前用户密码")
 public class ChangeMyPasswordRequest {
 
 	private String oldPassword;

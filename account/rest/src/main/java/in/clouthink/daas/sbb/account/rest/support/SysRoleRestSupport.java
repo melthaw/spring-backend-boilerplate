@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.account.rest.support;
 
-import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.account.domain.request.RoleQueryRequest;
 import in.clouthink.daas.sbb.account.rest.dto.*;
 import org.springframework.data.domain.Page;
@@ -10,23 +10,23 @@ import java.util.List;
 
 public interface SysRoleRestSupport {
 
-	List<RoleSummary> getSysRoles(SysUser byWho);
+	List<RoleSummary> getSysRoles(User byWho);
 
-	List<RoleSummary> getSysRoles4Privilege(SysUser byWho);
+	List<RoleSummary> getSysRoles4Privilege(User byWho);
 
-	Page<SysUserSummary> getUsersBySysRoleId(String roleId, SysUserQueryParameter request, SysUser byWho);
+	Page<UserSummary> getUsersBySysRoleId(String roleId, UserQueryParameter request, User byWho);
 
-	void bindUsers4SysRole(String id, UsersForRoleParameter request, SysUser byWho);
+	void bindUsers4SysRole(String id, UsersForRoleParameter request, User byWho);
 
-	void unBindUsers4SysRole(String id, UsersForRoleParameter request, SysUser byWho);
+	void unBindUsers4SysRole(String id, UsersForRoleParameter request, User byWho);
 
 	Page<RoleSummary> getAppRoles(RoleQueryRequest request);
 
 	List<RoleSummary> getAppRolesList();
 
-	Page<SysUserSummary> getUsersByAppRoleId(String roleId, SysUserQueryParameter request);
+	Page<UserSummary> getUsersByAppRoleId(String roleId, UserQueryParameter request);
 
-	SysExtRole createAppRole(SaveRoleParameter request);
+	ExtRole createAppRole(SaveRoleParameter request);
 
 	void updateAppRole(String id, SaveRoleParameter request);
 

@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.news.rest.support.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.news.rest.dto.*;
 import in.clouthink.daas.sbb.news.rest.support.NoticeRestSupport;
 import in.clouthink.daas.sbb.notice.domain.model.Notice;
@@ -38,27 +38,27 @@ public class NoticeRestSupportImpl implements NoticeRestSupport {
 	}
 
 	@Override
-	public String createNotice(SaveNoticeParameter request, SysUser user) {
+	public String createNotice(SaveNoticeParameter request, User user) {
 		return noticeService.createNotice(request, user).getId();
 	}
 
 	@Override
-	public void updateNotice(String id, SaveNoticeParameter request, SysUser user) {
+	public void updateNotice(String id, SaveNoticeParameter request, User user) {
 		noticeService.updateNotice(id, request, user);
 	}
 
 	@Override
-	public void deleteNotice(String id, SysUser user) {
+	public void deleteNotice(String id, User user) {
 		noticeService.deleteNotice(id, user);
 	}
 
 	@Override
-	public void publishNotice(String id, SysUser user) {
+	public void publishNotice(String id, User user) {
 		noticeService.publishNotice(id, user);
 	}
 
 	@Override
-	public void unpublishNotice(String id, SysUser user) {
+	public void unpublishNotice(String id, User user) {
 		noticeService.unpublishNotice(id, user);
 	}
 

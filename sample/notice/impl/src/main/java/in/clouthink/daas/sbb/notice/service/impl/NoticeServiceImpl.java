@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.notice.service.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.notice.domain.model.Notice;
 import in.clouthink.daas.sbb.notice.domain.model.NoticeReadHistory;
 import in.clouthink.daas.sbb.notice.domain.request.NoticeQueryRequest;
@@ -43,7 +43,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public Notice createNotice(SaveNoticeRequest request, SysUser user) {
+	public Notice createNotice(SaveNoticeRequest request, User user) {
 		checkSaveNoticeRequest(request);
 
 		Notice notice = new Notice();
@@ -57,7 +57,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void updateNotice(String id, SaveNoticeRequest request, SysUser user) {
+	public void updateNotice(String id, SaveNoticeRequest request, User user) {
 		checkSaveNoticeRequest(request);
 
 		Notice notice = noticeRepository.findById(id);
@@ -74,12 +74,12 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void deleteNotice(String id, SysUser user) {
+	public void deleteNotice(String id, User user) {
 		noticeRepository.delete(id);
 	}
 
 	@Override
-	public void markNoticeAsRead(Notice notice, SysUser user) {
+	public void markNoticeAsRead(Notice notice, User user) {
 		NoticeReadHistory noticeReadHistory = noticeReadHistoryRepository.findByNoticeAndReadBy(notice, user);
 		if (noticeReadHistory == null) {
 			noticeReadHistory = new NoticeReadHistory();
@@ -94,7 +94,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public boolean isNoticeReadByUser(Notice notice, SysUser user) {
+	public boolean isNoticeReadByUser(Notice notice, User user) {
 		return noticeReadHistoryRepository.findByNoticeAndReadBy(notice, user) != null;
 	}
 
@@ -104,7 +104,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void publishNotice(String id, SysUser user) {
+	public void publishNotice(String id, User user) {
 		Notice notice = noticeRepository.findById(id);
 		if (notice == null) {
 			throw new NoticeNotFoundException();
@@ -116,7 +116,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void unpublishNotice(String id, SysUser user) {
+	public void unpublishNotice(String id, User user) {
 		Notice notice = noticeRepository.findById(id);
 		if (notice == null) {
 			throw new NoticeNotFoundException();

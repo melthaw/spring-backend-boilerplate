@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.notice.domain.model;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.shared.domain.model.StringIdentifier;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -26,13 +26,13 @@ public class Notice extends StringIdentifier {
 
 	@Indexed
 	@DBRef
-	private SysUser createdBy;
+	private User createdBy;
 
 	@Indexed
 	private Date createdAt;
 
 	@DBRef
-	private SysUser modifiedBy;
+	private User modifiedBy;
 
 	@Indexed
 	private Date modifiedAt;
@@ -44,7 +44,7 @@ public class Notice extends StringIdentifier {
 
 	@Indexed
 	@DBRef
-	private SysUser publishedBy;
+	private User publishedBy;
 
 	@Indexed
 	private Date publishedAt;
@@ -81,11 +81,11 @@ public class Notice extends StringIdentifier {
 		this.content = content;
 	}
 
-	public SysUser getCreatedBy() {
+	public User getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(SysUser createdBy) {
+	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -97,11 +97,11 @@ public class Notice extends StringIdentifier {
 		this.createdAt = createdAt;
 	}
 
-	public SysUser getModifiedBy() {
+	public User getModifiedBy() {
 		return modifiedBy;
 	}
 
-	public void setModifiedBy(SysUser modifiedBy) {
+	public void setModifiedBy(User modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
@@ -129,11 +129,11 @@ public class Notice extends StringIdentifier {
 		this.readCounter = readCounter;
 	}
 
-	public SysUser getPublishedBy() {
+	public User getPublishedBy() {
 		return publishedBy;
 	}
 
-	public void setPublishedBy(SysUser publishedBy) {
+	public void setPublishedBy(User publishedBy) {
 		this.publishedBy = publishedBy;
 	}
 

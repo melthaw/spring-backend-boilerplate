@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.news.service;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.news.domain.model.News;
 import in.clouthink.daas.sbb.news.domain.model.NewsReadHistory;
 import in.clouthink.daas.sbb.news.domain.request.NewsQueryRequest;
@@ -17,26 +17,26 @@ public interface NewsService {
 
 	News findNewsById(String id);
 
-	void markNewsAsRead(News news, SysUser user);
+	void markNewsAsRead(News news, User user);
 
-	boolean isNewsReadBySysUser(News news, SysUser user);
+	boolean isNewsReadBySysUser(News news, User user);
 
 	int countNewsReadHistory(News news);
 
-	News createNews(SaveNewsRequest news, SysUser user);
+	News createNews(SaveNewsRequest news, User user);
 
-	void updateNews(String id, SaveNewsRequest news, SysUser user);
+	void updateNews(String id, SaveNewsRequest news, User user);
 
-	void deleteNews(String id, SysUser user);
+	void deleteNews(String id, User user);
 
-	void publishNews(String id, SysUser user);
+	void publishNews(String id, User user);
 
-	void unpublishNews(String id, SysUser user);
+	void unpublishNews(String id, User user);
 
 	Page<NewsReadHistory> listReadHistory(String id, PageQueryRequest queryRequest);
 
 	String getImageFileObjectId(News news);
 
-	public void deleteAttachment(String id, String fileId, SysUser user);
+	public void deleteAttachment(String id, String fileId, User user);
 
 }

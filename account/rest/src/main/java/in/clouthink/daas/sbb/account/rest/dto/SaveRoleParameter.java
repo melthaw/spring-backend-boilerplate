@@ -1,7 +1,11 @@
 package in.clouthink.daas.sbb.account.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import in.clouthink.daas.sbb.account.domain.request.SaveRoleRequest;
+import io.swagger.annotations.ApiModel;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@ApiModel("保存角色申请")
 public class SaveRoleParameter implements SaveRoleRequest {
 
 	private String code;

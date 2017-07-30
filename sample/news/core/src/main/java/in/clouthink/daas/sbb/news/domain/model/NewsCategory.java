@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.news.domain.model;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.shared.domain.model.StringIdentifier;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -18,7 +18,7 @@ public class NewsCategory extends StringIdentifier {
 
 	@Indexed
 	@DBRef
-	private SysUser createdBy;
+	private User createdBy;
 
 	private Date createdAt;
 
@@ -30,11 +30,11 @@ public class NewsCategory extends StringIdentifier {
 		this.value = value;
 	}
 
-	public SysUser getCreatedBy() {
+	public User getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(SysUser createdBy) {
+	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
 	}
 

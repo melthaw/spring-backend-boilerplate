@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.attachment.domain.model;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.shared.domain.model.StringIdentifier;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -20,7 +20,7 @@ public class AttachmentDownloadHistory extends StringIdentifier {
 
 	@Indexed
 	@DBRef(lazy = true)
-	private SysUser downloadedBy;
+	private User downloadedBy;
 
 	private Date downloadedAt;
 
@@ -34,11 +34,11 @@ public class AttachmentDownloadHistory extends StringIdentifier {
 		this.attachment = attachment;
 	}
 
-	public SysUser getDownloadedBy() {
+	public User getDownloadedBy() {
 		return downloadedBy;
 	}
 
-	public void setDownloadedBy(SysUser downloadedBy) {
+	public void setDownloadedBy(User downloadedBy) {
 		this.downloadedBy = downloadedBy;
 	}
 

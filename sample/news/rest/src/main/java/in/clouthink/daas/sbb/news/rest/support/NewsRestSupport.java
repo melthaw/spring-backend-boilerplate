@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.news.rest.support;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.news.rest.dto.*;
 import in.clouthink.daas.sbb.shared.domain.request.impl.PageQueryParameter;
 import org.springframework.data.domain.Page;
@@ -14,17 +14,17 @@ public interface NewsRestSupport {
 
 	NewsDetail getNewsDetail(String id);
 
-	String createNews(SaveNewsParameter request, SysUser user);
+	String createNews(SaveNewsParameter request, User user);
 
-	void updateNews(String id, SaveNewsParameter request, SysUser user);
+	void updateNews(String id, SaveNewsParameter request, User user);
 
-	void deleteNews(String id, SysUser user);
+	void deleteNews(String id, User user);
 
-	void publishNews(String id, SysUser user);
+	void publishNews(String id, User user);
 
-	void unpublishNews(String id, SysUser user);
+	void unpublishNews(String id, User user);
 
 	Page<ReadSummary> listReadHistory(String id, PageQueryParameter queryParameter);
 
-	void deleteAttachment(String id, String fileId, SysUser user);
+	void deleteAttachment(String id, String fileId, User user);
 }

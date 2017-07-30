@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.account.rest.support;
 
-import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
+import in.clouthink.daas.sbb.account.domain.model.ExtRole;
 import in.clouthink.daas.sbb.account.domain.request.RoleQueryRequest;
 import in.clouthink.daas.sbb.account.rest.dto.*;
 import org.springframework.data.domain.Page;
@@ -17,11 +17,11 @@ public interface ExtRoleRestSupport {
 
 	List<RoleSummary> getAppRolesList();
 
-	Page<SysUserSummary> getUsersBySysRoleId(String roleId, SysUserQueryParameter request);
+	Page<UserSummary> getUsersBySysRoleId(String roleId, UserQueryParameter request);
 
-	Page<SysUserSummary> getUsersByAppRoleId(String roleId, SysUserQueryParameter request);
+	Page<UserSummary> getUsersByAppRoleId(String roleId, UserQueryParameter request);
 
-	SysExtRole createAppRole(SaveRoleParameter request);
+	ExtRole createAppRole(SaveRoleParameter request);
 
 	void updateAppRole(String id, SaveRoleParameter request);
 

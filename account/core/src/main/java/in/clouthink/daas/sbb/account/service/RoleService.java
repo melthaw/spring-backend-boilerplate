@@ -1,27 +1,27 @@
 package in.clouthink.daas.sbb.account.service;
 
-import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.account.domain.request.RoleQueryRequest;
 import in.clouthink.daas.sbb.account.domain.request.SaveRoleRequest;
-import in.clouthink.daas.sbb.account.domain.request.SysUserQueryRequest;
+import in.clouthink.daas.sbb.account.domain.request.UserQueryRequest;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface RoleService {
     
-    Page<SysExtRole> listAppRoles(RoleQueryRequest request);
+    Page<ExtRole> listAppRoles(RoleQueryRequest request);
 
-    List<SysExtRole> listAppRoles();
+    List<ExtRole> listAppRoles();
 
-    Page<SysUser> listBindUsers(String id, SysUserQueryRequest request);
+    Page<User> listBindUsers(String id, UserQueryRequest request);
     
-    SysExtRole findById(String id);
+    ExtRole findById(String id);
 
-    SysExtRole findByCode(String code);
+    ExtRole findByCode(String code);
 
-    SysExtRole createAppRole(SaveRoleRequest request);
+    ExtRole createAppRole(SaveRoleRequest request);
     
     void updateAppRole(String id, SaveRoleRequest request);
     

@@ -3,8 +3,6 @@ package in.clouthink.daas.sbb.account.rest.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-/**
- */
 @ApiModel("用户头像")
 public class AvatarSummary {
 

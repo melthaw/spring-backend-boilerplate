@@ -3,11 +3,8 @@ package in.clouthink.daas.sbb.account.rest.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 
-/**
- * @author dz
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ApiModel
+@ApiModel("忘记用户密码")
 public class ForgetPasswordParameter {
 
 	private String cellphone;

@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.security.impl.spring;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
-import in.clouthink.daas.sbb.account.service.SysUserAccountService;
+import in.clouthink.daas.sbb.account.domain.model.User;
+import in.clouthink.daas.sbb.account.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private SysUserAccountService accountService;
+	private AccountService accountService;
 
 	/**
 	 * @param username the account name (may be in email format)
@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (!StringUtils.isEmpty(username)) {
 			username = username.trim().toLowerCase();
 		}
-		SysUser user = accountService.findAccountByUsername(username);
+		User user = accountService.findAccountByUsername(username);
 
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format("无效的用户名%s", username));

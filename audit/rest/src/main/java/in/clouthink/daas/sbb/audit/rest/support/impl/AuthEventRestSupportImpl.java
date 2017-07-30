@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.audit.rest.support.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.audit.domain.model.AuthEvent;
 import in.clouthink.daas.sbb.audit.rest.support.AuthEventRestSupport;
 import in.clouthink.daas.sbb.audit.service.AuthEventService;
@@ -31,7 +31,7 @@ public class AuthEventRestSupportImpl implements AuthEventRestSupport {
 	}
 
 	@Override
-	public void deleteAuthEventsByDay(String realm, Date day, SysUser byWho) {
+	public void deleteAuthEventsByDay(String realm, Date day, User byWho) {
 		if (!"administrator".equals(byWho.getUsername())) {
 			throw new RuntimeException("只有超级管理员能删除用户登录审计数据.");
 		}
@@ -40,7 +40,7 @@ public class AuthEventRestSupportImpl implements AuthEventRestSupport {
 	}
 
 	@Override
-	public void deleteAuthEventsBeforeDay(String realm, Date day, SysUser byWho) {
+	public void deleteAuthEventsBeforeDay(String realm, Date day, User byWho) {
 		if (!"administrator".equals(byWho.getUsername())) {
 			throw new RuntimeException("只有超级管理员能删除用户登录审计数据.");
 		}

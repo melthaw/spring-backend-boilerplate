@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.news.domain.request;
 
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.news.domain.model.News;
 
 /**
@@ -12,6 +12,6 @@ public interface ReadNewsEvent {
 
 	News getNews();
 
-	SysUser getUser();
+	User getUser();
 
 }

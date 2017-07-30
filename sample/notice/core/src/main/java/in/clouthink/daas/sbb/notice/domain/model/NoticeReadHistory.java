@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.notice.domain.model;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.shared.domain.model.StringIdentifier;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -20,7 +20,7 @@ public class NoticeReadHistory extends StringIdentifier {
 
 	@Indexed
 	@DBRef(lazy = true)
-	private SysUser readBy;
+	private User readBy;
 
 	private Date readAt;
 
@@ -34,11 +34,11 @@ public class NoticeReadHistory extends StringIdentifier {
 		this.notice = notice;
 	}
 
-	public SysUser getReadBy() {
+	public User getReadBy() {
 		return readBy;
 	}
 
-	public void setReadBy(SysUser readBy) {
+	public void setReadBy(User readBy) {
 		this.readBy = readBy;
 	}
 

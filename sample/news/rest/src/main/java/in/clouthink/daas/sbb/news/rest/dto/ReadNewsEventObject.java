@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.news.rest.dto;
 
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.news.domain.model.News;
 import in.clouthink.daas.sbb.news.domain.request.ReadNewsEvent;
 
@@ -11,9 +11,9 @@ public class ReadNewsEventObject implements ReadNewsEvent {
 
 	private News news;
 
-	private SysUser user;
+	private User user;
 
-	public ReadNewsEventObject(News news, SysUser user) {
+	public ReadNewsEventObject(News news, User user) {
 		this.news = news;
 		this.user = user;
 	}
@@ -24,7 +24,7 @@ public class ReadNewsEventObject implements ReadNewsEvent {
 	}
 
 	@Override
-	public SysUser getUser() {
+	public User getUser() {
 		return user;
 	}
 }

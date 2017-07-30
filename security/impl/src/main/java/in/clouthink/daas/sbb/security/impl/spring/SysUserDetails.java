@@ -1,16 +1,15 @@
 package in.clouthink.daas.sbb.security.impl.spring;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
-import org.springframework.security.core.userdetails.User;
+import in.clouthink.daas.sbb.account.domain.model.User;
 
 /**
  *
  */
-public class SysUserDetails extends User {
+public class SysUserDetails extends org.springframework.security.core.userdetails.User {
 
-	private SysUser user;
+	private User user;
 
-	public SysUserDetails(SysUser user) {
+	public SysUserDetails(User user) {
 		super(user.getUsername(),
 			  user.getPassword(),
 			  user.isEnabled(),
@@ -25,7 +24,7 @@ public class SysUserDetails extends User {
 		return user.getId();
 	}
 
-	public SysUser getUser() {
+	public User getUser() {
 		return user;
 	}
 

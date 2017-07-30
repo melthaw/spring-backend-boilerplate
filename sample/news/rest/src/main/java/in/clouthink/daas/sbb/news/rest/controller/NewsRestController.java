@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.news.rest.controller;
 
 import in.clouthink.daas.sbb.news.rest.support.NewsRestSupport;
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.news.rest.dto.*;
 import in.clouthink.daas.sbb.security.SecurityContexts;
 import in.clouthink.daas.sbb.shared.domain.request.impl.PageQueryParameter;
@@ -37,35 +37,35 @@ public class NewsRestController {
 	@ApiOperation(value = "创建新闻")
 	@RequestMapping(value = "/news", method = RequestMethod.POST)
 	public String createNews(@RequestBody SaveNewsParameter request) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		return newsRestSupport.createNews(request, user);
 	}
 
 	@ApiOperation(value = "修改新闻（已发布的不能修改）")
 	@RequestMapping(value = "/news/{id}", method = RequestMethod.POST)
 	public void updateNew(@PathVariable String id, @RequestBody SaveNewsParameter request) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		newsRestSupport.updateNews(id, request, user);
 	}
 
 	@ApiOperation(value = "删除新闻（已发布的不能删除）")
 	@RequestMapping(value = "/news/{id}", method = RequestMethod.DELETE)
 	public void deleteNews(@PathVariable String id) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		newsRestSupport.deleteNews(id, user);
 	}
 
 	@ApiOperation(value = "发布新闻（重复发布自动忽略）")
 	@RequestMapping(value = "/news/{id}/publish", method = RequestMethod.POST)
 	public void publishNews(@PathVariable String id) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		newsRestSupport.publishNews(id, user);
 	}
 
 	@ApiOperation(value = "取消发布新闻（重复取消自动忽略）")
 	@RequestMapping(value = "/news/{id}/unpublish", method = RequestMethod.POST)
 	public void unpublishNews(@PathVariable String id) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		newsRestSupport.unpublishNews(id, user);
 	}
 
@@ -78,7 +78,7 @@ public class NewsRestController {
 	@ApiOperation(value = "删除新闻附件")
 	@RequestMapping(value = "/news/{id}/files/{fileId}", method = RequestMethod.DELETE)
 	public void deletePaperAttachment(@PathVariable String id, @PathVariable String fileId) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		newsRestSupport.deleteAttachment(id, fileId, user);
 	}
 

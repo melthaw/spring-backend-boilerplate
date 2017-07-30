@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.rbac.rest.support.impl;
 
 import in.clouthink.daas.sbb.account.domain.model.RoleType;
-import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
+import in.clouthink.daas.sbb.account.domain.model.ExtRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.account.service.RoleService;
 import in.clouthink.daas.sbb.rbac.rest.dto.ResourceSummary;
@@ -76,8 +76,8 @@ public class ResourceRoleRelationshipRestSupportImpl implements ResourceRoleRela
 		}
 		for (String typedRoleCode : typedRoleCodes) {
 			TypedCode typedCode = roleCodeParser.parse(typedRoleCode);
-			if (RoleType.APP_ROLE.name().equals(typedCode.getType())) {
-				SysExtRole appRole = roleService.findByCode(typedCode.getCode());
+			if (RoleType.EXT_ROLE.name().equals(typedCode.getType())) {
+				ExtRole appRole = roleService.findByCode(typedCode.getCode());
 				if (appRole != null) {
 					resourceRoleRelationshipService.bindResourceAndRole(code, appRole);
 				}
@@ -98,8 +98,8 @@ public class ResourceRoleRelationshipRestSupportImpl implements ResourceRoleRela
 		}
 		for (String typedRoleCode : typedRoleCodes) {
 			TypedCode typedCode = roleCodeParser.parse(typedRoleCode);
-			if (RoleType.APP_ROLE.name().equals(typedCode.getType())) {
-				SysExtRole appRole = roleService.findByCode(typedCode.getCode());
+			if (RoleType.EXT_ROLE.name().equals(typedCode.getType())) {
+				ExtRole appRole = roleService.findByCode(typedCode.getCode());
 				if (appRole != null) {
 					resourceRoleRelationshipService.unbindResourceAndRole(code, appRole);
 				}

@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import in.clouthink.daas.sbb.account.domain.request.SaveImageRequest;
 import io.swagger.annotations.ApiModel;
 
-/**
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ApiModel
+@ApiModel("保存图片申请")
 public class SaveImageParameter implements SaveImageRequest {
 
 	private String id;

@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.impl.service.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
+import in.clouthink.daas.sbb.account.domain.model.ExtRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.account.service.RoleService;
 import in.clouthink.daas.sbb.rbac.impl.model.ResourceRoleRelationship;
@@ -59,7 +59,7 @@ public class PermissionServiceImpl implements PermissionService {
 							   .collect(Collectors.toSet())
 							   .stream()
 							   .map(roleCode -> {
-								   SysExtRole role = roleService.findByCode(roleCode);
+								   ExtRole role = roleService.findByCode(roleCode);
 								   TypedRole result = TypedRole.newSysRole();
 								   result.setCode(role.getCode());
 								   result.setName(role.getName());

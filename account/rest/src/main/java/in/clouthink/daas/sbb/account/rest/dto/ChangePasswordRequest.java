@@ -3,11 +3,8 @@ package in.clouthink.daas.sbb.account.rest.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 
-/**
- *
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ApiModel
+@ApiModel("修改用户密码")
 public class ChangePasswordRequest {
 
 	private String userId;

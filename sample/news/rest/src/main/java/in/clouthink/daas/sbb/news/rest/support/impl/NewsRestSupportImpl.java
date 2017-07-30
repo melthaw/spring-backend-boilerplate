@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.news.rest.support.impl;
 
 import in.clouthink.daas.sbb.news.rest.support.NewsRestSupport;
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.news.domain.model.News;
 import in.clouthink.daas.sbb.news.domain.model.NewsReadHistory;
 import in.clouthink.daas.sbb.news.rest.dto.*;
@@ -38,27 +38,27 @@ public class NewsRestSupportImpl implements NewsRestSupport {
 	}
 
 	@Override
-	public String createNews(SaveNewsParameter request, SysUser user) {
+	public String createNews(SaveNewsParameter request, User user) {
 		return newsService.createNews(request, user).getId();
 	}
 
 	@Override
-	public void updateNews(String id, SaveNewsParameter request, SysUser user) {
+	public void updateNews(String id, SaveNewsParameter request, User user) {
 		newsService.updateNews(id, request, user);
 	}
 
 	@Override
-	public void deleteNews(String id, SysUser user) {
+	public void deleteNews(String id, User user) {
 		newsService.deleteNews(id, user);
 	}
 
 	@Override
-	public void publishNews(String id, SysUser user) {
+	public void publishNews(String id, User user) {
 		newsService.publishNews(id, user);
 	}
 
 	@Override
-	public void unpublishNews(String id, SysUser user) {
+	public void unpublishNews(String id, User user) {
 		newsService.unpublishNews(id, user);
 	}
 
@@ -71,7 +71,7 @@ public class NewsRestSupportImpl implements NewsRestSupport {
 	}
 
     @Override
-    public void deleteAttachment(String id, String fileId, SysUser user) {
+    public void deleteAttachment(String id, String fileId, User user) {
         newsService.deleteAttachment(id, fileId, user);
     }
 }

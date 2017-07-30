@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.attachment.repository;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.attachment.domain.model.Attachment;
 import in.clouthink.daas.sbb.attachment.domain.model.AttachmentDownloadHistory;
 import in.clouthink.daas.sbb.shared.repository.AbstractRepository;
@@ -14,7 +14,7 @@ public interface AttachmentDownloadHistoryRepository extends AbstractRepository<
 
 	Page<AttachmentDownloadHistory> findByAttachment(Attachment attachment, Pageable pageable);
 
-	AttachmentDownloadHistory findByAttachmentAndDownloadedBy(Attachment attachment, SysUser user);
+	AttachmentDownloadHistory findByAttachmentAndDownloadedBy(Attachment attachment, User user);
 
 	int countByAttachment(Attachment attachment);
 

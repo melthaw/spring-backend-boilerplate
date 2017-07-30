@@ -1,17 +1,19 @@
 package in.clouthink.daas.sbb.account.rest.dto;
 
 import in.clouthink.daas.sbb.account.domain.model.RoleType;
-import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
+import in.clouthink.daas.sbb.account.domain.model.ExtRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
+import io.swagger.annotations.ApiModel;
 
+@ApiModel("角色摘要信息")
 public class RoleSummary {
 
-	public static RoleSummary from(SysExtRole role) {
+	public static RoleSummary from(ExtRole role) {
 		if (role == null) {
 			return null;
 		}
 		RoleSummary result = new RoleSummary();
-		result.setRoleType(RoleType.APP_ROLE);
+		result.setRoleType(RoleType.EXT_ROLE);
 		result.setId(role.getId());
 		result.setCode(role.getCode());
 		result.setName(role.getName());

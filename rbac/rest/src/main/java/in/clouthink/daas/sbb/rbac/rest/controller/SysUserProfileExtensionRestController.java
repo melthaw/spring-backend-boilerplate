@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.rest.controller;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.rbac.rest.dto.MenuSummary;
 import in.clouthink.daas.sbb.rbac.rest.support.SysUserProfileExtensionRestSupport;
 import in.clouthink.daas.sbb.security.SecurityContexts;
@@ -27,7 +27,7 @@ public class SysUserProfileExtensionRestController {
 	@ApiOperation(value = "查看我的菜单(已授权的)")
 	@RequestMapping(value = "/my/menus", method = RequestMethod.GET)
 	public List<MenuSummary> getUserGrantedMenus() {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		return userProfileRestSupport.getUserGrantedMenus(user);
 	}
 

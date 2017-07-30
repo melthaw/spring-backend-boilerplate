@@ -4,9 +4,7 @@ import in.clouthink.daas.sbb.account.domain.request.UsernameQueryRequest;
 import in.clouthink.daas.sbb.shared.domain.request.impl.DateRangedQueryParameter;
 import io.swagger.annotations.ApiModel;
 
-/**
- */
-@ApiModel
+@ApiModel("按用户名查询申请")
 public class UsernamePageQueryParameter extends DateRangedQueryParameter implements UsernameQueryRequest {
 
 	private String username;

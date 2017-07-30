@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.attachment.rest.support;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.attachment.rest.dto.*;
 import in.clouthink.daas.sbb.shared.domain.request.impl.PageQueryParameter;
 import in.clouthink.daas.fss.core.FileObject;
@@ -20,19 +20,19 @@ public interface AttachmentRestSupport {
 
 	AttachmentDetail getAttachmentDetail(String id);
 
-	String createAttachment(SaveAttachmentParameter request, SysUser user);
+	String createAttachment(SaveAttachmentParameter request, User user);
 
-	void updateAttachment(String id, SaveAttachmentParameter request, SysUser user);
+	void updateAttachment(String id, SaveAttachmentParameter request, User user);
 
-	void deleteAttachment(String id, SysUser user);
+	void deleteAttachment(String id, User user);
 
-	void publishAttachment(String id, SysUser user);
+	void publishAttachment(String id, User user);
 
-	void unpublishAttachment(String id, SysUser user);
+	void unpublishAttachment(String id, User user);
 
 	Page<DownloadSummary> listDownloadHistory(String id, PageQueryParameter queryParameter);
 
-	void downloadAttachment(String id, SysUser user, HttpServletResponse response) throws IOException;
+	void downloadAttachment(String id, User user, HttpServletResponse response) throws IOException;
 
 	FileObject uploadAvatar(UploadFileRequest uploadFileRequest,
 							HttpServletRequest request,

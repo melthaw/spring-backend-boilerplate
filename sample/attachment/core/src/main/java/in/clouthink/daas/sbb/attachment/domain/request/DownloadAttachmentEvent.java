@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.attachment.domain.request;
 
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.attachment.domain.model.Attachment;
 
 /**
@@ -13,6 +13,6 @@ public interface DownloadAttachmentEvent {
 
 	Attachment getAttachment();
 
-	SysUser getUser();
+	User getUser();
 
 }

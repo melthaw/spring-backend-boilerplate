@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.rest.support.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.rbac.rest.dto.MenuSummary;
 import in.clouthink.daas.sbb.rbac.rest.support.SysUserProfileExtensionRestSupport;
 import in.clouthink.daas.sbb.rbac.model.ResourceWithChildren;
@@ -18,7 +18,7 @@ public class SysUserProfileExtensionRestSupportImpl implements SysUserProfileExt
 	private PermissionService permissionService;
 
 	@Override
-	public List<MenuSummary> getUserGrantedMenus(SysUser user) {
+	public List<MenuSummary> getUserGrantedMenus(User user) {
 		List<ResourceWithChildren> resourceWithChildren = permissionService.getGrantedResources((List) user.getAuthorities());
 		return resourceWithChildren.stream().map(MenuSummary::from).collect(Collectors.toList());
 	}

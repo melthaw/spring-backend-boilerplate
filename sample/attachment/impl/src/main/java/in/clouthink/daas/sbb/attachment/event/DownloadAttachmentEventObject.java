@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.attachment.event;
 
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.attachment.domain.model.Attachment;
 import in.clouthink.daas.sbb.attachment.domain.request.DownloadAttachmentEvent;
 
@@ -12,9 +12,9 @@ public class DownloadAttachmentEventObject implements DownloadAttachmentEvent {
 
 	private Attachment attachment;
 
-	private SysUser user;
+	private User user;
 
-	public DownloadAttachmentEventObject(Attachment attachment, SysUser user) {
+	public DownloadAttachmentEventObject(Attachment attachment, User user) {
 		this.attachment = attachment;
 		this.user = user;
 	}
@@ -25,7 +25,7 @@ public class DownloadAttachmentEventObject implements DownloadAttachmentEvent {
 	}
 
 	@Override
-	public SysUser getUser() {
+	public User getUser() {
 		return user;
 	}
 

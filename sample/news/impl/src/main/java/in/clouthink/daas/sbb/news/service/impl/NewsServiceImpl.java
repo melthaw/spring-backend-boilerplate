@@ -4,7 +4,7 @@ import in.clouthink.daas.fss.mongodb.model.FileObject;
 import in.clouthink.daas.fss.mongodb.repository.FileObjectRepository;
 import in.clouthink.daas.fss.spi.FileObjectService;
 import in.clouthink.daas.fss.spi.MutableFileObjectService;
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.news.domain.model.News;
 import in.clouthink.daas.sbb.news.domain.model.NewsReadHistory;
 import in.clouthink.daas.sbb.news.domain.request.NewsQueryRequest;
@@ -58,7 +58,7 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public News createNews(SaveNewsRequest request, SysUser user) {
+	public News createNews(SaveNewsRequest request, User user) {
 		checkSaveNewsRequest(request);
 
 		News news = new News();
@@ -73,7 +73,7 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public void updateNews(String id, SaveNewsRequest request, SysUser user) {
+	public void updateNews(String id, SaveNewsRequest request, User user) {
 		checkSaveNewsRequest(request);
 
 		News news = newsRepository.findById(id);
@@ -91,12 +91,12 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public void deleteNews(String id, SysUser user) {
+	public void deleteNews(String id, User user) {
 		newsRepository.delete(id);
 	}
 
 	@Override
-	public void markNewsAsRead(News news, SysUser user) {
+	public void markNewsAsRead(News news, User user) {
 		NewsReadHistory newsReadHistory = newsReadHistoryRepository.findByNewsAndReadBy(news, user);
 		if (newsReadHistory == null) {
 			newsReadHistory = new NewsReadHistory();
@@ -111,7 +111,7 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public boolean isNewsReadBySysUser(News news, SysUser user) {
+	public boolean isNewsReadBySysUser(News news, User user) {
 		return newsReadHistoryRepository.findByNewsAndReadBy(news, user) != null;
 	}
 
@@ -120,7 +120,7 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public void publishNews(String id, SysUser user) {
+	public void publishNews(String id, User user) {
 		News news = newsRepository.findById(id);
 		if (news == null) {
 			throw new NewsNotFoundException();
@@ -138,7 +138,7 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public void unpublishNews(String id, SysUser user) {
+	public void unpublishNews(String id, User user) {
 		News news = newsRepository.findById(id);
 		if (news == null) {
 			throw new NewsNotFoundException();
@@ -172,7 +172,7 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public void deleteAttachment(String id, String fileId, SysUser user) {
+	public void deleteAttachment(String id, String fileId, User user) {
 		News news = newsRepository.findById(id);
 		if (news == null) {
 			throw new NewsNotFoundException();

@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.audit.rest.controller;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.audit.domain.model.AuthEvent;
 import in.clouthink.daas.sbb.audit.rest.dto.AuthEventQueryParameter;
 import in.clouthink.daas.sbb.audit.rest.support.AuthEventRestSupport;
@@ -41,14 +41,14 @@ public class SysAuthRestController {
 	@ApiOperation(value = "删除日志-以天为单位")
 	@RequestMapping(value = "/sysAuthEvents/byDay/{day}", method = RequestMethod.DELETE)
 	public void deleteAuditEventsByDay(@PathVariable Date day) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		authEventRestSupport.deleteAuthEventsByDay("backend", day, user);
 	}
 
 	@ApiOperation(value = "删除日志-删除指定日期（不包括）之前的所有数据")
 	@RequestMapping(value = "/sysAuthEvents/beforeDay/{day}", method = RequestMethod.DELETE)
 	public void deleteAuditEventsBeforeDay(@PathVariable Date day) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		authEventRestSupport.deleteAuthEventsBeforeDay("backend", day, user);
 	}
 

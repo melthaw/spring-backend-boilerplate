@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.news.rest.controller;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.news.rest.dto.*;
 import in.clouthink.daas.sbb.news.rest.support.NoticeRestSupport;
 import in.clouthink.daas.sbb.security.SecurityContexts;
@@ -37,35 +37,35 @@ public class NoticeRestController {
 	@ApiOperation(value = "创建通知")
 	@RequestMapping(value = "/notices", method = RequestMethod.POST)
 	public String createNotice(@RequestBody SaveNoticeParameter request) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		return noticeRestSupport.createNotice(request, user);
 	}
 
 	@ApiOperation(value = "修改通知（已发布的不能修改）")
 	@RequestMapping(value = "/notices/{id}", method = RequestMethod.POST)
 	public void updateNew(@PathVariable String id, @RequestBody SaveNoticeParameter request) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		noticeRestSupport.updateNotice(id, request, user);
 	}
 
 	@ApiOperation(value = "删除通知（已发布的不能删除）")
 	@RequestMapping(value = "/notices/{id}", method = RequestMethod.DELETE)
 	public void deleteNotice(@PathVariable String id) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		noticeRestSupport.deleteNotice(id, user);
 	}
 
 	@ApiOperation(value = "发布通知（重复发布自动忽略）")
 	@RequestMapping(value = "/notices/{id}/publish", method = RequestMethod.POST)
 	public void publishNotice(@PathVariable String id) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		noticeRestSupport.publishNotice(id, user);
 	}
 
 	@ApiOperation(value = "取消发布通知（重复取消自动忽略）")
 	@RequestMapping(value = "/notices/{id}/unpublish", method = RequestMethod.POST)
 	public void unpublishNotice(@PathVariable String id) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		noticeRestSupport.unpublishNotice(id, user);
 	}
 

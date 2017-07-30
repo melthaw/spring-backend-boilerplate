@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.attachment.rest.controller;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.attachment.rest.dto.*;
 import in.clouthink.daas.sbb.attachment.rest.support.AttachmentRestSupport;
 import in.clouthink.daas.sbb.security.SecurityContexts;
@@ -37,7 +37,7 @@ public class AttachmentRestController {
 	public String uploadAvatar(UploadFileRequest uploadFileRequest,
 							   HttpServletRequest request,
 							   HttpServletResponse response) throws IOException {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		uploadFileRequest.setUploadedBy(user.getUsername());
 		FileObject fileObject = attachmentsRestSupport.uploadAvatar(uploadFileRequest, request, response);
 
@@ -59,42 +59,42 @@ public class AttachmentRestController {
 	@ApiOperation(value = "创建附件（前提已经调用daas-fss上传文件得到文件的metadata,然后和业务数据放到一起）")
 	@RequestMapping(value = "/attachments", method = RequestMethod.POST)
 	public String createAttachment(@RequestBody SaveAttachmentParameter request) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		return attachmentsRestSupport.createAttachment(request, user);
 	}
 
 	@ApiOperation(value = "修改附件信息（名称,分类等）,已发布的附件不能修改")
 	@RequestMapping(value = "/attachments/{id}", method = RequestMethod.POST)
 	public void updateNew(@PathVariable String id, @RequestBody SaveAttachmentParameter request) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		attachmentsRestSupport.updateAttachment(id, request, user);
 	}
 
 	@ApiOperation(value = "删除附件（已发布的附件不能删除）")
 	@RequestMapping(value = "/attachments/{id}", method = RequestMethod.DELETE)
 	public void deleteAttachment(@PathVariable String id) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		attachmentsRestSupport.deleteAttachment(id, user);
 	}
 
 	@ApiOperation(value = "发布附件（重复发布自动忽略）")
 	@RequestMapping(value = "/attachments/{id}/publish", method = RequestMethod.POST)
 	public void publishAttachment(@PathVariable String id) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		attachmentsRestSupport.publishAttachment(id, user);
 	}
 
 	@ApiOperation(value = "取消发布附件（重复取消自动忽略）")
 	@RequestMapping(value = "/attachments/{id}/unpublish", method = RequestMethod.POST)
 	public void unpublishAttachment(@PathVariable String id) {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		attachmentsRestSupport.unpublishAttachment(id, user);
 	}
 
 	@ApiOperation(value = "下载附件")
 	@RequestMapping(value = {"/attachments/{id}/download"}, method = RequestMethod.GET)
 	public void downloadAttachment(@PathVariable String id, HttpServletResponse response) throws IOException {
-		SysUser user = (SysUser) SecurityContexts.getContext().requireUser();
+		User user = (User) SecurityContexts.getContext().requireUser();
 		attachmentsRestSupport.downloadAttachment(id, user, response);
 	}
 

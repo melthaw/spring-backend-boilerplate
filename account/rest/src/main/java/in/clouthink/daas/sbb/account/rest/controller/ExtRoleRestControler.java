@@ -33,7 +33,7 @@ public class ExtRoleRestControler {
 
 	@ApiOperation(value = "获取新增角色对应用户")
 	@RequestMapping(value = "/extroles/{id}/users", method = RequestMethod.GET)
-	public Page<SysUserSummary> getUsersByAppRoleId(@PathVariable String id, SysUserQueryParameter request) {
+	public Page<UserSummary> getUsersByAppRoleId(@PathVariable String id, UserQueryParameter request) {
 		return extRoleRestSupport.getUsersByAppRoleId(id, request);
 	}
 

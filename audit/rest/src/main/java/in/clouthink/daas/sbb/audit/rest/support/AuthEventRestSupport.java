@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.audit.rest.support;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.audit.domain.model.AuthEvent;
 import in.clouthink.daas.sbb.audit.rest.dto.AuthEventQueryParameter;
 import org.springframework.data.domain.Page;
@@ -15,7 +15,7 @@ public interface AuthEventRestSupport {
 
 	AuthEvent getAuthEventDetail(String id);
 
-	void deleteAuthEventsByDay(String realm, Date day, SysUser user);
+	void deleteAuthEventsByDay(String realm, Date day, User user);
 
-	void deleteAuthEventsBeforeDay(String realm, Date day, SysUser user);
+	void deleteAuthEventsBeforeDay(String realm, Date day, User user);
 }

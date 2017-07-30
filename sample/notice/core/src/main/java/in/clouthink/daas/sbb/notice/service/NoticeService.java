@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.notice.service;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.notice.domain.model.Notice;
 import in.clouthink.daas.sbb.notice.domain.model.NoticeReadHistory;
 import in.clouthink.daas.sbb.notice.domain.request.NoticeQueryRequest;
@@ -17,21 +17,21 @@ public interface NoticeService {
 
 	Notice findNoticeById(String id);
 
-	void markNoticeAsRead(Notice notice, SysUser user);
+	void markNoticeAsRead(Notice notice, User user);
 
-	boolean isNoticeReadByUser(Notice notice, SysUser user);
+	boolean isNoticeReadByUser(Notice notice, User user);
 
 	int countNoticeReadHistory(Notice notice);
 
-	Notice createNotice(SaveNoticeRequest notice, SysUser user);
+	Notice createNotice(SaveNoticeRequest notice, User user);
 
-	void updateNotice(String id, SaveNoticeRequest notice, SysUser user);
+	void updateNotice(String id, SaveNoticeRequest notice, User user);
 
-	void deleteNotice(String id, SysUser user);
+	void deleteNotice(String id, User user);
 
-	void publishNotice(String id, SysUser user);
+	void publishNotice(String id, User user);
 
-	void unpublishNotice(String id, SysUser user);
+	void unpublishNotice(String id, User user);
 
 	Page<NoticeReadHistory> listReadHistory(String id, PageQueryRequest queryRequest);
 

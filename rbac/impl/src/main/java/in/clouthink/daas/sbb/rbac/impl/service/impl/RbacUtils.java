@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.rbac.impl.service.impl;
 
 import in.clouthink.daas.sbb.account.domain.model.RoleType;
-import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
+import in.clouthink.daas.sbb.account.domain.model.ExtRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.rbac.impl.model.TypedRole;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +17,7 @@ public class RbacUtils {
 			result = RoleType.SYS_ROLE.name() + ":" + result;
 		}
 		else {
-			result = RoleType.APP_ROLE.name() + ":" + result;
+			result = RoleType.EXT_ROLE.name() + ":" + result;
 		}
 		return result;
 	}
@@ -28,7 +28,7 @@ public class RbacUtils {
 			typedRole.setCode(authority.getAuthority());
 			return typedRole;
 		}
-		if (authority instanceof SysExtRole) {
+		if (authority instanceof ExtRole) {
 			TypedRole typedRole = TypedRole.newAppRole();
 			typedRole.setCode(authority.getAuthority());
 			return typedRole;
@@ -41,7 +41,7 @@ public class RbacUtils {
 		if (splitRoleCode.length != 2) {
 			return false;
 		}
-		if (!RoleType.APP_ROLE.name().equalsIgnoreCase(splitRoleCode[0].toUpperCase()) &&
+		if (!RoleType.EXT_ROLE.name().equalsIgnoreCase(splitRoleCode[0].toUpperCase()) &&
 			!RoleType.SYS_ROLE.name().equalsIgnoreCase(splitRoleCode[0].toUpperCase())) {
 			return false;
 		}

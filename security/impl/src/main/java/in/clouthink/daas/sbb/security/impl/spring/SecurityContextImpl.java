@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.security.impl.spring;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
-import in.clouthink.daas.sbb.account.exception.SysUserRequiredException;
+import in.clouthink.daas.sbb.account.domain.model.User;
+import in.clouthink.daas.sbb.account.exception.UserRequiredException;
 import in.clouthink.daas.sbb.security.SecurityContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,7 +15,7 @@ public class SecurityContextImpl implements SecurityContext {
 	private static final Log logger = LogFactory.getLog(SecurityContextImpl.class);
 
 	@Override
-	public SysUser currentUser() {
+	public User currentUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication != null) {
 			Object principal = authentication.getPrincipal();
@@ -29,10 +29,10 @@ public class SecurityContextImpl implements SecurityContext {
 	}
 
 	@Override
-	public SysUser requireUser() {
-		SysUser user = currentUser();
+	public User requireUser() {
+		User user = currentUser();
 		if (user == null) {
-			throw new SysUserRequiredException();
+			throw new UserRequiredException();
 		}
 		return user;
 	}

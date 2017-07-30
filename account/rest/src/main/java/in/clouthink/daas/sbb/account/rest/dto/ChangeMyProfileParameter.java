@@ -8,11 +8,8 @@ import io.swagger.annotations.ApiModel;
 
 import java.util.Date;
 
-/**
- *
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ApiModel
+@ApiModel("修改当前用户资料")
 public class ChangeMyProfileParameter implements ChangeUserProfileRequest {
 
 	private String displayName;

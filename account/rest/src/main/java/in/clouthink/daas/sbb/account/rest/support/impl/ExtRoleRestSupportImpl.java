@@ -1,13 +1,13 @@
 package in.clouthink.daas.sbb.account.rest.support.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.SysExtRole;
+import in.clouthink.daas.sbb.account.domain.model.ExtRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.account.domain.request.RoleQueryRequest;
 import in.clouthink.daas.sbb.account.exception.RoleException;
 import in.clouthink.daas.sbb.account.rest.dto.*;
 import in.clouthink.daas.sbb.account.service.RoleService;
-import in.clouthink.daas.sbb.account.service.SysUserAccountService;
+import in.clouthink.daas.sbb.account.service.AccountService;
 import in.clouthink.daas.sbb.account.rest.support.ExtRoleRestSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +26,7 @@ public class ExtRoleRestSupportImpl implements ExtRoleRestSupport {
 	private RoleService appRoleService;
 
 	@Autowired
-	private SysUserAccountService accountService;
+	private AccountService accountService;
 
 	@Override
 	public List<RoleSummary> getSysRoles() {
@@ -48,7 +48,7 @@ public class ExtRoleRestSupportImpl implements ExtRoleRestSupport {
 
 	@Override
 	public Page<RoleSummary> getAppRoles(RoleQueryRequest request) {
-		Page<SysExtRole> appRoles = appRoleService.listAppRoles(request);
+		Page<ExtRole> appRoles = appRoleService.listAppRoles(request);
 		return new PageImpl<>(appRoles.getContent().stream().map(RoleSummary::from).collect(Collectors.toList()),
 							  new PageRequest(request.getStart(), request.getLimit()),
 							  appRoles.getTotalElements());
@@ -60,7 +60,7 @@ public class ExtRoleRestSupportImpl implements ExtRoleRestSupport {
 	}
 
 	@Override
-	public Page<SysUserSummary> getUsersBySysRoleId(String roleCode, SysUserQueryParameter request) {
+	public Page<UserSummary> getUsersBySysRoleId(String roleCode, UserQueryParameter request) {
 		SysRole role = null;
 
 		try {
@@ -69,22 +69,22 @@ public class ExtRoleRestSupportImpl implements ExtRoleRestSupport {
 		catch (RuntimeException e) {
 			throw new RoleException(String.format("无效的系统角色名'%s'", roleCode));
 		}
-		Page<SysUser> users = accountService.listUsersByRole(role, request);
-		return new PageImpl<>(users.getContent().stream().map(SysUserSummary::from).collect(Collectors.toList()),
+		Page<User> users = accountService.listUsersByRole(role, request);
+		return new PageImpl<>(users.getContent().stream().map(UserSummary::from).collect(Collectors.toList()),
 							  new PageRequest(request.getStart(), request.getLimit()),
 							  users.getTotalElements());
 	}
 
 	@Override
-	public Page<SysUserSummary> getUsersByAppRoleId(String roleId, SysUserQueryParameter request) {
-		Page<SysUser> users = appRoleService.listBindUsers(roleId, request);
-		return new PageImpl<>(users.getContent().stream().map(SysUserSummary::from).collect(Collectors.toList()),
+	public Page<UserSummary> getUsersByAppRoleId(String roleId, UserQueryParameter request) {
+		Page<User> users = appRoleService.listBindUsers(roleId, request);
+		return new PageImpl<>(users.getContent().stream().map(UserSummary::from).collect(Collectors.toList()),
 							  new PageRequest(request.getStart(), request.getLimit()),
 							  users.getTotalElements());
 	}
 
 	@Override
-	public SysExtRole createAppRole(SaveRoleParameter request) {
+	public ExtRole createAppRole(SaveRoleParameter request) {
 		return appRoleService.createAppRole(request);
 	}
 

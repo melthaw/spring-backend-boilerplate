@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.news.rest.dto;
 
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.notice.domain.model.Notice;
 import in.clouthink.daas.sbb.notice.domain.request.ReadNoticeEvent;
 
@@ -11,9 +11,9 @@ public class ReadNoticeEventObject implements ReadNoticeEvent {
 
 	private Notice notice;
 
-	private SysUser user;
+	private User user;
 
-	public ReadNoticeEventObject(Notice notice, SysUser user) {
+	public ReadNoticeEventObject(Notice notice, User user) {
 		this.notice = notice;
 		this.user = user;
 	}
@@ -24,7 +24,7 @@ public class ReadNoticeEventObject implements ReadNoticeEvent {
 	}
 
 	@Override
-	public SysUser getUser() {
+	public User getUser() {
 		return user;
 	}
 }

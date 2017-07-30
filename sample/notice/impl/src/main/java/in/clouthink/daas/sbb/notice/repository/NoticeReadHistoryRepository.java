@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.notice.repository;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.notice.domain.model.Notice;
 import in.clouthink.daas.sbb.notice.domain.model.NoticeReadHistory;
 import in.clouthink.daas.sbb.shared.repository.AbstractRepository;
@@ -13,7 +13,7 @@ public interface NoticeReadHistoryRepository extends AbstractRepository<NoticeRe
 
 	Page<NoticeReadHistory> findByNotice(Notice notice, Pageable pageable);
 
-	NoticeReadHistory findByNoticeAndReadBy(Notice notice, SysUser user);
+	NoticeReadHistory findByNoticeAndReadBy(Notice notice, User user);
 
 	int countByNotice(Notice notice);
 

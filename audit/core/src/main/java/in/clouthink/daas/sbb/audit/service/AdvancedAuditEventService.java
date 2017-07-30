@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.audit.service;
 
-import in.clouthink.daas.sbb.account.domain.model.SysUser;
+import in.clouthink.daas.sbb.account.domain.model.User;
 import org.springframework.scheduling.annotation.Async;
 
 import java.util.Date;
@@ -32,5 +32,5 @@ public interface AdvancedAuditEventService {
 	 * @param byWho
 	 */
 	@Async
-	void scanAllAuditEventsAndDoStatistics(String realm, SysUser byWho);
+	void scanAllAuditEventsAndDoStatistics(String realm, User byWho);
 }
