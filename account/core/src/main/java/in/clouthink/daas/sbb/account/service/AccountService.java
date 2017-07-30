@@ -41,6 +41,13 @@ public interface AccountService {
 
 	/**
 	 * @param userId
+	 * @param avatarId
+	 * @return
+	 */
+	User changeUserAvatar(String userId, String avatarId, String avatarUrl);
+
+	/**
+	 * @param userId
 	 * @return
 	 */
 	User enable(String userId);

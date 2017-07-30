@@ -43,6 +43,12 @@ public class User extends StringIdentifier implements UserDetails {
 	@Indexed(unique = true)
 	private String email;
 
+	// 头像对应的附件图片id
+	private String avatarId;
+
+	// 头像对应的附件图片url
+	private String avatarUrl;
+
 	// 显示名
 	private String displayName;
 
@@ -123,12 +129,28 @@ public class User extends StringIdentifier implements UserDetails {
 		this.email = trim(email);
 	}
 
+	public String getAvatarId() {
+		return avatarId;
+	}
+
+	public void setAvatarId(String avatarId) {
+		this.avatarId = avatarId;
+	}
+
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
+
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
+
 	public String getDisplayName() {
 		return displayName;
 	}
 
 	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
+		this.displayName = trim(displayName);
 	}
 
 	public Gender getGender() {

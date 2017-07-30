@@ -2,7 +2,7 @@ package in.clouthink.daas.sbb.rbac.rest.controller;
 
 import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.rbac.rest.dto.MenuSummary;
-import in.clouthink.daas.sbb.rbac.rest.support.SysUserProfileExtensionRestSupport;
+import in.clouthink.daas.sbb.rbac.rest.support.UserProfileExtensionRestSupport;
 import in.clouthink.daas.sbb.security.SecurityContexts;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,10 +19,10 @@ import java.util.List;
 @Api("我的个人资料")
 @RestController
 @RequestMapping("/api")
-public class SysUserProfileExtensionRestController {
+public class UserProfileExtensionRestController {
 
 	@Autowired
-	private SysUserProfileExtensionRestSupport userProfileRestSupport;
+	private UserProfileExtensionRestSupport userProfileRestSupport;
 
 	@ApiOperation(value = "查看我的菜单(已授权的)")
 	@RequestMapping(value = "/my/menus", method = RequestMethod.GET)

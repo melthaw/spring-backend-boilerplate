@@ -2,7 +2,7 @@ package in.clouthink.daas.sbb.rbac.rest.support.impl;
 
 import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.rbac.rest.dto.MenuSummary;
-import in.clouthink.daas.sbb.rbac.rest.support.SysUserProfileExtensionRestSupport;
+import in.clouthink.daas.sbb.rbac.rest.support.UserProfileExtensionRestSupport;
 import in.clouthink.daas.sbb.rbac.model.ResourceWithChildren;
 import in.clouthink.daas.sbb.rbac.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class SysUserProfileExtensionRestSupportImpl implements SysUserProfileExtensionRestSupport {
+public class SysUserProfileExtensionRestSupportImpl implements UserProfileExtensionRestSupport {
 
 	@Autowired
 	private PermissionService permissionService;

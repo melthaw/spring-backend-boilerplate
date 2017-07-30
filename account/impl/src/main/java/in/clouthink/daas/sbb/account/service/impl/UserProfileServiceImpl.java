@@ -30,4 +30,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 		return accountService.changePassword(userId, oldPassword, newPassword);
 	}
 
+	@Override
+	public void updateUserAvatar(String id, String url, User byWho) {
+		accountService.changeUserAvatar(byWho.getId(), id, url);
+	}
+
 }

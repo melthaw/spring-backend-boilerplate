@@ -192,6 +192,22 @@ public class UserAccountServiceImpl implements AccountService, InitializingBean 
 		return userRepository.save(existedUser);
 	}
 
+
+	@Override
+	public User changeUserAvatar(String userId, String avatarId, String avatarUrl) {
+		if (StringUtils.isEmpty(userId)) {
+			throw new UserException("用户id不能为空");
+		}
+		User existedUser = findById(userId);
+		if (existedUser == null) {
+			throw new UserNotFoundException(userId);
+		}
+
+		existedUser.setAvatarId(avatarId);
+		existedUser.setAvatarUrl(avatarUrl);
+		return userRepository.save(existedUser);
+	}
+
 	@Override
 	public User enable(String userId) {
 		User user = userRepository.findById(userId);

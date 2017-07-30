@@ -29,4 +29,11 @@ public interface UserProfileService {
 	 */
 	User changeUserPassword(String userId, String oldPassword, String newPassword);
 
+	/**
+	 * @param id
+	 * @param url
+	 * @param byWho
+	 */
+	void updateUserAvatar(String id, String url, User byWho);
+
 }

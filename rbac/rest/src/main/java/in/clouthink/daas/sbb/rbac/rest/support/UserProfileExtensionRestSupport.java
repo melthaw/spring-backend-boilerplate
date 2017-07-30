@@ -8,7 +8,7 @@ import java.util.List;
 /**
  *
  */
-public interface SysUserProfileExtensionRestSupport {
+public interface UserProfileExtensionRestSupport {
 
 	List<MenuSummary> getUserGrantedMenus(User user);
 
