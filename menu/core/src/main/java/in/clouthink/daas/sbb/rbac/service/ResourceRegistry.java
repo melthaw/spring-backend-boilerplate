@@ -10,20 +10,20 @@ import java.util.List;
  */
 public interface ResourceRegistry {
 
-	/**
-	 * Register the resource list by specified resource provider name
-	 *
-	 * @param name
-	 * @param resourceList
-	 */
-	void register(String name, List<Resource> resourceList);
-
-	/**
-	 * Unregister all the resource list provided by specified name
-	 *
-	 * @param name
-	 */
-	void unregister(String name);
+//	/**
+//	 * Register the resource list by specified resource provider name
+//	 *
+//	 * @param name
+//	 * @param resourceList
+//	 */
+//	void register(String name, List<Resource> resourceList);
+//
+//	/**
+//	 * Unregister all the resource list provided by specified name
+//	 *
+//	 * @param name
+//	 */
+//	void unregister(String name);
 
 	/**
 	 * find the resource by specified code

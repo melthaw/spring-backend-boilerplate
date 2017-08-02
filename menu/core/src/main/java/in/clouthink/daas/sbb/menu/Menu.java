@@ -14,8 +14,6 @@ import java.util.Map;
  */
 public class Menu implements Resource, Serializable {
 
-
-
 	private boolean virtual = false;
 
 	private boolean open = false;
@@ -127,5 +125,5 @@ public class Menu implements Resource, Serializable {
 	public void setExtensionPoint(MenuExtensionPoint extensionPoint) {
 		this.extensionPoint = extensionPoint;
 	}
-
+ 
 }

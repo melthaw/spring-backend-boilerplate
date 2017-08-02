@@ -3,7 +3,9 @@ package in.clouthink.daas.sbb.rbac.service;
 import in.clouthink.daas.sbb.rbac.model.Resource;
 import in.clouthink.daas.sbb.rbac.model.ResourceMatcher;
 import in.clouthink.daas.sbb.rbac.model.ResourceWithChildren;
+import in.clouthink.daas.sbb.rbac.spi.ResourceProvider;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,22 +15,24 @@ import java.util.stream.Collectors;
  */
 public class ResourceMemoryRegistry implements ResourceRegistry, InitializingBean {
 
+	@Autowired(required = false)
+	private List<ResourceProvider> resourceProviderList = new ArrayList<>();
 
 	//The root resources
-	private List<ResourceWithChildren> resourceList;
+	private List<ResourceWithChildren> resourceList = new ArrayList<>();
 
 	//The code and resource map
 	private Map<String,ResourceWithChildren> resourceRepository = new HashMap<>();
-
-	@Override
-	public void register(String name, List<Resource> resourceList) {
-
-	}
-
-	@Override
-	public void unregister(String name) {
-
-	}
+	//
+	//	@Override
+	//	public void register(String name, List<Resource> resourceList) {
+	//
+	//	}
+	//
+	//	@Override
+	//	public void unregister(String name) {
+	//
+	//	}
 
 	@Override
 	public Resource findByCode(String code) {
@@ -130,9 +134,7 @@ public class ResourceMemoryRegistry implements ResourceRegistry, InitializingBea
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		//		resourceList = resourceLoader.load(Resource.class.getClassLoader().getResourceAsStream(resourceFile));
-		//TODO load and merge the data from extensions
-		resourceList = new ArrayList<>();
+		resourceProviderList.forEach(resourceProvider -> resourceList.addAll(resourceProvider.listResources()));
 		iterate(resourceList, resourceRepository);
 	}
 

@@ -16,6 +16,6 @@ public interface ResourceWithChildren extends Resource {
 	/**
 	 * @return
 	 */
-	List<? extends ResourceWithChildren> getChildren();
+	List<ResourceWithChildren> getChildren();
 
 }
