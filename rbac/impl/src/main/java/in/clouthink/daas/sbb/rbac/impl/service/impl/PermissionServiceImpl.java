@@ -6,9 +6,10 @@ import in.clouthink.daas.sbb.account.service.RoleService;
 import in.clouthink.daas.sbb.rbac.impl.model.ResourceRoleRelationship;
 import in.clouthink.daas.sbb.rbac.impl.model.TypedRole;
 import in.clouthink.daas.sbb.rbac.impl.repository.ResourceRoleRelationshipRepository;
+import in.clouthink.daas.sbb.rbac.impl.service.support.RbacUtils;
 import in.clouthink.daas.sbb.rbac.model.*;
 import in.clouthink.daas.sbb.rbac.service.PermissionService;
-import in.clouthink.daas.sbb.rbac.service.ResourceService;
+import in.clouthink.daas.sbb.rbac.service.ResourceRegistry;
 import in.clouthink.daas.sbb.rbac.support.matcher.ResourceMatchers;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 public class PermissionServiceImpl implements PermissionService {
 
 	@Autowired
-	private ResourceService resourceService;
+	private ResourceRegistry resourceService;
 
 	@Autowired
 	private RoleService roleService;

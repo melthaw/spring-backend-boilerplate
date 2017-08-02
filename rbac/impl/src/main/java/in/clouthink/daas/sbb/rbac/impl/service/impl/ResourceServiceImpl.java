@@ -3,7 +3,7 @@ package in.clouthink.daas.sbb.rbac.impl.service.impl;
 import in.clouthink.daas.sbb.rbac.model.Resource;
 import in.clouthink.daas.sbb.rbac.model.ResourceMatcher;
 import in.clouthink.daas.sbb.rbac.model.ResourceWithChildren;
-import in.clouthink.daas.sbb.rbac.service.ResourceService;
+import in.clouthink.daas.sbb.rbac.service.ResourceRegistry;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.*;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 /**
  *
  */
-public class ResourceServiceImpl implements ResourceService, InitializingBean {
+public class ResourceServiceImpl implements ResourceRegistry, InitializingBean {
 
 	//The root resources
 	private List<ResourceWithChildren> resourceList;

@@ -11,9 +11,13 @@ include 'passcode/impl'
 include 'security/core'
 include 'security/impl'
 
-include 'rbac/core'
+include 'rbac/resource'
+include 'rbac/permission'
 include 'rbac/impl'
+include 'rbac/plugin'
 include 'rbac/rest'
+
+include 'menu/core'
 
 include 'audit/core'
 include 'audit/impl'

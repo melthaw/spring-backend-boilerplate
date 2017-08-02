@@ -1,0 +1,151 @@
+[
+  {
+    "code": "portal",
+    "type": "menu",
+    "name": "我的门户",
+    "expression": "portal.index",
+    "patterns": [
+      "/api/portal/**"
+    ],
+    "metadata": {
+      "icon": ""
+    }
+  },
+  {
+    "type": "menu",
+    "code": "paper",
+    "name": "我的快文",
+    "expression": "dashboard.paper.index",
+    "patterns": [
+      "/api/papers/**"
+    ],
+    "metadata": {
+      "icon": ""
+    }
+  },
+  {
+    "code": "news",
+    "type": "menu",
+    "name": "新闻管理",
+    "expression": "dashboard.news.index",
+    "patterns": [
+      "/api/news/**"
+    ],
+    "metadata": {
+      "icon": ""
+    }
+  },
+  {
+    "code": "notification",
+    "type": "menu",
+    "name": "通知管理",
+    "expression": "dashboard.notification.index",
+    "patterns": [
+      "/api/notices/**"
+    ],
+    "metadata": {
+      "icon": ""
+    }
+  },
+  {
+    "code": "attachment",
+    "type": "menu",
+    "name": "下载管理",
+    "expression": "dashboard.attachment.index",
+    "patterns": [
+      "/api/attachments/**"
+    ],
+    "metadata": {
+      "icon": ""
+    }
+  },
+  {
+    "code": "contact",
+    "type": "menu",
+    "name": "我的通讯录",
+    "expression": "dashboard.contact.index",
+    "patterns": [
+      "/api/contacts/**"
+    ],
+    "metadata": {
+      "icon": ""
+    }
+  },
+  {
+    "code": "organization",
+    "type": "menu",
+    "name": "组织机构管理",
+    "expression": "dashboard.organization.index",
+    "patterns": [
+      "/api/organizations/**",
+      "/api/appusers/**"
+    ],
+    "metadata": {
+      "icon": ""
+    }
+  },
+  {
+    "virtual": true,
+    "type": "menu",
+    "code": "system",
+    "name": "系统管理",
+    "expression": "dashboard.contact.index",
+    "patterns": [
+      "/api/contacts/**"
+    ],
+    "metadata": {
+      "icon": ""
+    },
+    "children": [
+      {
+        "code": "system.sysuser",
+        "type": "menu",
+        "name": "系统用户",
+        "expression": "dashboard.sysuser.index",
+        "patterns": [
+          "/api/sysusers/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.role",
+        "type": "menu",
+        "name": "角色管理",
+        "expression": "dashboard.role.index",
+        "patterns": [
+          "/api/roles/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.permission",
+        "type": "menu",
+        "name": "权限管理",
+        "expression": "dashboard.permission.index",
+        "patterns": [
+          "/api/resources/**",
+          "/api/permissions/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      },
+      {
+        "code": "system.audit",
+        "type": "menu",
+        "name": "操作审计",
+        "expression": "dashboard.audit.index",
+        "patterns": [
+          "/api/audits/**"
+        ],
+        "metadata": {
+          "icon": ""
+        }
+      }
+    ]
+  }
+]

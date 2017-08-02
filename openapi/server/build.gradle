@@ -24,7 +24,7 @@ dependencies {
 	compile libs.daas
 
 	compile project(':shared')
- 
+
 }
 
 bootRun {

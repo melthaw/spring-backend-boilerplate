@@ -7,5 +7,4 @@ dependencies {
 	compile libs.daas
 
 	compile project(':shared')
-	compile project(':rbac/core')
 }

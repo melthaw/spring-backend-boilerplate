@@ -1,7 +1,0 @@
-dependencies {
-    compile libs.springBoot
-    compile libs.springSecurity
-
-    compile project(':account/core')
-
-}

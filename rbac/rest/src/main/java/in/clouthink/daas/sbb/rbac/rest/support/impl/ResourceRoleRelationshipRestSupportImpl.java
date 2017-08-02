@@ -8,11 +8,12 @@ import in.clouthink.daas.sbb.rbac.rest.dto.ResourceSummary;
 import in.clouthink.daas.sbb.rbac.rest.dto.TypedRoleSummary;
 import in.clouthink.daas.sbb.rbac.rest.support.ResourceRoleRelationshipRestSupport;
 import in.clouthink.daas.sbb.rbac.impl.model.TypedRole;
-import in.clouthink.daas.sbb.rbac.impl.service.ResourceRoleRelationshipService;
-import in.clouthink.daas.sbb.rbac.impl.service.impl.RbacUtils;
+import in.clouthink.daas.sbb.rbac.impl.service.support.ResourceRoleRelationshipService;
+import in.clouthink.daas.sbb.rbac.impl.service.support.RbacUtils;
 import in.clouthink.daas.sbb.rbac.model.Resource;
 import in.clouthink.daas.sbb.rbac.model.ResourceWithChildren;
 import in.clouthink.daas.sbb.rbac.model.TypedCode;
+import in.clouthink.daas.sbb.rbac.service.PermissionService;
 import in.clouthink.daas.sbb.rbac.support.parser.RoleCodeParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +30,9 @@ public class ResourceRoleRelationshipRestSupportImpl implements ResourceRoleRela
 
 	@Autowired
 	private RoleService roleService;
+
+	@Autowired
+	private PermissionService permissionService;
 
 	@Autowired
 	private ResourceRoleRelationshipService resourceRoleRelationshipService;
