@@ -20,12 +20,6 @@ public final class Menus {
 	 */
 	public static Comparator<Menu> MENU_SORTER = (from, to) -> from.getOrder() - to.getOrder();
 
-	/**
-	 * the menu sorter
-	 */
-	public static Comparator<MenuPlugin> PLUGIN_SORTER = (from, to) -> from.getMenu().getSort() -
-																	   to.getMenu().getSort();
-
 	private static MenuLoader menuLoader = new MenuJsonLoader();
 
 	/**

@@ -45,7 +45,7 @@ public class MenuProvider implements ResourceProvider, InitializingBean {
 
 		menuPluginList.stream()
 					  .filter(Menus::isExtendFromRoot)
-					  .map(plugin -> plugin.getMenu())
+					  .flatMap(plugin -> plugin.getMenu().stream())
 					  .sorted(Menus.MENU_SORTER)
 					  .forEach(menu -> {
 						  ResourceWithChildren resourceWithChildren = Resources.convert(menu);
@@ -58,7 +58,7 @@ public class MenuProvider implements ResourceProvider, InitializingBean {
 					  });
 
 		//only process the two level menu struct in current version
-		menuPluginList.stream().filter(Menus::isNotExtendFromRoot).sorted(Menus.PLUGIN_SORTER).forEach(plugin -> {
+		menuPluginList.stream().filter(Menus::isNotExtendFromRoot).forEach(plugin -> {
 			if (StringUtils.isEmpty(plugin.getExtensionPointId())) {
 				throw new MenuException("The detached plugin found, please specify the extension point id. ");
 			}
@@ -71,13 +71,14 @@ public class MenuProvider implements ResourceProvider, InitializingBean {
 			}
 
 			if (resource instanceof ResourceWithChildren) {
-				((ResourceWithChildren) resource).getChildren().add(Resources.convert(plugin.getMenu()));
+				plugin.getMenu()
+					  .stream()
+					  .forEach(menu -> ((ResourceWithChildren) resource).getChildren().add(Resources.convert(menu)));
 			}
 			else {
 				logger.warn(String.format(
-						"The target resource[extensionPointId=%s] does not support children. Can't add the resource[code=%s] to target",
-						plugin.getExtensionPointId(),
-						resource.getCode()));
+						"The target menu[extensionPointId=%s] does not support children. Can't apppend the menu to target's children",
+						plugin.getExtensionPointId()));
 			}
 		});
 

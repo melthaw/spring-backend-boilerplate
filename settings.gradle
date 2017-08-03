@@ -23,7 +23,6 @@ include 'menu/plugin'
 include 'audit/core'
 include 'audit/impl'
 include 'audit/rest'
-include 'audit/plugin'
 
 include 'storage/core'
 include 'storage/gridfs'
