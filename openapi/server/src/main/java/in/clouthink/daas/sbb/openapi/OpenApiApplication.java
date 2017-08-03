@@ -1,17 +1,12 @@
 package in.clouthink.daas.sbb.openapi;
 
-import in.clouthink.daas.sbb.account.AccountModuleConfiguration;
-import in.clouthink.daas.sbb.audit.AuditModuleConfiguration;
-import in.clouthink.daas.sbb.event.MockEventModuleConfiguration;
-import in.clouthink.daas.sbb.news.repository.RepositoryModuleConfiguration;
-import in.clouthink.daas.sbb.security.frontend.SecurityFrontendModuleConfiguration;
-import in.clouthink.daas.sbb.security.frontend.audit.AuditEventPersisterImpl;
-import in.clouthink.daas.sbb.security.frontend.audit.SecurityContextAuditImpl;
-import in.clouthink.daas.sbb.news.service.ServiceModuleConfiguration;
-import in.clouthink.daas.sbb.storage.GridfsModuleConfiguration;
 import in.clouthink.daas.audit.annotation.EnableAudit;
 import in.clouthink.daas.audit.configure.AuditConfigurer;
 import in.clouthink.daas.audit.spi.AuditEventPersister;
+import in.clouthink.daas.sbb.account.AccountRestModuleConfiguration;
+import in.clouthink.daas.sbb.audit.AuditRestModuleConfiguration;
+import in.clouthink.daas.sbb.security.impl.audit.AuditEventPersisterImpl;
+import in.clouthink.daas.sbb.security.impl.audit.SecurityContextAuditImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -53,14 +48,8 @@ public class OpenApiApplication extends SpringBootServletInitializer {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(new Object[]{AccountModuleConfiguration.class,
-										   RepositoryModuleConfiguration.class,
-										   ServiceModuleConfiguration.class,
-										   MockEventModuleConfiguration.class,
-										   GridfsModuleConfiguration.class,
-										   OpenApiModuleConfiguration.class,
-										   AuditModuleConfiguration.class,
-										   SecurityFrontendModuleConfiguration.class,
+		SpringApplication.run(new Object[]{AccountRestModuleConfiguration.class,
+										   AuditRestModuleConfiguration.class,
 										   OpenApiApplication.class}, args);
 	}
 

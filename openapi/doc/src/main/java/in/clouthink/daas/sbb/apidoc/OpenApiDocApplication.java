@@ -1,8 +1,5 @@
 package in.clouthink.daas.sbb.apidoc;
 
-import in.clouthink.daas.sbb.openapi.OpenApiModuleConfiguration;
-import in.clouthink.daas.sbb.news.repository.RepositoryModuleConfiguration;
-import in.clouthink.daas.sbb.news.service.ServiceModuleConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,9 +19,7 @@ public class OpenApiDocApplication extends SpringBootServletInitializer {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(new Object[]{
-										   OpenApiDocApplication.class,
-										   SpringfoxConfiguration.class}, args);
+		SpringApplication.run(new Object[]{OpenApiDocApplication.class, SpringfoxConfiguration.class}, args);
 	}
 
 }

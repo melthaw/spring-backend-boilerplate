@@ -18,10 +18,12 @@ include 'rbac/plugin'
 include 'rbac/rest'
 
 include 'menu/core'
+include 'menu/plugin'
 
 include 'audit/core'
 include 'audit/impl'
 include 'audit/rest'
+include 'audit/plugin'
 
 include 'storage/core'
 include 'storage/gridfs'

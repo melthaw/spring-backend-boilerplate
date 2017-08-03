@@ -1,8 +1,8 @@
 package in.clouthink.daas.sbb.openapi;
 
-import in.clouthink.daas.sbb.security.frontend.spring.UserDetailsAuthenticationProviderImpl;
-import in.clouthink.daas.sbb.security.frontend.spring.UserDetailsServiceImpl;
-import in.clouthink.daas.sbb.security.frontend.spring.rest.*;
+import in.clouthink.daas.sbb.security.impl.spring.UserDetailsAuthenticationProviderImpl;
+import in.clouthink.daas.sbb.security.impl.spring.UserDetailsServiceImpl;
+import in.clouthink.daas.sbb.security.impl.spring.rest.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
