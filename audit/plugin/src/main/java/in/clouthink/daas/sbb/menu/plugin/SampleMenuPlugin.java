@@ -18,7 +18,7 @@ public class SampleMenuPlugin implements MenuPlugin {
 	}
 
 	@Override
-	public String getExtensionId() {
+	public String getExtensionPointId() {
 		return Menus.ROOT_EXTENSION_POINT_ID;
 	}
 
@@ -29,7 +29,7 @@ public class SampleMenuPlugin implements MenuPlugin {
 		result.setOpen(true);
 		result.setCode("menu:sample");
 		result.setName("示例");
-		result.setSort(100);
+		result.setOrder(100);
 		result.setExtensionPoint(new MenuExtensionPoint("extension:menu:sample"));
 		return result;
 	}

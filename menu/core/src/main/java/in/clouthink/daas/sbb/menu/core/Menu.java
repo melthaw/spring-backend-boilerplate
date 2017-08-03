@@ -30,7 +30,7 @@ public class Menu implements Resource, Serializable {
 
 	private Map<String,Object> metadata = new HashMap<>();
 
-	private int sort;
+	private int order;
 
 	private MenuExtensionPoint extensionPoint;
 
@@ -110,12 +110,12 @@ public class Menu implements Resource, Serializable {
 		this.metadata = metadata;
 	}
 
-	public int getSort() {
-		return sort;
+	public int getOrder() {
+		return order;
 	}
 
-	public void setSort(int sort) {
-		this.sort = sort;
+	public void setOrder(int order) {
+		this.order = order;
 	}
 
 	public MenuExtensionPoint getExtensionPoint() {

@@ -1,0 +1,11 @@
+[
+  {
+    "virtual": true,
+    "code": "menu:system",
+    "name": "系统管理",
+    "order": 200,
+    "extensionPoint": {
+      "id": "extension:menu:system"
+    }
+  }
+]

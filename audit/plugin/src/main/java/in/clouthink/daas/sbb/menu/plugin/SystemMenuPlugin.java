@@ -18,7 +18,7 @@ public class SystemMenuPlugin implements MenuPlugin {
 	}
 
 	@Override
-	public String getExtensionId() {
+	public String getExtensionPointId() {
 		return Menus.ROOT_EXTENSION_POINT_ID;
 	}
 
@@ -29,7 +29,7 @@ public class SystemMenuPlugin implements MenuPlugin {
 		result.setOpen(true);
 		result.setCode("menu:sample");
 		result.setName("系统管理");
-		result.setSort(200);
+		result.setOrder(200);
 		result.setExtensionPoint(new MenuExtensionPoint("extension:menu:system"));
 		return result;
 	}

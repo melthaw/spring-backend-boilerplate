@@ -59,15 +59,15 @@ public class MenuProvider implements ResourceProvider, InitializingBean {
 
 		//only process the two level menu struct in current version
 		menuPluginList.stream().filter(Menus::isNotExtendFromRoot).sorted(Menus.PLUGIN_SORTER).forEach(plugin -> {
-			if (StringUtils.isEmpty(plugin.getExtensionId())) {
+			if (StringUtils.isEmpty(plugin.getExtensionPointId())) {
 				throw new MenuException("The detached plugin found, please specify the extension point id. ");
 			}
 
-			Resource resource = resourceMap.get(plugin.getExtensionId());
+			Resource resource = resourceMap.get(plugin.getExtensionPointId());
 			if (resource == null) {
 				throw new MenuException(String.format(
 						"The resource of extension point id[%s] not found , please make sure the extension point is existed",
-						plugin.getExtensionId()));
+						plugin.getExtensionPointId()));
 			}
 
 			if (resource instanceof ResourceWithChildren) {
@@ -76,7 +76,7 @@ public class MenuProvider implements ResourceProvider, InitializingBean {
 			else {
 				logger.warn(String.format(
 						"The target resource[extensionPointId=%s] does not support children. Can't add the resource[code=%s] to target",
-						plugin.getExtensionId(),
+						plugin.getExtensionPointId(),
 						resource.getCode()));
 			}
 		});

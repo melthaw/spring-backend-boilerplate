@@ -1,10 +1,11 @@
 package in.clouthink.daas.sbb.menu.plugin;
 
 import in.clouthink.daas.sbb.menu.core.Menu;
-import in.clouthink.daas.sbb.menu.core.MenuExtensionPoint;
 import in.clouthink.daas.sbb.menu.core.MenuPlugin;
 import in.clouthink.daas.sbb.menu.core.Menus;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @author dz
@@ -18,19 +19,13 @@ public class SystemMenuPlugin implements MenuPlugin {
 	}
 
 	@Override
-	public String getExtensionId() {
+	public String getExtensionPointId() {
 		return Menus.ROOT_EXTENSION_POINT_ID;
 	}
 
 	@Override
-	public Menu getMenu() {
-		Menu result = new Menu();
-		result.setVirtual(true);
-		result.setOpen(true);
-		result.setCode("menu:sample");
-		result.setName("系统管理");
-		result.setSort(200);
-		result.setExtensionPoint(new MenuExtensionPoint("extension:menu:system"));
-		return result;
+	public List<Menu> getMenu() {
+		return Menus.load(SystemMenuPlugin.class.getResourceAsStream("menu.json"));
 	}
+
 }
