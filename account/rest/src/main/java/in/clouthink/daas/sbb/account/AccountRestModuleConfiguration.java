@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan({"in.clouthink.daas.sbb.account.rest"})
-@Import({AccountServiceModuleConfiguration.class})
+@Import({AccountServiceModuleConfiguration.class, AccountMenuConfiguration.class})
 public class AccountRestModuleConfiguration {
 
 }

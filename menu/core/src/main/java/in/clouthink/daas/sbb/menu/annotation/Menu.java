@@ -22,7 +22,7 @@ public @interface Menu {
 
 	String[] patterns() default {};
 
-	String[] actions() default {};
+	Action[] actions() default {};
 
 	Metadata[] metadata() default {};
 

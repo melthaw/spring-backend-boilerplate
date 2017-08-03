@@ -1,4 +1,4 @@
-package in.clouthink.daas.sbb.news.rest.dto;
+package in.clouthink.daas.sbb.notice.rest.dto;
 
 import java.util.Date;
 

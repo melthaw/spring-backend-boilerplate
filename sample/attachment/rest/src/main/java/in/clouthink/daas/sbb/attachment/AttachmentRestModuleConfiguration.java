@@ -1,13 +1,12 @@
-package in.clouthink.daas.sbb.attachment.rest;
+package in.clouthink.daas.sbb.attachment;
 
-import in.clouthink.daas.sbb.attachment.AttachmentServiceModuleConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan({"in.clouthink.daas.sbb.attachment.rest"})
-@Import({AttachmentServiceModuleConfiguration.class})
+@Import({AttachmentServiceModuleConfiguration.class, AttachmentMenuConfiguration.class})
 public class AttachmentRestModuleConfiguration {
 
 }

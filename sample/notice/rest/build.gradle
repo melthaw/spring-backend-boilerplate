@@ -8,5 +8,6 @@ dependencies {
 	compile project(':account/core')
 	compile project(':sample/notice/core')
 	compile project(':sample/notice/impl')
+	compile project(':menu/core')
 
 }

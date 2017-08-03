@@ -1,13 +1,12 @@
-package in.clouthink.daas.sbb.setting.rest;
+package in.clouthink.daas.sbb.setting;
 
-import in.clouthink.daas.sbb.setting.SettingServiceModuleConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan({"in.clouthink.daas.sbb.setting.rest"})
-@Import({SettingServiceModuleConfiguration.class})
+@Import({SettingServiceModuleConfiguration.class, SettingMenuConfiguration.class})
 public class SettingRestApiModuleConfiguration {
 
 }

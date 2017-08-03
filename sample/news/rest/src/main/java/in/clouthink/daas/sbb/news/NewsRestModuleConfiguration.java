@@ -1,13 +1,12 @@
-package in.clouthink.daas.sbb.news.rest;
+package in.clouthink.daas.sbb.news;
 
-import in.clouthink.daas.sbb.news.NewsServiceModuleConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan({"in.clouthink.daas.sbb.news.rest"})
-@Import(NewsServiceModuleConfiguration.class)
+@Import({NewsServiceModuleConfiguration.class, NewsMenuConfiguration.class})
 public class NewsRestModuleConfiguration {
 
 }

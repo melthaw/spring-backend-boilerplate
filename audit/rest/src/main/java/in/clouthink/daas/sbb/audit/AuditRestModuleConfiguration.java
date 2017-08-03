@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan({"in.clouthink.daas.sbb.audit.rest"})
-@Import({AuditServiceModuleConfiguration.class})
+@Import({AuditServiceModuleConfiguration.class, AuditMenuConfiguration.class})
 public class AuditRestModuleConfiguration {
 
 }

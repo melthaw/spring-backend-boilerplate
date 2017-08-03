@@ -1,9 +1,12 @@
 [
   {
     "virtual": true,
-    "code": "menu:system",
+    "code": "menu:dashboard:system",
     "name": "系统管理",
     "order": 200,
+    "metadata": {
+      "icon": "fa fa-gear"
+    },
     "extensionPoint": {
       "id": "extension:menu:system"
     }

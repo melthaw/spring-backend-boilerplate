@@ -9,5 +9,6 @@ dependencies {
     compile project(':rbac/resource')
     compile project(':rbac/permission')
     compile project(':rbac/impl')
+    compile project(':menu/core')
 
 }

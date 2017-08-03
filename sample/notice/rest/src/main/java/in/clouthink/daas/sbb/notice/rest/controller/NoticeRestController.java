@@ -1,8 +1,8 @@
-package in.clouthink.daas.sbb.news.rest.controller;
+package in.clouthink.daas.sbb.notice.rest.controller;
 
 import in.clouthink.daas.sbb.account.domain.model.User;
-import in.clouthink.daas.sbb.news.rest.dto.*;
-import in.clouthink.daas.sbb.news.rest.support.NoticeRestSupport;
+import in.clouthink.daas.sbb.notice.rest.dto.*;
+import in.clouthink.daas.sbb.notice.rest.support.NoticeRestSupport;
 import in.clouthink.daas.sbb.security.SecurityContexts;
 import in.clouthink.daas.sbb.shared.domain.request.impl.PageQueryParameter;
 import io.swagger.annotations.Api;

@@ -1,10 +1,10 @@
-package in.clouthink.daas.sbb.news.rest.support.impl;
+package in.clouthink.daas.sbb.notice.rest.support.impl;
 
 import in.clouthink.daas.sbb.account.domain.model.User;
-import in.clouthink.daas.sbb.news.rest.dto.*;
-import in.clouthink.daas.sbb.news.rest.support.NoticeRestSupport;
 import in.clouthink.daas.sbb.notice.domain.model.Notice;
 import in.clouthink.daas.sbb.notice.domain.model.NoticeReadHistory;
+import in.clouthink.daas.sbb.notice.rest.dto.*;
+import in.clouthink.daas.sbb.notice.rest.support.NoticeRestSupport;
 import in.clouthink.daas.sbb.notice.service.NoticeService;
 import in.clouthink.daas.sbb.shared.domain.request.impl.PageQueryParameter;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,14 +1,15 @@
 dependencies {
-	compile libs.springBoot
-	compile libs.springSecurity
-	compile libs.daas
+    compile libs.springBoot
+    compile libs.springSecurity
+    compile libs.daas
 
-	compile project(':shared')
-	compile project(':security/core')
-	compile project(':message/sms/core')
-	compile project(':message/sms/history')
-	compile project(':message/sms/impl')
-	compile project(':message/sms/mock')
-	compile project(':message/sms/event')
+    compile project(':shared')
+    compile project(':security/core')
+    compile project(':message/sms/core')
+    compile project(':message/sms/history')
+    compile project(':message/sms/impl')
+    compile project(':message/sms/mock')
+    compile project(':message/sms/event')
+    compile project(':menu/core')
 
 }

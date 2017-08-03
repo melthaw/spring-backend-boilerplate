@@ -1,10 +1,11 @@
 dependencies {
-	compile libs.springBoot
-	compile libs.springSecurity
-	compile libs.daas
+    compile libs.springBoot
+    compile libs.springSecurity
+    compile libs.daas
 
-	compile project(':shared')
-	compile project(':sample/setting/core')
-	compile project(':sample/setting/impl')
+    compile project(':shared')
+    compile project(':sample/setting/core')
+    compile project(':sample/setting/impl')
+    compile project(':menu/core')
 
 }

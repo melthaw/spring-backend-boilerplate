@@ -8,7 +8,10 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan({"in.clouthink.daas.sbb.sms.rest"})
-@Import({SmsAliyunModuleConfiguration.class, SmsHistoryModuleConfiguration.class, SmsEventModuleConfiguration.class})
+@Import({SmsAliyunModuleConfiguration.class,
+		 SmsHistoryModuleConfiguration.class,
+		 SmsEventModuleConfiguration.class,
+		 SmsMenuConfiguration.class})
 public class SmsRestModuleConfiguration {
 
 }
