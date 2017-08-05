@@ -1,8 +1,9 @@
 package in.clouthink.daas.sbb.menu.rest.support.impl;
 
 import in.clouthink.daas.sbb.account.domain.model.User;
-import in.clouthink.daas.sbb.menu.rest.dto.MenuSummary;
+import in.clouthink.daas.sbb.menu.rest.dto.Menu;
 import in.clouthink.daas.sbb.menu.rest.support.UserProfileExtensionRestSupport;
+import in.clouthink.daas.sbb.rbac.model.Action;
 import in.clouthink.daas.sbb.rbac.model.Resource;
 import in.clouthink.daas.sbb.rbac.model.ResourceChild;
 import in.clouthink.daas.sbb.rbac.service.PermissionService;
@@ -24,18 +25,18 @@ public class UserProfileExtensionRestSupportImpl implements UserProfileExtension
 	private PermissionService permissionService;
 
 	@Override
-	public List<MenuSummary> getUserGrantedMenus(User user) {
+	public List<Menu> getGrantedMenus(User user) {
 		List<Resource> grantedResourceList = permissionService.getGrantedResources((List) user.getAuthorities());
 
 		//flatten menu cache
-		Map<String,MenuSummary> menuRepository = grantedResourceList.stream()
-																	.collect(Collectors.toMap(resource -> resource.getCode(),
-																							  MenuSummary::from));
+		Map<String,Menu> menuRepository = grantedResourceList.stream()
+															 .collect(Collectors.toMap(resource -> resource.getCode(),
+																					   Menu::from));
 
 		//build the tree
 		grantedResourceList.stream().forEach(resource -> {
 			if (resource instanceof ResourceChild) {
-				MenuSummary parent = menuRepository.get(((ResourceChild) resource).getParentCode());
+				Menu parent = menuRepository.get(((ResourceChild) resource).getParentCode());
 				if (parent != null) {
 					parent.getChildren().add(menuRepository.get(resource.getCode()));
 				}
@@ -55,4 +56,8 @@ public class UserProfileExtensionRestSupportImpl implements UserProfileExtension
 								  .collect(Collectors.toList());
 	}
 
+	@Override
+	public List<Action> getGrantedActions(String resourceCode, User user) {
+		return permissionService.getGrantedActions(resourceCode, (List) user.getAuthorities());
+	}
 }

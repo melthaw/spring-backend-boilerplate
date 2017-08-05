@@ -11,6 +11,11 @@ import java.util.List;
 public interface ResourceRepository {
 
 	/**
+	 * @return the hash code of the resource repository
+	 */
+	String getHashcode();
+
+	/**
 	 * if the resource with same code existed, add new resource will override the existed one.
 	 */
 	void enableOverride();

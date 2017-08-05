@@ -1,14 +1,21 @@
 package in.clouthink.daas.sbb.rbac.rest.dto;
 
 import in.clouthink.daas.sbb.rbac.model.Resource;
+import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
 /**
  */
 public class ResourceSummary {
+
+	static void convert(Resource resource, ResourceSummary target, Predicate<Resource> predicate) {
+		BeanUtils.copyProperties(resource, target);
+	}
 
 	public static ResourceSummary from(Resource resource) {
 		//always convert by default
@@ -27,12 +34,7 @@ public class ResourceSummary {
 		return result;
 	}
 
-	private static void convert(Resource resource, ResourceSummary target, Predicate<Resource> predicate) {
-		target.setVirtual(resource.isVirtual());
-		target.setCode(resource.getCode());
-		target.setName(resource.getName());
-		target.setType(resource.getType());
-	}
+	private boolean granted = false;
 
 	private boolean virtual;
 
@@ -42,7 +44,17 @@ public class ResourceSummary {
 
 	private String type;
 
+	private List<ActionSummary> actions = new ArrayList<>();
+
 	private Map<String,Object> metadata = new HashMap<>();
+
+	public boolean isGranted() {
+		return granted;
+	}
+
+	public void setGranted(boolean granted) {
+		this.granted = granted;
+	}
 
 	public boolean isVirtual() {
 		return virtual;
@@ -74,6 +86,14 @@ public class ResourceSummary {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public List<ActionSummary> getActions() {
+		return actions;
+	}
+
+	public void setActions(List<ActionSummary> actions) {
+		this.actions = actions;
 	}
 
 	public Map<String,Object> getMetadata() {

@@ -10,14 +10,14 @@ import java.util.Map;
 
 /**
  */
-public class MenuSummary {
+public class Menu {
 
-	private static void convert(Resource resource, MenuSummary target) {
+	private static void convert(Resource resource, Menu target) {
 		BeanUtils.copyProperties(resource, target);
 	}
 
-	public static MenuSummary from(Resource resource) {
-		MenuSummary result = new MenuSummary();
+	public static Menu from(Resource resource) {
+		Menu result = new Menu();
 		convert(resource, result);
 		return result;
 	}
@@ -32,7 +32,7 @@ public class MenuSummary {
 
 	private Map<String,Object> metadata = new HashMap<>();
 
-	private List<MenuSummary> children = new ArrayList<>();
+	private List<Menu> children = new ArrayList<>();
 
 	public boolean isVirtual() {
 		return virtual;
@@ -74,11 +74,11 @@ public class MenuSummary {
 		this.metadata = metadata;
 	}
 
-	public List<MenuSummary> getChildren() {
+	public List<Menu> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<MenuSummary> children) {
+	public void setChildren(List<Menu> children) {
 		this.children = children;
 	}
 }

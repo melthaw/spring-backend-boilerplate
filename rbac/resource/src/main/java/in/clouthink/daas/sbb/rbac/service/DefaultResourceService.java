@@ -21,10 +21,6 @@ public class DefaultResourceService implements ResourceService, InitializingBean
 
 	private ResourceRepository resourceRepository = new ResourceMemoryRepository();
 
-	public ResourceRepository getResourceRepository() {
-		return resourceRepository;
-	}
-
 	/**
 	 * The default object is ResourceMemoryRepository, replace it with your impl.
 	 *
@@ -45,6 +41,21 @@ public class DefaultResourceService implements ResourceService, InitializingBean
 	 */
 	public void setResourceProviderList(List<ResourceProvider> resourceProviderList) {
 		this.resourceProviderList = resourceProviderList;
+	}
+
+	@Override
+	public String getHashcode() {
+		return resourceRepository.getHashcode();
+	}
+
+	@Override
+	public List<? extends Resource> getResourceChildren(String resourceCode) {
+		return resourceRepository.getResourceChildren(resourceCode);
+	}
+
+	@Override
+	public Resource getResourceParent(String resourceCode) {
+		return resourceRepository.getResourceParent(resourceCode);
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package in.clouthink.daas.sbb.rbac.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import in.clouthink.daas.sbb.rbac.model.Resource;
+import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,12 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResourceWithChildren extends ResourceSummary {
+
+	public static ResourceWithChildren from(Resource resource) {
+		ResourceWithChildren result = new ResourceWithChildren();
+		BeanUtils.copyProperties(resource, result);
+		return result;
+	}
 
 	private List<ResourceWithChildren> children = new ArrayList<>();
 
@@ -33,4 +41,5 @@ public class ResourceWithChildren extends ResourceSummary {
 			   "children=" + children +
 			   '}';
 	}
+
 }

@@ -1,35 +1,41 @@
 package in.clouthink.daas.sbb.rbac.rest.support.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.RoleType;
 import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.RoleType;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.account.service.RoleService;
-import in.clouthink.daas.sbb.rbac.rest.dto.ResourceSummary;
-import in.clouthink.daas.sbb.rbac.rest.dto.TypedRoleSummary;
-import in.clouthink.daas.sbb.rbac.rest.support.ResourceRoleRelationshipRestSupport;
 import in.clouthink.daas.sbb.rbac.impl.model.TypedRole;
-import in.clouthink.daas.sbb.rbac.impl.service.support.ResourceRoleRelationshipService;
 import in.clouthink.daas.sbb.rbac.impl.service.support.RbacUtils;
-import in.clouthink.daas.sbb.rbac.model.Resource;
-import in.clouthink.daas.sbb.rbac.model.ResourceWithChildren;
+import in.clouthink.daas.sbb.rbac.impl.service.support.ResourceRoleRelationshipService;
 import in.clouthink.daas.sbb.rbac.model.TypedCode;
+import in.clouthink.daas.sbb.rbac.rest.dto.ResourceWithChildren;
+import in.clouthink.daas.sbb.rbac.rest.dto.TypedRoleSummary;
+import in.clouthink.daas.sbb.rbac.rest.service.ResourceCacheService;
+import in.clouthink.daas.sbb.rbac.rest.support.PermissionRestSupport;
 import in.clouthink.daas.sbb.rbac.service.PermissionService;
+import in.clouthink.daas.sbb.rbac.service.ResourceService;
 import in.clouthink.daas.sbb.rbac.support.parser.RoleCodeParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class ResourceRoleRelationshipRestSupportImpl implements ResourceRoleRelationshipRestSupport {
+public class PermissionRestSupportImpl implements PermissionRestSupport {
 
 	private RoleCodeParser roleCodeParser = new RoleCodeParser();
 
 	@Autowired
 	private RoleService roleService;
+
+	@Autowired
+	private ResourceService resourceService;
+
+	@Autowired
+	private ResourceCacheService resourceCacheService;
 
 	@Autowired
 	private PermissionService permissionService;
@@ -38,30 +44,35 @@ public class ResourceRoleRelationshipRestSupportImpl implements ResourceRoleRela
 	private ResourceRoleRelationshipService resourceRoleRelationshipService;
 
 	@Override
-	public List<ResourceSummary> listResourceSummaries() {
-		return resourceRoleRelationshipService.listRootResources()
-											  .stream()
-											  .filter(resource -> !resource.isOpen())
-											  .map(resource -> ResourceSummary.from((ResourceWithChildren) resource))
-											  .collect(Collectors.toList());
+	public List<ResourceWithChildren> listGrantedResources(String roleCode) {
+		//granted resource codes & action codes
+		Map<String,Set<String>> resourceCodes =
+
+				resourceRoleRelationshipService.listAllowedResource(roleCode)
+											   .stream()
+											   .collect(Collectors.toMap(resource -> resource.getCode(),
+																		 resource -> resource.getActions()
+																							 .stream()
+																							 .map(action -> action.getCode())
+																							 .collect(Collectors.toSet())));
+
+		List<ResourceWithChildren> result = resourceCacheService.listResources(false);
+
+		processChildren(result, resourceCodes);
+
+		return result;
 	}
 
-	@Override
-	public List<ResourceSummary> listResourceSummariesByRole(String roleCode) {
-		Set<String> resourceCodes = new HashSet<>();
-		resourceRoleRelationshipService.listAllowedResource(roleCode)
-									   .stream()
-									   .filter(resource -> resource != null)
-									   .forEach(resource -> resourceCodes.add(resource.getCode()));
-		//The allowed resources list by role is not ordered , so we have to filter the resource definition tree
-		return resourceRoleRelationshipService.listRootResources()
-											  .stream()
-											  .filter(resource -> !resource.isOpen())
-											  .filter(resource -> resourceCodes.contains(resource.getCode()))
-											  .map(resource -> ResourceSummary.from((ResourceWithChildren) resource,
-																					(Resource r) -> resourceCodes.contains(
-																							r.getCode())))
-											  .collect(Collectors.toList());
+	private void processChildren(List<ResourceWithChildren> result, Map<String,Set<String>> resourceCodes) {
+		result.stream().forEach(resourceWithChildren -> {
+			resourceWithChildren.setGranted(resourceCodes.containsKey(resourceWithChildren.getCode()));
+			resourceWithChildren.getActions().stream().forEach(action -> {
+				Set<String> actionCodes = resourceCodes.get(resourceWithChildren.getCode());
+				action.setGranted(actionCodes != null && actionCodes.contains(action.getCode()));
+			});
+
+			processChildren(resourceWithChildren.getChildren(), resourceCodes);
+		});
 	}
 
 	@Override

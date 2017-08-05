@@ -25,6 +25,17 @@ public class ResourceMemoryRepository implements ResourceRepository {
 	// child => parent
 	private Map<String,List<String>> parentChildrenMap = new HashMap<>();
 
+	private String hashcode = UUID.randomUUID().toString();
+
+	@Override
+	public String getHashcode() {
+		return hashcode;
+	}
+
+	void updateHashcode() {
+		this.hashcode = UUID.randomUUID().toString();
+	}
+
 	@Override
 	public void enableOverride() {
 		this.overrideEnabled = true;
@@ -51,6 +62,7 @@ public class ResourceMemoryRepository implements ResourceRepository {
 		}
 
 		resourceRepository.put(resource.getCode().trim(), resource);
+		updateHashcode();
 	}
 
 	@Override
@@ -76,6 +88,7 @@ public class ResourceMemoryRepository implements ResourceRepository {
 			addChildren(parentCode, child.getCode());
 		});
 
+		updateHashcode();
 	}
 
 	private void addChildren(String parentCode, String childCode) {
@@ -86,6 +99,8 @@ public class ResourceMemoryRepository implements ResourceRepository {
 		}
 
 		childrenCodes.add(childCode);
+
+		updateHashcode();
 	}
 
 	@Override

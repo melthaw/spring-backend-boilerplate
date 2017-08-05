@@ -59,6 +59,13 @@ public interface PermissionService {
 
 	/**
 	 * @param resourceCode
+	 * @param roles
+	 * @return
+	 */
+	List<Action> getGrantedActions(String resourceCode, List<GrantedAuthority> roles);
+
+	/**
+	 * @param resourceCode
 	 * @param role
 	 * @return
 	 */

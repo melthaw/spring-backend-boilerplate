@@ -2,6 +2,7 @@ package in.clouthink.daas.sbb.rbac.service;
 
 import in.clouthink.daas.sbb.rbac.model.Resource;
 import in.clouthink.daas.sbb.rbac.model.ResourceMatcher;
+import in.clouthink.daas.sbb.rbac.repository.ResourceRepository;
 
 import java.util.List;
 
@@ -10,20 +11,10 @@ import java.util.List;
  */
 public interface ResourceService {
 
-	//	/**
-	//	 * Register the resource list by specified resource provider name
-	//	 *
-	//	 * @param name
-	//	 * @param resourceList
-	//	 */
-	//	void register(String name, List<Resource> resourceList);
-	//
-	//	/**
-	//	 * Unregister all the resource list provided by specified name
-	//	 *
-	//	 * @param name
-	//	 */
-	//	void unregister(String name);
+	/**
+	 * @return the hash code of the resource repository
+	 */
+	String getHashcode();
 
 	/**
 	 * find the resource by specified code
@@ -43,17 +34,32 @@ public interface ResourceService {
 	/**
 	 * list the children of specified resource
 	 *
-	 * @param parent
+	 * @param resourceCode
 	 * @return
 	 */
-	List<? extends Resource> getResourceChildren(Resource parent);
+	List<? extends Resource> getResourceChildren(String resourceCode);
+
+	/**
+	 * list the children of specified resource
+	 *
+	 * @param resource
+	 * @return
+	 */
+	List<? extends Resource> getResourceChildren(Resource resource);
 
 	/**
 	 *
-	 * @param child
+	 * @param resourceCode
 	 * @return
 	 */
-	Resource getResourceParent(Resource child);
+	Resource getResourceParent(String resourceCode);
+
+	/**
+	 *
+	 * @param resource
+	 * @return
+	 */
+	Resource getResourceParent(Resource resource);
 
 	/**
 	 * return the first matched resource and skip virtual resource by default

@@ -155,6 +155,11 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
+	public List<Action> getGrantedActions(String resourceCode, List<GrantedAuthority> roles) {
+		return null;
+	}
+
+	@Override
 	public boolean isGranted(String resourceCode, GrantedAuthority role) {
 		if (SysRole.ROLE_ADMIN.getCode().equalsIgnoreCase(role.getAuthority())) {
 			return true;
