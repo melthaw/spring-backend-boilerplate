@@ -1,11 +1,13 @@
 package in.clouthink.daas.sbb.menu.core;
 
+import in.clouthink.daas.sbb.rbac.exception.ResourceException;
+
 /**
  * menu exception
  *
  * @author dz
  */
-public class MenuException extends RuntimeException {
+public class MenuException extends ResourceException {
 	public MenuException() {
 	}
 

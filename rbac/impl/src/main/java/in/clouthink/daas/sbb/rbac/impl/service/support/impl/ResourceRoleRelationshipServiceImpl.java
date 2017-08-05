@@ -10,7 +10,7 @@ import in.clouthink.daas.sbb.rbac.impl.service.support.RbacUtils;
 import in.clouthink.daas.sbb.rbac.impl.service.support.ResourceRoleRelationshipService;
 import in.clouthink.daas.sbb.rbac.model.Resource;
 import in.clouthink.daas.sbb.rbac.model.TypedCode;
-import in.clouthink.daas.sbb.rbac.service.ResourceRegistry;
+import in.clouthink.daas.sbb.rbac.service.ResourceService;
 import in.clouthink.daas.sbb.rbac.support.parser.RoleCodeParser;
 import in.clouthink.daas.sbb.rbac.support.parser.RoleParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 	private RoleParser<TypedCode> roleParser = new RoleCodeParser();
 
 	@Autowired
-	private ResourceRegistry resourceService;
+	private ResourceService resourceService;
 
 	@Autowired
 	private ResourceRoleRelationshipRepository resourceRoleRelationshipRepository;
@@ -130,7 +130,7 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 			resourceRoleRelationshipRepository.save(resourceRoleRelationship);
 		}
 
-		Resource parentResource = resource.getParent();
+		Resource parentResource = resourceService.getResourceParent(resource);
 		if (parentResource == null) {
 			return;
 		}

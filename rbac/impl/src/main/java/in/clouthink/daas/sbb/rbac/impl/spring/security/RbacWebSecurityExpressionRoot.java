@@ -3,6 +3,8 @@ package in.clouthink.daas.sbb.rbac.impl.spring.security;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.rbac.model.Resource;
 import in.clouthink.daas.sbb.rbac.service.PermissionService;
+import in.clouthink.daas.sbb.rbac.service.ResourceService;
+import in.clouthink.daas.sbb.rbac.support.matcher.ResourceMatchers;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
@@ -14,14 +16,16 @@ import java.util.Collection;
  */
 public class RbacWebSecurityExpressionRoot extends WebSecurityExpressionRoot {
 
-	private PermissionService rbacService;
+	private ResourceService resourceService;
+
+	private PermissionService permissionService;
 
 	private FilterInvocation filterInvocation;
 
-	public RbacWebSecurityExpressionRoot(Authentication a, FilterInvocation fi, PermissionService rbacService) {
+	public RbacWebSecurityExpressionRoot(Authentication a, FilterInvocation fi, PermissionService permissionService) {
 		super(a, fi);
 		this.filterInvocation = fi;
-		this.rbacService = rbacService;
+		this.permissionService = permissionService;
 	}
 
 	public boolean isPassRbacCheck() {
@@ -37,10 +41,10 @@ public class RbacWebSecurityExpressionRoot extends WebSecurityExpressionRoot {
 
 		// Attempt to find a matching granted authority
 		String requestUrl = filterInvocation.getRequestUrl();
-		Resource resource = rbacService.getMatchedResource(requestUrl);
+		Resource resource = resourceService.getFirstMatchedResource(ResourceMatchers.matchAntPath(requestUrl));
 		if (resource != null) {
 			for (GrantedAuthority authority : authorities) {
-				if (rbacService.isGranted(resource.getCode(), authority)) {
+				if (permissionService.isGranted(resource.getCode(), authority)) {
 					return true;
 				}
 			}

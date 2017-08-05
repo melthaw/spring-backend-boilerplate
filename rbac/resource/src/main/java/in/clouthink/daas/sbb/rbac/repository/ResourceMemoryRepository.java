@@ -1,0 +1,174 @@
+package in.clouthink.daas.sbb.rbac.repository;
+
+import in.clouthink.daas.sbb.rbac.exception.ResourceException;
+import in.clouthink.daas.sbb.rbac.model.Resource;
+import in.clouthink.daas.sbb.rbac.model.ResourceMatcher;
+import org.springframework.util.StringUtils;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+/**
+ * @author dz
+ */
+public class ResourceMemoryRepository implements ResourceRepository {
+
+	private boolean overrideEnabled = false;
+
+	//The root resources (code)
+	private List<String> resourceList = new ArrayList<>();
+
+	// code => resource
+	private Map<String,Resource> resourceRepository = new HashMap<>();
+
+	// child => parent
+	private Map<String,List<String>> parentChildrenMap = new HashMap<>();
+
+	@Override
+	public void enableOverride() {
+		this.overrideEnabled = true;
+	}
+
+	@Override
+	public void disableOverride() {
+		this.overrideEnabled = false;
+	}
+
+	@Override
+	public void addResource(Resource resource) {
+		String code = resource.getCode();
+		Resource prevResource = resourceRepository.get(code);
+		if (prevResource != null) {
+			if (!overrideEnabled) {
+				throw new ResourceException(String.format(
+						"The resource[code=%s] existed. And override is not allowed. Please invoke #enableOverride and try again.",
+						code));
+			}
+		}
+		else {
+			resourceList.add(code);
+		}
+
+		resourceRepository.put(resource.getCode().trim(), resource);
+	}
+
+	@Override
+	public void addChildren(String parentCode, Resource... children) {
+		if (StringUtils.isEmpty(parentCode)) {
+			throw new ResourceException("The parent code should be not null or empty");
+		}
+
+		if (!resourceRepository.containsKey(parentCode)) {
+			throw new ResourceException("The parent is not found in the repository, please add it first.");
+		}
+
+		Stream.of(children).peek(child -> {
+			//do validate
+			Resource prevResource = resourceRepository.get(child.getCode());
+			if (prevResource != null && !overrideEnabled) {
+				throw new ResourceException(String.format(
+						"The resource[code=%s] existed. And override is not allowed. Please invoke #enableOverride and try again.",
+						child.getCode()));
+			}
+		}).forEach(child -> {
+			resourceRepository.put(child.getCode(), child);
+			addChildren(parentCode, child.getCode());
+		});
+
+	}
+
+	private void addChildren(String parentCode, String childCode) {
+		List<String> childrenCodes = parentChildrenMap.get(parentCode);
+		if (childrenCodes == null) {
+			childrenCodes = new ArrayList<>();
+			parentChildrenMap.put(parentCode, childrenCodes);
+		}
+
+		childrenCodes.add(childCode);
+	}
+
+	@Override
+	public Resource findByCode(String code) {
+		return resourceRepository.get(code);
+	}
+
+	@Override
+	public List<Resource> getRootResources() {
+		return resourceList.stream().map(code -> resourceRepository.get(code)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Resource> getResourceChildren(Resource parent) {
+		if (parent == null) {
+			return Collections.emptyList();
+		}
+
+		return Optional.ofNullable(parentChildrenMap.get(parent.getCode()))
+					   .map(list -> list.stream()
+										.map(code -> resourceRepository.get(code))
+										.collect(Collectors.toList()))
+					   .orElse(Collections.emptyList());
+	}
+
+	@Override
+	public Resource getFirstMatchedResource(ResourceMatcher resourceMatcher) {
+		return getFirstMatchedResource(resourceMatcher, true);
+	}
+
+	@Override
+	public Resource getFirstMatchedResource(ResourceMatcher resourceMatcher, boolean skipVirtual) {
+		return doMatchFirstResource(resourceMatcher, this.resourceList, skipVirtual);
+	}
+
+	private Resource doMatchFirstResource(ResourceMatcher resourceMatcher,
+										  List<String> resouceCodes,
+										  boolean skipVirtual) {
+
+
+		for (String code : resouceCodes) {
+			Resource resource = resourceRepository.get(code);
+			if (resourceMatcher.matched(resource)) {
+				if (skipVirtual && !resource.isVirtual() || !skipVirtual) {
+					return resource;
+				}
+			}
+
+			List<String> childrenCodes = parentChildrenMap.get(code);
+			if (childrenCodes != null) {
+				Resource matchedChild = doMatchFirstResource(resourceMatcher, childrenCodes, skipVirtual);
+				if (matchedChild != null) {
+					return matchedChild;
+				}
+			}
+		}
+
+		return null;
+	}
+	//
+	//	@Override
+	//	public List<Resource> getMatchedResources(ResourceMatcher resourceMatcher) {
+	//		return getMatchedResources(resourceMatcher, true);
+	//	}
+	//
+	//	@Override
+	//	public List<Resource> getMatchedResources(ResourceMatcher resourceMatcher, boolean skipVirtual) {
+	//		return this.resourceList.stream().filter(resource -> {
+	//			boolean matched = resourceMatcher.matched(resource);
+	//			if (!matched) {
+	//				return false;
+	//			}
+	//			if (skipVirtual) {
+	//				if (!resource.isVirtual()) {
+	//					return true;
+	//				}
+	//			}
+	//			else {
+	//				return true;
+	//			}
+	//
+	//			return false;
+	//		}).collect(Collectors.toList());
+	//	}
+
+}

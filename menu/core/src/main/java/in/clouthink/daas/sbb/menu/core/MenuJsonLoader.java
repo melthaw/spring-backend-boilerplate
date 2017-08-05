@@ -2,7 +2,6 @@ package in.clouthink.daas.sbb.menu.core;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import in.clouthink.daas.sbb.rbac.support.loader.ResourceLoadException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +25,7 @@ public class MenuJsonLoader implements MenuLoader {
 			return objectMapper.readValue(inputStream, typeReference);
 		}
 		catch (Exception e) {
-			throw new ResourceLoadException("加载菜单出错", e);
+			throw new MenuException("加载菜单出错", e);
 		}
 	}
 
@@ -36,7 +35,7 @@ public class MenuJsonLoader implements MenuLoader {
 			return load(new FileInputStream(file));
 		}
 		catch (IOException e) {
-			throw new ResourceLoadException(String.format("加载菜单文件'%s'出错", file.getName()), e);
+			throw new MenuException(String.format("加载菜单文件'%s'出错", file.getName()), e);
 		}
 	}
 

@@ -49,11 +49,6 @@ public interface Resource {
 	String getName();
 
 	/**
-	 * @return the parent of the resource , if the parent is null, it means it is the root resource
-	 */
-	Resource getParent();
-
-	/**
 	 * @return the patterns of the resource ( normally the url patterns )
 	 */
 	List<String> getPatterns();

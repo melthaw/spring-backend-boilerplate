@@ -12,18 +12,6 @@ public interface PermissionService {
 
 	/**
 	 * @param resourceCode
-	 * @return the resource
-	 */
-	Resource findResourceByCode(String resourceCode);
-
-	/**
-	 * @param resourcePattern
-	 * @return the first one matched the pattern
-	 */
-	Resource getMatchedResource(String resourcePattern);
-
-	/**
-	 * @param resourceCode
 	 * @return
 	 */
 	List<Role> getGrantedRoles(String resourceCode);
@@ -47,27 +35,27 @@ public interface PermissionService {
 	 * @param role
 	 * @return
 	 */
-	List<ResourceWithChildren> getGrantedResources(GrantedAuthority role);
+	List<Resource> getGrantedResources(GrantedAuthority role);
 
 	/**
 	 * @param roles
 	 * @return
 	 */
-	List<ResourceWithChildren> getGrantedResources(List<GrantedAuthority> roles);
+	List<Resource> getGrantedResources(List<GrantedAuthority> roles);
 
 	/**
 	 * @param role
 	 * @param filter
 	 * @return
 	 */
-	List<ResourceWithChildren> getGrantedResources(GrantedAuthority role, ResourceMatcher filter);
+	List<Resource> getGrantedResources(GrantedAuthority role, ResourceMatcher filter);
 
 	/**
 	 * @param roles
 	 * @param filter
 	 * @return
 	 */
-	List<ResourceWithChildren> getGrantedResources(List<GrantedAuthority> roles, ResourceMatcher filter);
+	List<Resource> getGrantedResources(List<GrantedAuthority> roles, ResourceMatcher filter);
 
 	/**
 	 * @param resourceCode

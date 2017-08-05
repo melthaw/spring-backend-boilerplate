@@ -22,8 +22,6 @@ public class Menu implements Resource, Serializable {
 
 	private String name;
 
-	private Menu parent;
-
 	private List<String> patterns = new ArrayList<>();
 
 	private List<Action> actions = new ArrayList<>();
@@ -72,15 +70,6 @@ public class Menu implements Resource, Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	@Override
-	public Menu getParent() {
-		return parent;
-	}
-
-	public void setParent(Menu parent) {
-		this.parent = parent;
 	}
 
 	@Override

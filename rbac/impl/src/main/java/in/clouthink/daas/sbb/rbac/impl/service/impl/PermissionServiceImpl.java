@@ -9,7 +9,7 @@ import in.clouthink.daas.sbb.rbac.impl.repository.ResourceRoleRelationshipReposi
 import in.clouthink.daas.sbb.rbac.impl.service.support.RbacUtils;
 import in.clouthink.daas.sbb.rbac.model.*;
 import in.clouthink.daas.sbb.rbac.service.PermissionService;
-import in.clouthink.daas.sbb.rbac.service.ResourceRegistry;
+import in.clouthink.daas.sbb.rbac.service.ResourceService;
 import in.clouthink.daas.sbb.rbac.support.matcher.ResourceMatchers;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +29,13 @@ import java.util.stream.Collectors;
 public class PermissionServiceImpl implements PermissionService {
 
 	@Autowired
-	private ResourceRegistry resourceService;
+	private ResourceService resourceService;
 
 	@Autowired
 	private RoleService roleService;
 
 	@Autowired
 	private ResourceRoleRelationshipRepository resourceRoleRelationshipRepository;
-
-	@Override
-	public Resource findResourceByCode(String resourceCode) {
-		return resourceService.findByCode(resourceCode);
-	}
-
-	@Override
-	public Resource getMatchedResource(String resourceUri) {
-		return resourceService.getFirstMatchedResource(ResourceMatchers.matchAntPath(resourceUri));
-	}
 
 	@Override
 	public List<Role> getGrantedRoles(String resourceCode) {
@@ -79,16 +69,16 @@ public class PermissionServiceImpl implements PermissionService {
 		return null;
 	}
 
-	public List<ResourceWithChildren> getGrantedResources(GrantedAuthority role, String resourceType) {
+	public List<Resource> getGrantedResources(GrantedAuthority role, String resourceType) {
 		return null;
 	}
 
-	public List<ResourceWithChildren> getGrantedResources(List<GrantedAuthority> roles, String resourceType) {
+	public List<Resource> getGrantedResources(List<GrantedAuthority> roles, String resourceType) {
 		return null;
 	}
 
 	@Override
-	public List<ResourceWithChildren> getGrantedResources(GrantedAuthority role) {
+	public List<Resource> getGrantedResources(GrantedAuthority role) {
 		if (role == null) {
 			return null;
 		}
@@ -97,17 +87,17 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
-	public List<ResourceWithChildren> getGrantedResources(List<GrantedAuthority> roles) {
+	public List<Resource> getGrantedResources(List<GrantedAuthority> roles) {
 		if (roles == null || roles.isEmpty()) {
 			return null;
 		}
 
 		for (GrantedAuthority role : roles) {
 			if (SysRole.ROLE_ADMIN == role) {
-				List<ResourceWithChildren> result = new ArrayList<>();
+				List<Resource> result = new ArrayList<>();
 				resourceService.getRootResources()
 							   .stream()
-							   .forEach(resource -> result.add((ResourceWithChildren) resource));
+							   .forEach(resource -> result.add((Resource) resource));
 				return result;
 			}
 		}
@@ -116,12 +106,12 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 
-	private List<ResourceWithChildren> doGetAllowedResources(List<? extends Resource> existedResources,
+	private List<Resource> doGetAllowedResources(List<? extends Resource> existedResources,
 															 List<GrantedAuthority> roles) {
-		List<ResourceWithChildren> result = new ArrayList<>();
+		List<Resource> result = new ArrayList<>();
 		existedResources.stream().forEach(resource -> {
 			if (resource.isOpen()) {
-				result.add((ResourceWithChildren) resource);
+				result.add((Resource) resource);
 				return;
 			}
 
@@ -138,16 +128,16 @@ public class PermissionServiceImpl implements PermissionService {
 			}
 
 			if (granted) {
-				DefaultResourceWithChildren resourceWithChildren = new DefaultResourceWithChildren();
+				DefaultResource resourceWithChildren = new DefaultResource();
 				BeanUtils.copyProperties(resource, resourceWithChildren, "children");
-				if (((ResourceWithChildren) resource).hasChildren()) {
-					resourceWithChildren.setChildren(doGetAllowedResources(((ResourceWithChildren) resource).getChildren(),
-																		   roles));
-				}
-				//虚父节点有权限,但是子节点无权限,虚父节点不需要返回
-				if (resourceWithChildren.isVirtual() && !resourceWithChildren.hasChildren()) {
-					return;
-				}
+//				if (((Resource) resource).hasChildren()) {
+//					resourceWithChildren.setChildren(doGetAllowedResources(((Resource) resource).getChildren(),
+//																		   roles));
+//				}
+//				//虚父节点有权限,但是子节点无权限,虚父节点不需要返回
+//				if (resourceWithChildren.isVirtual() && !resourceWithChildren.hasChildren()) {
+//					return;
+//				}
 				result.add(resourceWithChildren);
 			}
 		});
@@ -156,12 +146,12 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
-	public List<ResourceWithChildren> getGrantedResources(GrantedAuthority role, ResourceMatcher filter) {
+	public List<Resource> getGrantedResources(GrantedAuthority role, ResourceMatcher filter) {
 		return null;
 	}
 
 	@Override
-	public List<ResourceWithChildren> getGrantedResources(List<GrantedAuthority> roles, ResourceMatcher filter) {
+	public List<Resource> getGrantedResources(List<GrantedAuthority> roles, ResourceMatcher filter) {
 		return null;
 	}
 

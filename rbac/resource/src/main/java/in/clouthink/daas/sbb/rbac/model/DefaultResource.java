@@ -14,7 +14,7 @@ import java.util.Map;
  * The Resource default impl.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DefaultResource implements Resource, Serializable {
+public class DefaultResource implements MutableResource, Serializable {
 
 	private boolean virtual = false;
 
@@ -26,7 +26,7 @@ public class DefaultResource implements Resource, Serializable {
 
 	private String name;
 
-	private DefaultResource parent;
+	private String parentCode;
 
 	private List<String> patterns = new ArrayList<>();
 
@@ -80,15 +80,6 @@ public class DefaultResource implements Resource, Serializable {
 	}
 
 	@Override
-	public DefaultResource getParent() {
-		return parent;
-	}
-
-	public void setParent(DefaultResource parent) {
-		this.parent = parent;
-	}
-
-	@Override
 	public List<String> getPatterns() {
 		return patterns;
 	}
@@ -116,17 +107,4 @@ public class DefaultResource implements Resource, Serializable {
 		this.metadata = metadata;
 	}
 
-	@Override
-	public String toString() {
-		return "DefaultResource{" +
-			   "virtual=" + virtual +
-			   ", type='" + type + '\'' +
-			   ", code='" + code + '\'' +
-			   ", name='" + name + '\'' +
-			   ", parent=" + parent +
-			   ", patterns=" + patterns +
-			   ", actions=" + actions +
-			   ", metadata=" + metadata +
-			   '}';
-	}
 }
