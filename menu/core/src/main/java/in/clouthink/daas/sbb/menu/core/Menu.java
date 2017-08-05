@@ -1,6 +1,8 @@
 package in.clouthink.daas.sbb.menu.core;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import in.clouthink.daas.sbb.rbac.model.Action;
+import in.clouthink.daas.sbb.rbac.model.DefaultAction;
 import in.clouthink.daas.sbb.rbac.model.Resource;
 
 import java.io.Serializable;
@@ -24,6 +26,7 @@ public class Menu implements Resource, Serializable {
 
 	private List<String> patterns = new ArrayList<>();
 
+	@JsonDeserialize(contentAs = DefaultAction.class)
 	private List<Action> actions = new ArrayList<>();
 
 	private Map<String,Object> metadata = new HashMap<>();

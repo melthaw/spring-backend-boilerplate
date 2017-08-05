@@ -10,7 +10,6 @@ import in.clouthink.daas.sbb.rbac.impl.service.support.RbacUtils;
 import in.clouthink.daas.sbb.rbac.model.*;
 import in.clouthink.daas.sbb.rbac.service.PermissionService;
 import in.clouthink.daas.sbb.rbac.service.ResourceService;
-import in.clouthink.daas.sbb.rbac.support.matcher.ResourceMatchers;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -130,14 +129,14 @@ public class PermissionServiceImpl implements PermissionService {
 			if (granted) {
 				DefaultResource resourceWithChildren = new DefaultResource();
 				BeanUtils.copyProperties(resource, resourceWithChildren, "children");
-//				if (((Resource) resource).hasChildren()) {
-//					resourceWithChildren.setChildren(doGetAllowedResources(((Resource) resource).getChildren(),
-//																		   roles));
-//				}
-//				//虚父节点有权限,但是子节点无权限,虚父节点不需要返回
-//				if (resourceWithChildren.isVirtual() && !resourceWithChildren.hasChildren()) {
-//					return;
-//				}
+				if (((Resource) resource).hasChildren()) {
+					resourceWithChildren.setChildren(doGetAllowedResources(((Resource) resource).getChildren(),
+																		   roles));
+				}
+				//虚父节点有权限,但是子节点无权限,虚父节点不需要返回
+				if (resourceWithChildren.isVirtual() && !resourceWithChildren.hasChildren()) {
+					return;
+				}
 				result.add(resourceWithChildren);
 			}
 		});

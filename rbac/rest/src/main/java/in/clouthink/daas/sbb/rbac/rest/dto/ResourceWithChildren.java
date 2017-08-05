@@ -2,7 +2,6 @@ package in.clouthink.daas.sbb.rbac.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import in.clouthink.daas.sbb.rbac.model.DefaultResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,20 +10,20 @@ import java.util.List;
  * The resource tree struct impl
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DefaultResourceWithChildren extends DefaultResource {
+public class ResourceWithChildren extends ResourceSummary {
 
-	private List<DefaultResourceWithChildren> children = new ArrayList<>();
+	private List<ResourceWithChildren> children = new ArrayList<>();
 
 	public boolean hasChildren() {
 		return children != null && !children.isEmpty();
 	}
 
-	@JsonDeserialize(contentAs = DefaultResourceWithChildren.class)
-	public List<DefaultResourceWithChildren> getChildren() {
+	@JsonDeserialize(contentAs = ResourceWithChildren.class)
+	public List<ResourceWithChildren> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<DefaultResourceWithChildren> children) {
+	public void setChildren(List<ResourceWithChildren> children) {
 		this.children = children;
 	}
 

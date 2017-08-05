@@ -1,7 +1,7 @@
-package in.clouthink.daas.sbb.rbac.rest.support;
+package in.clouthink.daas.sbb.menu.rest.support;
 
 import in.clouthink.daas.sbb.account.domain.model.User;
-import in.clouthink.daas.sbb.rbac.rest.dto.MenuSummary;
+import in.clouthink.daas.sbb.menu.rest.dto.MenuSummary;
 
 import java.util.List;
 

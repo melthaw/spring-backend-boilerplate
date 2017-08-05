@@ -1,8 +1,8 @@
-package in.clouthink.daas.sbb.rbac.rest.controller;
+package in.clouthink.daas.sbb.menu.rest.controller;
 
 import in.clouthink.daas.sbb.account.domain.model.User;
-import in.clouthink.daas.sbb.rbac.rest.dto.MenuSummary;
-import in.clouthink.daas.sbb.rbac.rest.support.UserProfileExtensionRestSupport;
+import in.clouthink.daas.sbb.menu.rest.support.UserProfileExtensionRestSupport;
+import in.clouthink.daas.sbb.menu.rest.dto.MenuSummary;
 import in.clouthink.daas.sbb.security.SecurityContexts;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

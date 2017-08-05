@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
 					order = 100,
 					metadata = {@Metadata(key = "icon", value = "fa fa-gear")},
 					extensionPoint = {@ExtensionPoint(id = "extension:menu:sample")})})
-public class GlobalMenuPluginConfiguration {
+public class GlobalMenuConfiguration {
 
 	@Bean
 	public MenuPlugin systemMenuPlugin() {

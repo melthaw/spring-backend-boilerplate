@@ -14,11 +14,10 @@ include 'security/impl'
 include 'rbac/resource'
 include 'rbac/permission'
 include 'rbac/impl'
-include 'rbac/plugin'
 include 'rbac/rest'
 
 include 'menu/core'
-include 'menu/plugin'
+include 'menu/rest'
 
 include 'audit/core'
 include 'audit/impl'

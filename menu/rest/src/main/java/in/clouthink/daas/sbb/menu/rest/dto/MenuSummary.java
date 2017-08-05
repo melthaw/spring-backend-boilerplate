@@ -1,37 +1,25 @@
-package in.clouthink.daas.sbb.rbac.rest.dto;
+package in.clouthink.daas.sbb.menu.rest.dto;
 
 import in.clouthink.daas.sbb.rbac.model.Resource;
+import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 /**
  */
-public class ResourceSummary {
+public class MenuSummary {
 
-	public static ResourceSummary from(Resource resource) {
-		//always convert by default
-		return from(resource, res -> true);
+	private static void convert(Resource resource, MenuSummary target) {
+		BeanUtils.copyProperties(resource, target);
 	}
 
-	public static ResourceSummary from(Resource resource, Predicate<Resource> predicate) {
-		if (resource == null) {
-			return null;
-		}
-		if (!predicate.test(resource)) {
-			return null;
-		}
-		ResourceSummary result = new ResourceSummary();
-		convert(resource, result, predicate);
+	public static MenuSummary from(Resource resource) {
+		MenuSummary result = new MenuSummary();
+		convert(resource, result);
 		return result;
-	}
-
-	private static void convert(Resource resource, ResourceSummary target, Predicate<Resource> predicate) {
-		target.setVirtual(resource.isVirtual());
-		target.setCode(resource.getCode());
-		target.setName(resource.getName());
-		target.setType(resource.getType());
 	}
 
 	private boolean virtual;
@@ -43,6 +31,8 @@ public class ResourceSummary {
 	private String type;
 
 	private Map<String,Object> metadata = new HashMap<>();
+
+	private List<MenuSummary> children = new ArrayList<>();
 
 	public boolean isVirtual() {
 		return virtual;
@@ -82,5 +72,13 @@ public class ResourceSummary {
 
 	public void setMetadata(Map<String,Object> metadata) {
 		this.metadata = metadata;
+	}
+
+	public List<MenuSummary> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<MenuSummary> children) {
+		this.children = children;
 	}
 }
