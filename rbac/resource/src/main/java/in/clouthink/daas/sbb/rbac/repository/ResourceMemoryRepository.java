@@ -1,6 +1,7 @@
 package in.clouthink.daas.sbb.rbac.repository;
 
 import in.clouthink.daas.sbb.rbac.exception.ResourceException;
+import in.clouthink.daas.sbb.rbac.model.ParentAware;
 import in.clouthink.daas.sbb.rbac.model.Resource;
 import in.clouthink.daas.sbb.rbac.model.ResourceMatcher;
 import org.springframework.util.StringUtils;
@@ -114,12 +115,18 @@ public class ResourceMemoryRepository implements ResourceRepository {
 	}
 
 	@Override
-	public List<Resource> getResourceChildren(Resource parent) {
-		if (parent == null) {
-			return Collections.emptyList();
-		}
+	public Resource getResourceParent(String resourceCode) {
+		return Optional.ofNullable(resourceCode)
+					   .map(code -> resourceRepository.get(code))
+					   .filter(resource -> resource instanceof ParentAware)
+					   .map(resource -> resourceRepository.get(((ParentAware) resource).getParentCode()))
+					   .orElse(null);
+	}
 
-		return Optional.ofNullable(parentChildrenMap.get(parent.getCode()))
+	@Override
+	public List<Resource> getResourceChildren(String parentCode) {
+		return Optional.ofNullable(parentCode)
+					   .map(code -> parentChildrenMap.get(code))
 					   .map(list -> list.stream()
 										.map(code -> resourceRepository.get(code))
 										.collect(Collectors.toList()))

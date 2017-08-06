@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.rbac.rest.controller;
 
 import in.clouthink.daas.sbb.rbac.rest.dto.GrantResourceParameter;
-import in.clouthink.daas.sbb.rbac.rest.dto.ResourceSummary;
+import in.clouthink.daas.sbb.rbac.rest.dto.ResourceWithChildren;
 import in.clouthink.daas.sbb.rbac.rest.dto.TypedRoleSummary;
 import in.clouthink.daas.sbb.rbac.rest.support.PermissionRestSupport;
 import io.swagger.annotations.Api;
@@ -21,7 +21,7 @@ public class PermissionRestController {
 
 	@ApiOperation(value = "获取指定角色的授权资源(完整资源树,通过授权标记位区分是否已授权)")
 	@RequestMapping(value = "roles/{roleCode}/resources", method = RequestMethod.GET)
-	public List<ResourceSummary> listGrantedResources(@PathVariable String roleCode) {
+	public List<ResourceWithChildren> listGrantedResources(@PathVariable String roleCode) {
 		return permissionRestSupport.listGrantedResources(roleCode);
 	}
 

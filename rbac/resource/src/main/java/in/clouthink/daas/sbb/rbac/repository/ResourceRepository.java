@@ -58,12 +58,20 @@ public interface ResourceRepository {
 	List<Resource> getRootResources();
 
 	/**
-	 * list the children of specified resource
+	 * get the parent of specified resource
 	 *
-	 * @param parent
+	 * @param resourceCode
 	 * @return
 	 */
-	List<Resource> getResourceChildren(Resource parent);
+	Resource getResourceParent(String resourceCode);
+
+	/**
+	 * list the children of specified resource
+	 *
+	 * @param parentCode
+	 * @return
+	 */
+	List<Resource> getResourceChildren(String parentCode);
 
 	/**
 	 * return the first matched resource and skip virtual resource by default
