@@ -17,14 +17,6 @@ public interface PermissionService {
 	List<Role> getGrantedRoles(String resourceCode);
 
 	/**
-	 * List all the permissions
-	 *
-	 * @param resource
-	 * @return
-	 */
-	List<Role> getGrantedRoles(Resource resource);
-
-	/**
 	 * @param resourceCode
 	 * @param role
 	 * @return the permission
@@ -72,10 +64,11 @@ public interface PermissionService {
 	boolean isGranted(String resourceCode, GrantedAuthority role);
 
 	/**
-	 * @param resource
+	 * @param resourceCode
+	 * @param actionCode
 	 * @param role
 	 * @return
 	 */
-	boolean isGranted(Resource resource, GrantedAuthority role);
+	boolean isGranted(String resourceCode, String actionCode, GrantedAuthority role);
 
 }

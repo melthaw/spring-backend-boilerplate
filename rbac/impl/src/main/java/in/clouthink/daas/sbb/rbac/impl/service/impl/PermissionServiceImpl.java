@@ -60,11 +60,6 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
-	public List<Role> getGrantedRoles(Resource resource) {
-		return getGrantedRoles(resource.getCode());
-	}
-
-	@Override
 	public List<Role> getGrantedRoles(String resourceCode) {
 		return resourceRoleRelationshipRepository.findByResourceCode(resourceCode)
 												 .stream()
@@ -164,13 +159,17 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
-	public boolean isGranted(Resource resource, GrantedAuthority role) {
+	public boolean isGranted(String resourceCode, String actionCode, GrantedAuthority role) {
 		if (SysRole.ROLE_ADMIN.getCode().equalsIgnoreCase(role.getAuthority())) {
 			return true;
 		}
 
-		return resourceRoleRelationshipRepository.existsByResourceCodeAndRoleCode(resource.getCode(),
-																				  RbacUtils.buildRoleCode(role));
+		return Optional.ofNullable(resourceRoleRelationshipRepository.findByResourceCodeAndRoleCode(resourceCode,
+																									RbacUtils.buildRoleCode(
+																											role)))
+					   .map(resourceRoleRelationship -> resourceRoleRelationship.getAllowedActions()
+																				.contains(actionCode))
+					   .orElse(Boolean.FALSE);
 	}
 
 }

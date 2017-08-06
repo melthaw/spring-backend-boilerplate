@@ -58,7 +58,7 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 
 	@Override
 	public List<? extends Resource> listResourceChildren(Resource parent) {
-		return resourceService.getResourceChildren(parent);
+		return resourceService.getResourceChildren(parent.getCode());
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 			resourceRoleRelationshipRepository.save(resourceRoleRelationship);
 		}
 
-		Resource parentResource = resourceService.getResourceParent(resource);
+		Resource parentResource = resourceService.getResourceParent(resource.getCode());
 		if (parentResource == null) {
 			return;
 		}
@@ -172,7 +172,7 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 				roleCode);
 		if (parentResourceRoleRelationship != null) {
 			//if no child is granted , the parent can be revoke
-			List<? extends Resource> children = resourceService.getResourceChildren(parentResource);
+			List<? extends Resource> children = resourceService.getResourceChildren(parentResource.getCode());
 
 			boolean hasChildGranted = false;
 			for (Resource child : children) {
