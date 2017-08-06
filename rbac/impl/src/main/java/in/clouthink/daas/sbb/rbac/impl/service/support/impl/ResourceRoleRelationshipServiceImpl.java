@@ -127,10 +127,10 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 		if (resourceRoleRelationship == null) {
 			resourceRoleRelationship = new ResourceRoleRelationship();
 			resourceRoleRelationship.setResourceCode(resourceCode);
-			resourceRoleRelationship.setAllowedActions(Arrays.asList(actionCodes));
 			resourceRoleRelationship.setRoleCode(roleCode);
-			resourceRoleRelationshipRepository.save(resourceRoleRelationship);
 		}
+		resourceRoleRelationship.setAllowedActions(Arrays.asList(actionCodes));
+		resourceRoleRelationshipRepository.save(resourceRoleRelationship);
 
 		Resource parentResource = resourceService.getResourceParent(resource.getCode());
 		if (parentResource == null) {
@@ -144,7 +144,6 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 		if (parentResourceRoleRelationship == null) {
 			parentResourceRoleRelationship = new ResourceRoleRelationship();
 			parentResourceRoleRelationship.setResourceCode(parentResource.getCode());
-			resourceRoleRelationship.setAllowedActions(Arrays.asList(actionCodes));
 			parentResourceRoleRelationship.setRoleCode(roleCode);
 			resourceRoleRelationshipRepository.save(parentResourceRoleRelationship);
 		}

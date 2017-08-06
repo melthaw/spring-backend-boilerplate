@@ -78,12 +78,13 @@ public class ResourceMemoryRepository implements ResourceRepository {
 
 		Stream.of(children).peek(child -> {
 			//do validate
-			Resource prevResource = resourceRepository.get(child.getCode());
-			if (prevResource != null && !overrideEnabled) {
-				throw new ResourceException(String.format(
-						"The resource[code=%s] existed. And override is not allowed. Please invoke #enableOverride and try again.",
-						child.getCode()));
-			}
+			Optional.ofNullable(resourceRepository.get(child.getCode())).ifPresent(prevResource -> {
+				if (!overrideEnabled) {
+					throw new ResourceException(String.format(
+							"The resource[code=%s] existed. And override is not allowed. Please invoke #enableOverride and try again.",
+							child.getCode()));
+				}
+			});
 		}).forEach(child -> {
 			resourceRepository.put(child.getCode(), child);
 			addChildren(parentCode, child.getCode());
@@ -155,8 +156,6 @@ public class ResourceMemoryRepository implements ResourceRepository {
 	private Resource doMatchFirstResource(ResourceMatcher resourceMatcher,
 										  List<String> resouceCodes,
 										  boolean skipVirtual) {
-
-
 		for (String code : resouceCodes) {
 			Resource resource = resourceRepository.get(code);
 			if (resourceMatcher.matched(resource)) {
@@ -176,7 +175,7 @@ public class ResourceMemoryRepository implements ResourceRepository {
 
 		return null;
 	}
-	//
+
 	//	@Override
 	//	public List<Resource> getMatchedResources(ResourceMatcher resourceMatcher) {
 	//		return getMatchedResources(resourceMatcher, true);

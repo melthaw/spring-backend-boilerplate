@@ -24,6 +24,13 @@ public interface PermissionService {
 	Permission getPermission(String resourceCode, GrantedAuthority role);
 
 	/**
+	 * @param resourceCode
+	 * @param roles
+	 * @return the permission
+	 */
+	Permission getPermission(String resourceCode, List<GrantedAuthority> roles);
+
+	/**
 	 * @param role
 	 * @return
 	 */

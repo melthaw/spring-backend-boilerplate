@@ -34,20 +34,42 @@ public class PermissionServiceImpl implements PermissionService {
 
 	@Override
 	public Permission getPermission(String resourceCode, GrantedAuthority authority) {
-		return Optional.ofNullable(resourceRoleRelationshipRepository.findByResourceCodeAndRoleCode(resourceCode,
-																									authority.getAuthority()))
+		return getPermission(resourceCode, Arrays.asList(authority));
+	}
+
+	@Override
+	public Permission getPermission(String resourceCode, List<GrantedAuthority> roles) {
+		return Optional.ofNullable(roles.stream()
+										.map(role -> resourceRoleRelationshipRepository.findByResourceCodeAndRoleCode(
+												resourceCode,
+												RbacUtils.buildRoleCode(role)))
+										.reduce(null, (acc, item) -> {
+											if (item == null) {
+												return acc;
+											}
+
+											if (item == null && acc != null) {
+												return acc;
+											}
+
+											if (acc == null && item != null) {
+												return item;
+											}
+
+											item.getAllowedActions().stream().forEach(actionCode -> {
+												if (!acc.getAllowedActions().contains(actionCode)) {
+													acc.getAllowedActions().add(actionCode);
+												}
+											});
+
+											return acc;
+										}))
+
 					   .map(resourceRoleRelationship -> {
 						   Resource resource = resourceService.findByCode(resourceCode);
 
 						   DefaultPermission result = new DefaultPermission();
 						   result.setResource(resource);
-						   result.setRole(Optional.of(authority).map(auth -> {
-							   DefaultRole role = new DefaultRole();
-							   ExtRole extRole = roleService.findByCode(RbacUtils.buildRoleCode(auth));
-							   role.setCode(extRole.getCode());
-							   role.setName(extRole.getName());
-							   return role;
-						   }).get());
 						   result.setGrantedActions(resource.getActions()
 															.stream()
 															.filter(action -> resourceRoleRelationship.getAllowedActions()
@@ -56,6 +78,7 @@ public class PermissionServiceImpl implements PermissionService {
 															.toArray(new Action[0]));
 						   return result;
 					   })
+
 					   .orElse(null);
 	}
 
