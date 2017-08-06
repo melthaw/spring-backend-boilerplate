@@ -2,7 +2,6 @@ package in.clouthink.daas.sbb.rbac.service;
 
 import in.clouthink.daas.sbb.rbac.model.Resource;
 import in.clouthink.daas.sbb.rbac.model.ResourceMatcher;
-import in.clouthink.daas.sbb.rbac.repository.ResourceRepository;
 
 import java.util.List;
 
@@ -29,7 +28,14 @@ public interface ResourceService {
 	 *
 	 * @return
 	 */
-	List<? extends Resource> getRootResources();
+	List<Resource> getRootResources();
+
+	/**
+	 * list all resources in flatten
+	 *
+	 * @return
+	 */
+	List<Resource> getFlattenResources();
 
 	/**
 	 * list the children of specified resource
@@ -37,29 +43,13 @@ public interface ResourceService {
 	 * @param resourceCode
 	 * @return
 	 */
-	List<? extends Resource> getResourceChildren(String resourceCode);
+	List<Resource> getResourceChildren(String resourceCode);
 
 	/**
-	 * list the children of specified resource
-	 *
-	 * @param resource
-	 * @return
-	 */
-	List<? extends Resource> getResourceChildren(Resource resource);
-
-	/**
-	 *
 	 * @param resourceCode
 	 * @return
 	 */
 	Resource getResourceParent(String resourceCode);
-
-	/**
-	 *
-	 * @param resource
-	 * @return
-	 */
-	Resource getResourceParent(Resource resource);
 
 	/**
 	 * return the first matched resource and skip virtual resource by default
@@ -79,22 +69,22 @@ public interface ResourceService {
 	 */
 	Resource getFirstMatchedResource(ResourceMatcher matcher, boolean skipVirtual);
 
-//	/**
-//	 * return all the matched resource ( exclude the virtual resource )
-//	 *
-//	 * @param matcher
-//	 * @return
-//	 * @see #getMatchedResources(ResourceMatcher, boolean)
-//	 */
-//	List<? extends Resource> getMatchedResources(ResourceMatcher matcher);
-//
-//	/**
-//	 * return all the matched resource
-//	 *
-//	 * @param matcher
-//	 * @param skipVirtual the virtual resource won't be returned if the value is true
-//	 * @return
-//	 */
-//	List<? extends Resource> getMatchedResources(ResourceMatcher matcher, boolean skipVirtual);
+	//	/**
+	//	 * return all the matched resource ( exclude the virtual resource )
+	//	 *
+	//	 * @param matcher
+	//	 * @return
+	//	 * @see #getMatchedResources(ResourceMatcher, boolean)
+	//	 */
+	//	List<Resource> getMatchedResources(ResourceMatcher matcher);
+	//
+	//	/**
+	//	 * return all the matched resource
+	//	 *
+	//	 * @param matcher
+	//	 * @param skipVirtual the virtual resource won't be returned if the value is true
+	//	 * @return
+	//	 */
+	//	List<Resource> getMatchedResources(ResourceMatcher matcher, boolean skipVirtual);
 
 }

@@ -35,13 +35,13 @@ public class PermissionRestController {
 	@RequestMapping(value = "/roles/{roleCode}/resources", method = RequestMethod.POST)
 	public void grantResourcesToRoles(@PathVariable String roleCode,
 									  @RequestBody GrantResourceParameter grantResourceParameter) {
-		permissionRestSupport.grantResourcesToRoles(roleCode, grantResourceParameter);
+		permissionRestSupport.grantResourcesToRole(roleCode, grantResourceParameter);
 	}
 
 	@ApiOperation(value = "取消指定的资源授权(角色编码以逗号区分,角色编码格式'TYPE:ROLE_CODE',其中TYPE的值为SYS或者APP")
 	@RequestMapping(value = "/roles/{roleCode}/resources/{resourceCode}", method = RequestMethod.DELETE)
 	public void revokeResourcesFromRoles(@PathVariable String roleCode, @PathVariable String resourceCode) {
-		permissionRestSupport.revokeResourcesFromRoles(roleCode, resourceCode);
+		permissionRestSupport.revokeResourcesFromRole(roleCode, resourceCode);
 	}
 
 }

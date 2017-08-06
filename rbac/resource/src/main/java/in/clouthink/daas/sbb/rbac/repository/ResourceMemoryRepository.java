@@ -18,7 +18,7 @@ public class ResourceMemoryRepository implements ResourceRepository {
 	private boolean overrideEnabled = false;
 
 	//The root resources (code)
-	private List<String> resourceList = new ArrayList<>();
+	private List<String> rootResourceCodes = new ArrayList<>();
 
 	// code => resource
 	private Map<String,Resource> resourceRepository = new HashMap<>();
@@ -59,7 +59,7 @@ public class ResourceMemoryRepository implements ResourceRepository {
 			}
 		}
 		else {
-			resourceList.add(code);
+			rootResourceCodes.add(code);
 		}
 
 		resourceRepository.put(resource.getCode().trim(), resource);
@@ -111,7 +111,16 @@ public class ResourceMemoryRepository implements ResourceRepository {
 
 	@Override
 	public List<Resource> getRootResources() {
-		return resourceList.stream().map(code -> resourceRepository.get(code)).collect(Collectors.toList());
+		return rootResourceCodes.stream().map(code -> resourceRepository.get(code)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<? extends Resource> getFlattenResources() {
+		List<String> resourceCodes = new ArrayList<>();
+		resourceCodes.addAll(rootResourceCodes);
+		parentChildrenMap.values().stream().forEach(codes -> resourceCodes.addAll(codes));
+
+		return resourceCodes.stream().map(code -> resourceRepository.get(code)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -140,7 +149,7 @@ public class ResourceMemoryRepository implements ResourceRepository {
 
 	@Override
 	public Resource getFirstMatchedResource(ResourceMatcher resourceMatcher, boolean skipVirtual) {
-		return doMatchFirstResource(resourceMatcher, this.resourceList, skipVirtual);
+		return doMatchFirstResource(resourceMatcher, this.rootResourceCodes, skipVirtual);
 	}
 
 	private Resource doMatchFirstResource(ResourceMatcher resourceMatcher,

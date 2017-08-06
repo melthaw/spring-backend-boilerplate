@@ -2,7 +2,6 @@ package in.clouthink.daas.sbb.rbac.rest.support;
 
 
 import in.clouthink.daas.sbb.rbac.rest.dto.GrantResourceParameter;
-import in.clouthink.daas.sbb.rbac.rest.dto.ResourceSummary;
 import in.clouthink.daas.sbb.rbac.rest.dto.ResourceWithChildren;
 import in.clouthink.daas.sbb.rbac.rest.dto.TypedRoleSummary;
 
@@ -25,14 +24,14 @@ public interface PermissionRestSupport {
 	List<TypedRoleSummary> listGrantedRoles(String code);
 
 	/**
-	 * @param code
-	 * @param typedRoleCodes
+	 * @param roleCode
+	 * @param grantRequest
 	 */
-	void grantResourcesToRoles(String code, GrantResourceParameter typedRoleCodes);
+	void grantResourcesToRole(String roleCode, GrantResourceParameter grantRequest);
 
 	/**
-	 * @param code
-	 * @param typedRoleCodeArray
+	 * @param roleCode
+	 * @param resourceCode
 	 */
-	void revokeResourcesFromRoles(String code, String typedRoleCodeArray);
+	void revokeResourcesFromRole(String roleCode, String resourceCode);
 }

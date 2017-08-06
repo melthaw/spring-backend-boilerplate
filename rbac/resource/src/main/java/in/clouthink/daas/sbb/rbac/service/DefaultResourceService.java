@@ -7,7 +7,6 @@ import in.clouthink.daas.sbb.rbac.repository.ResourceMemoryRepository;
 import in.clouthink.daas.sbb.rbac.repository.ResourceRepository;
 import in.clouthink.daas.sbb.rbac.spi.ResourceProvider;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,16 +48,6 @@ public class DefaultResourceService implements ResourceService, InitializingBean
 	}
 
 	@Override
-	public List<? extends Resource> getResourceChildren(String resourceCode) {
-		return resourceRepository.getResourceChildren(resourceCode);
-	}
-
-	@Override
-	public Resource getResourceParent(String resourceCode) {
-		return resourceRepository.getResourceParent(resourceCode);
-	}
-
-	@Override
 	public Resource findByCode(String code) {
 		return resourceRepository.findByCode(code);
 	}
@@ -69,16 +58,18 @@ public class DefaultResourceService implements ResourceService, InitializingBean
 	}
 
 	@Override
-	public List<Resource> getResourceChildren(Resource parent) {
-		return resourceRepository.getResourceChildren(parent);
+	public List<Resource> getFlattenResources() {
+		return null;
 	}
 
 	@Override
-	public Resource getResourceParent(Resource resource) {
-		if (resource instanceof ResourceChild && !StringUtils.isEmpty(((ResourceChild) resource).getParentCode())) {
-			return resourceRepository.findByCode(((ResourceChild) resource).getParentCode());
-		}
-		return null;
+	public List<Resource> getResourceChildren(String resourceCode) {
+		return resourceRepository.getResourceChildren(resourceCode);
+	}
+
+	@Override
+	public Resource getResourceParent(String resourceCode) {
+		return resourceRepository.getResourceParent(resourceCode);
 	}
 
 	@Override

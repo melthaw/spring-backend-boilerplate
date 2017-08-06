@@ -13,7 +13,7 @@ public interface Permission {
 	/**
 	 * @return The role which will participate in the resource actions
 	 */
-	String getRole();
+	Role getRole();
 
 	/**
 	 * @return If the action is null or empty , it means any actions is allowed

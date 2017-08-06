@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -114,7 +115,7 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 	}
 
 	@Override
-	public void bindResourceAndRole(String resourceCode, GrantedAuthority role) {
+	public void bindResourceAndRole(String resourceCode, String[] actionCodes, GrantedAuthority role) {
 		String roleCode = RbacUtils.buildRoleCode(role);
 		Resource resource = resourceService.findByCode(resourceCode);
 		if (resource == null) {
@@ -126,6 +127,7 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 		if (resourceRoleRelationship == null) {
 			resourceRoleRelationship = new ResourceRoleRelationship();
 			resourceRoleRelationship.setResourceCode(resourceCode);
+			resourceRoleRelationship.setAllowedActions(Arrays.asList(actionCodes));
 			resourceRoleRelationship.setRoleCode(roleCode);
 			resourceRoleRelationshipRepository.save(resourceRoleRelationship);
 		}
@@ -142,6 +144,7 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 		if (parentResourceRoleRelationship == null) {
 			parentResourceRoleRelationship = new ResourceRoleRelationship();
 			parentResourceRoleRelationship.setResourceCode(parentResource.getCode());
+			resourceRoleRelationship.setAllowedActions(Arrays.asList(actionCodes));
 			parentResourceRoleRelationship.setRoleCode(roleCode);
 			resourceRoleRelationshipRepository.save(parentResourceRoleRelationship);
 		}
@@ -150,14 +153,42 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 	@Override
 	public void unbindResourceAndRole(String resourceCode, GrantedAuthority role) {
 		String roleCode = RbacUtils.buildRoleCode(role);
+
 		ResourceRoleRelationship resourceRoleRelationship = resourceRoleRelationshipRepository.findByResourceCodeAndRoleCode(
 				resourceCode,
 				roleCode);
-		if (resourceRoleRelationship == null) {
+		if (resourceRoleRelationship != null) {
+			resourceRoleRelationshipRepository.delete(resourceRoleRelationship);
+		}
+
+		Resource parentResource = resourceService.getResourceParent(resourceCode);
+		if (parentResource == null) {
 			return;
 		}
-		resourceRoleRelationshipRepository.delete(resourceRoleRelationship);
 
+		//The parent will be revoked automatically if the child is revoked
+		ResourceRoleRelationship parentResourceRoleRelationship = resourceRoleRelationshipRepository.findByResourceCodeAndRoleCode(
+				parentResource.getCode(),
+				roleCode);
+		if (parentResourceRoleRelationship != null) {
+			//if no child is granted , the parent can be revoke
+			List<? extends Resource> children = resourceService.getResourceChildren(parentResource);
+
+			boolean hasChildGranted = false;
+			for (Resource child : children) {
+				ResourceRoleRelationship childResourceRoleRelationship = resourceRoleRelationshipRepository.findByResourceCodeAndRoleCode(
+						child.getCode(),
+						roleCode);
+				if (childResourceRoleRelationship != null) {
+					hasChildGranted = true;
+					break;
+				}
+			}
+
+			if (!hasChildGranted) {
+				resourceRoleRelationshipRepository.delete(parentResourceRoleRelationship);
+			}
+		}
 	}
 
 }

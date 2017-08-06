@@ -58,6 +58,13 @@ public interface ResourceRepository {
 	List<Resource> getRootResources();
 
 	/**
+	 * list all resources in flatten
+	 *
+	 * @return
+	 */
+	List<? extends Resource> getFlattenResources();
+
+	/**
 	 * get the parent of specified resource
 	 *
 	 * @param resourceCode

@@ -8,6 +8,7 @@ import in.clouthink.daas.sbb.rbac.impl.model.TypedRole;
 import in.clouthink.daas.sbb.rbac.impl.service.support.RbacUtils;
 import in.clouthink.daas.sbb.rbac.impl.service.support.ResourceRoleRelationshipService;
 import in.clouthink.daas.sbb.rbac.model.TypedCode;
+import in.clouthink.daas.sbb.rbac.rest.dto.GrantResourceParameter;
 import in.clouthink.daas.sbb.rbac.rest.dto.ResourceWithChildren;
 import in.clouthink.daas.sbb.rbac.rest.dto.TypedRoleSummary;
 import in.clouthink.daas.sbb.rbac.rest.service.ResourceCacheService;
@@ -85,46 +86,40 @@ public class PermissionRestSupportImpl implements PermissionRestSupport {
 	}
 
 	@Override
-	public void grantRolesToResource(String code, String[] typedRoleCodes) {
-		if (typedRoleCodes == null || typedRoleCodes.length == 0) {
-			return;
-		}
-		for (String typedRoleCode : typedRoleCodes) {
-			TypedCode typedCode = roleCodeParser.parse(typedRoleCode);
-			if (RoleType.EXT_ROLE.name().equals(typedCode.getType())) {
-				ExtRole appRole = roleService.findByCode(typedCode.getCode());
-				if (appRole != null) {
-					resourceRoleRelationshipService.bindResourceAndRole(code, appRole);
-				}
+	public void grantResourcesToRole(String typedRoleCode, GrantResourceParameter parameter) {
+		TypedCode typedCode = roleCodeParser.parse(typedRoleCode);
+		String resourceCode = parameter.getResourceCode();
+		String[] actionCodes = parameter.getActionCodes();
+
+		if (RoleType.EXT_ROLE.name().equals(typedCode.getType())) {
+			ExtRole appRole = roleService.findByCode(typedCode.getCode());
+			if (appRole != null) {
+				resourceRoleRelationshipService.bindResourceAndRole(resourceCode, actionCodes, appRole);
 			}
-			else if (RoleType.SYS_ROLE.name().equals(typedCode.getType())) {
-				SysRole sysRole = SysRole.valueOf(typedCode.getCode());
-				if (sysRole != null) {
-					resourceRoleRelationshipService.bindResourceAndRole(code, sysRole);
-				}
+		}
+		else if (RoleType.SYS_ROLE.name().equals(typedCode.getType())) {
+			SysRole sysRole = SysRole.valueOf(typedCode.getCode());
+			if (sysRole != null) {
+				resourceRoleRelationshipService.bindResourceAndRole(resourceCode, actionCodes, sysRole);
 			}
 		}
 	}
 
 	@Override
-	public void revokeRolesFromResource(String code, String[] typedRoleCodes) {
-		if (typedRoleCodes == null || typedRoleCodes.length == 0) {
-			return;
-		}
-		for (String typedRoleCode : typedRoleCodes) {
-			TypedCode typedCode = roleCodeParser.parse(typedRoleCode);
-			if (RoleType.EXT_ROLE.name().equals(typedCode.getType())) {
-				ExtRole appRole = roleService.findByCode(typedCode.getCode());
-				if (appRole != null) {
-					resourceRoleRelationshipService.unbindResourceAndRole(code, appRole);
-				}
+	public void revokeResourcesFromRole(String typedRoleCode, String resourceCode) {
+		TypedCode typedCode = roleCodeParser.parse(typedRoleCode);
+		if (RoleType.EXT_ROLE.name().equals(typedCode.getType())) {
+			ExtRole appRole = roleService.findByCode(typedCode.getCode());
+			if (appRole != null) {
+				resourceRoleRelationshipService.unbindResourceAndRole(resourceCode, appRole);
 			}
-			else if (RoleType.SYS_ROLE.name().equals(typedCode.getType())) {
-				SysRole sysRole = SysRole.valueOf(typedCode.getCode());
-				if (sysRole != null) {
-					resourceRoleRelationshipService.unbindResourceAndRole(code, sysRole);
-				}
+		}
+		else if (RoleType.SYS_ROLE.name().equals(typedCode.getType())) {
+			SysRole sysRole = SysRole.valueOf(typedCode.getCode());
+			if (sysRole != null) {
+				resourceRoleRelationshipService.unbindResourceAndRole(resourceCode, sysRole);
 			}
 		}
 	}
+
 }

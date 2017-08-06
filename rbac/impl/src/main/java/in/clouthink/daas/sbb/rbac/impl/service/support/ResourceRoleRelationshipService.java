@@ -31,7 +31,7 @@ public interface ResourceRoleRelationshipService {
 
 	List<GrantedAuthority> listAllowedRoles(Resource resource);
 
-	void bindResourceAndRole(String resourceCode, GrantedAuthority role);
+	void bindResourceAndRole(String resourceCode, String[] actionCodes, GrantedAuthority role);
 
 	void unbindResourceAndRole(String resourceCode, GrantedAuthority role);
 

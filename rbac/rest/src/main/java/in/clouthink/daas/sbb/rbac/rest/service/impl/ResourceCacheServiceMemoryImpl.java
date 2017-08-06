@@ -26,13 +26,13 @@ public class ResourceCacheServiceMemoryImpl implements ResourceCacheService {
 	@Override
 	public List<ResourceWithChildren> listResources() {
 		//try get cache
-		if (cachedValue != null && resourceService.getHashcode().equals(cacheHash)) {
+		if (!isDirty()) {
 			return cachedValue;
 		}
 
 		synchronized (cacheHash) {
 			//try again
-			if (cachedValue != null && resourceService.getHashcode().equals(cacheHash)) {
+			if (!isDirty()) {
 				return cachedValue;
 			}
 
@@ -68,6 +68,10 @@ public class ResourceCacheServiceMemoryImpl implements ResourceCacheService {
 		processChildren(result);
 
 		return result;
+	}
+
+	private boolean isDirty() {
+		return !resourceService.getHashcode().equals(cacheHash);
 	}
 
 	private void processChildren(List<ResourceWithChildren> result) {
