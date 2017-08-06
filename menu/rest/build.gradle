@@ -9,6 +9,5 @@ dependencies {
     compile project(':rbac/resource')
     compile project(':rbac/permission')
     compile project(':menu/core')
-    compile project(':menu/plugin')
 
 }

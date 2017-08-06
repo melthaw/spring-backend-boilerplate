@@ -5,8 +5,11 @@ package in.clouthink.daas.sbb.rbac.model;
  */
 public interface Action {
 
+	Action[] EMPTY_ACTIONS = new Action[0];
+
 	/**
 	 * The default helper method to create the action
+	 *
 	 * @param code
 	 * @param name
 	 * @return

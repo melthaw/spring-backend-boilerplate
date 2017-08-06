@@ -1,5 +1,6 @@
 dependencies {
     compile libs.springBoot
+    compile libs.springDataMongodb
     compile libs.springSecurity
 
     compile project(':rbac/resource')
