@@ -40,7 +40,7 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private UserRoleRelationshipRepository relationshipRepository;
 
-	@Autowired
+	@Autowired(required = false)
 	private List<ExtRoleReference> roleReferenceList;
 
 	@Override

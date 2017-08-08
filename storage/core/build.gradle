@@ -1,19 +1,6 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "http://repo.spring.io/release" }
-        maven { url "http://repo.spring.io/snapshot" }
-        maven { url "http://repo.spring.io/milestone" }
-    }
-
-}
-
 dependencies {
     compile libs.springBoot
     compile libs.springDataMongodb
     compile libs.daas
-
-    compile project(":storage/core")
 
 }

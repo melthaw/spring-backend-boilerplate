@@ -4,9 +4,18 @@ import in.clouthink.daas.audit.annotation.EnableAudit;
 import in.clouthink.daas.audit.configure.AuditConfigurer;
 import in.clouthink.daas.audit.spi.AuditEventPersister;
 import in.clouthink.daas.sbb.account.AccountRestModuleConfiguration;
+import in.clouthink.daas.sbb.attachment.AttachmentRestModuleConfiguration;
 import in.clouthink.daas.sbb.audit.AuditRestModuleConfiguration;
+import in.clouthink.daas.sbb.menu.MenuModuleConfiguration;
+import in.clouthink.daas.sbb.news.NewsRestModuleConfiguration;
+import in.clouthink.daas.sbb.notice.NoticeRestModuleConfiguration;
+import in.clouthink.daas.sbb.rbac.RbacRestModuleConfiguration;
 import in.clouthink.daas.sbb.security.impl.audit.AuditEventPersisterImpl;
 import in.clouthink.daas.sbb.security.impl.audit.SecurityContextAuditImpl;
+import in.clouthink.daas.sbb.setting.SettingRestApiModuleConfiguration;
+import in.clouthink.daas.sbb.sms.SmsRestWithMockModuleConfiguration;
+import in.clouthink.daas.sbb.storage.GridfsModuleConfiguration;
+import in.clouthink.daas.sbb.storage.StorageRestModuleConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -50,6 +59,15 @@ public class OpenApiApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		SpringApplication.run(new Object[]{AccountRestModuleConfiguration.class,
 										   AuditRestModuleConfiguration.class,
+										   MenuModuleConfiguration.class,
+										   RbacRestModuleConfiguration.class,
+										   GridfsModuleConfiguration.class,
+										   StorageRestModuleConfiguration.class,
+										   SmsRestWithMockModuleConfiguration.class,
+										   NewsRestModuleConfiguration.class,
+										   NoticeRestModuleConfiguration.class,
+										   AttachmentRestModuleConfiguration.class,
+										   SettingRestApiModuleConfiguration.class,
 										   OpenApiApplication.class}, args);
 	}
 

@@ -37,9 +37,9 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 	@Autowired
 	private RoleService roleService;
 
-	public void setRoleParser(RoleParser<TypedCode> roleParser) {
-		this.roleParser = roleParser;
-	}
+//	public void setRoleParser(RoleParser<TypedCode> roleParser) {
+//		this.roleParser = roleParser;
+//	}
 
 	@Override
 	public Resource findResourceByCode(String code) {

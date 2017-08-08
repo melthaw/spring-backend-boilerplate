@@ -6,7 +6,8 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan({"in.clouthink.daas.sbb.menu.rest"})
-@Import({GlobalMenuConfiguration.class})
+@Import({MenuModuleConfiguration.class, GlobalMenuConfiguration.class})
 public class MenuRestModuleConfiguration {
+
 
 }

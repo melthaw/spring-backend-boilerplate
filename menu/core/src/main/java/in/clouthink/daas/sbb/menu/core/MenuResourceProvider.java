@@ -8,7 +8,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -27,10 +26,24 @@ public class MenuResourceProvider implements ResourceProvider, InitializingBean 
 
 	static final String PROVIDER_NAME = MenuResourceProvider.class.getName();
 
-	@Autowired(required = false)
 	private List<MenuPlugin> menuPluginList = new ArrayList<>();
 
 	private List<Resource> resourceList = new ArrayList<>();
+
+	public MenuResourceProvider() {
+	}
+
+	public MenuResourceProvider(List<MenuPlugin> menuPluginList) {
+		this.menuPluginList = menuPluginList;
+	}
+
+	public void setMenuPluginList(List<MenuPlugin> menuPluginList) {
+		this.menuPluginList = menuPluginList;
+	}
+
+	public void setResourceList(List<Resource> resourceList) {
+		this.resourceList = resourceList;
+	}
 
 	@Override
 	public String getName() {

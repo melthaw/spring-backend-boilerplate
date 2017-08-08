@@ -13,8 +13,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import java.util.List;
 
 @Configuration
-@ComponentScan({"in.clouthink.daas.sbb.rbac.service", "in.clouthink.daas.sbb.rbac.repository"})
-@EnableMongoRepositories({"in.clouthink.daas.sbb.rbac.repository"})
+@ComponentScan({"in.clouthink.daas.sbb.rbac.impl.service", "in.clouthink.daas.sbb.rbac.impl.repository"})
+@EnableMongoRepositories({"in.clouthink.daas.sbb.rbac.impl.repository"})
 @EnableConfigurationProperties(RbacServiceConfigurationProperties.class)
 public class RbacServiceModuleConfiguration {
 
