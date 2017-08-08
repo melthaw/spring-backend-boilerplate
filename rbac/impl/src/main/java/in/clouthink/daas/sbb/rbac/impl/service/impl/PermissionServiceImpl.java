@@ -177,8 +177,9 @@ public class PermissionServiceImpl implements PermissionService {
 			return true;
 		}
 
-		return resourceRoleRelationshipRepository.existsByResourceCodeAndRoleCode(resourceCode,
-																				  RbacUtils.buildRoleCode(role));
+		return null !=
+			   resourceRoleRelationshipRepository.findByResourceCodeAndRoleCode(resourceCode,
+																				RbacUtils.buildRoleCode(role));
 	}
 
 	@Override

@@ -84,14 +84,16 @@ public class DefaultResourceService implements ResourceService, InitializingBean
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		resourceProviderList.stream().flatMap(provider -> provider.listResources().stream()).forEach(resource -> {
-			if (resource instanceof ResourceChild) {
-				resourceRepository.addChildren(((ResourceChild) resource).getParentCode(), resource);
-			}
-			else {
-				resourceRepository.addResource(resource);
-			}
-		});
+		resourceProviderList.stream()
+							.flatMap(provider -> provider.listResources().stream())
+							.filter(stream -> !(stream instanceof ResourceChild))
+							.forEach(resource -> resourceRepository.addResource(resource));
+
+		resourceProviderList.stream()
+							.flatMap(provider -> provider.listResources().stream())
+							.filter(stream -> (stream instanceof ResourceChild))
+							.map(stream -> (ResourceChild) stream)
+							.forEach(resource -> resourceRepository.addChildren(resource.getParentCode(), resource));
 	}
 
 }

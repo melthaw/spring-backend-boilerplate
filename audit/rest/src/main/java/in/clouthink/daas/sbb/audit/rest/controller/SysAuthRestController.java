@@ -5,6 +5,7 @@ import in.clouthink.daas.sbb.audit.domain.model.AuthEvent;
 import in.clouthink.daas.sbb.audit.rest.dto.AuthEventQueryParameter;
 import in.clouthink.daas.sbb.audit.rest.support.AuthEventRestSupport;
 import in.clouthink.daas.sbb.security.SecurityContexts;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import java.util.Date;
 /**
  * backend登录日志
  */
+@Api("系统登录认证日志")
 @RestController
 @RequestMapping("/api")
 public class SysAuthRestController {

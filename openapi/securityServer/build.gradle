@@ -1,0 +1,48 @@
+buildscript {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		maven { url "http://repo.spring.io/release" }
+		maven { url "http://repo.spring.io/snapshot" }
+		maven { url "http://repo.spring.io/milestone" }
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${version_spring_boot}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+dependencies {
+	compile libs.springBoot
+	compile libs.springDataMongodb
+	compile libs.springSecurity
+	compile libs.springThymeleaf
+	compile libs.springBootTomcat
+	compile libs.daas
+
+	compile project(':shared')
+	compile project(':security/spring')
+	compile project(':account/rest')
+	compile project(':audit/rest')
+	compile project(':menu/rest')
+	compile project(':rbac/rest')
+	compile project(':sample/news/rest')
+	compile project(':sample/notice/rest')
+	compile project(':sample/attachment/rest')
+	compile project(':sample/setting/rest')
+	compile project(':message/sms/rest')
+	compile project(':storage/gridfs')
+	compile project(':storage/rest')
+}
+
+bootRun {
+	if ( project.hasProperty('jvmArgs') ) {
+		jvmArgs project.jvmArgs.split('\\s+')
+	}
+	if ( project.hasProperty('args') ) {
+		args project.args.split('\\s+')
+	}
+}

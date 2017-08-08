@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@ComponentScan({"in.clouthink.daas.sbb.sms.rest"})
+@ComponentScan({"in.clouthink.daas.sbb.sms.rest.controller", "in.clouthink.daas.sbb.sms.rest.support.impl"})
 @Import({SmsAliyunModuleConfiguration.class,
 		 SmsHistoryModuleConfiguration.class,
 		 SmsEventModuleConfiguration.class,

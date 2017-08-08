@@ -9,7 +9,8 @@ include 'passcode/core'
 include 'passcode/impl'
 
 include 'security/core'
-include 'security/impl'
+include 'security/spring'
+include 'security/jwt'
 
 include 'rbac/resource'
 include 'rbac/permission'
@@ -53,4 +54,5 @@ include 'sample/attachment/impl'
 include 'sample/attachment/rest'
 
 include 'openapi/doc'
-include 'openapi/server'
+include 'openapi/securityServer'
+include 'openapi/jwtServer'

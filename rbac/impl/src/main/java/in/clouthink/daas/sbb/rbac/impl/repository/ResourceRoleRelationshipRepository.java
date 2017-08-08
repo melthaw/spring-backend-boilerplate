@@ -10,8 +10,6 @@ import java.util.List;
  */
 public interface ResourceRoleRelationshipRepository extends AbstractRepository<ResourceRoleRelationship> {
 
-	boolean existsByResourceCodeAndRoleCode(String resourceCode, String roleCode);
-
 	ResourceRoleRelationship findByResourceCodeAndRoleCode(String resourceCode, String roleCode);
 
 	List<ResourceRoleRelationship> findByResourceCode(String resourceCode);

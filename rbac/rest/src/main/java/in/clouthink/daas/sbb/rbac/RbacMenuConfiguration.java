@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableMenu(pluginId = "plugin:menu:permission",
 			extensionPointId = "extension:menu:system",
-			menu = {@Menu(code = "menu:dashboard:permission",
+			menu = {@Menu(code = "menu:dashboard:permission:ext",
 						  name = "权限管理",
 						  order = 2006,
 						  patterns = {"/api/permissions/ext**", "/api/permissions/ext/**"},
@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 									 @Action(code = "revoke", name = "取消授权")},
 						  metadata = {@Metadata(key = "state", value = "dashboard.permission.ext.list")}),
 
-					@Menu(code = "menu:dashboard:permission",
+					@Menu(code = "menu:dashboard:permission:sys",
 						  name = "内置权限管理",
 						  order = 2007,
 						  patterns = {"/api/permissions/sys**", "/api/permissions/sys/**"},
