@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(MenuConfiguration.class)
+@Import(EnableMenuImportSelector.class)
 public @interface EnableMenu {
 
 	String extensionPointId();

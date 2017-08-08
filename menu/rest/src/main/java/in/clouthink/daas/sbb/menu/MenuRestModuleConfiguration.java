@@ -9,5 +9,4 @@ import org.springframework.context.annotation.Import;
 @Import({MenuModuleConfiguration.class, GlobalMenuConfiguration.class})
 public class MenuRestModuleConfiguration {
 
-
 }
