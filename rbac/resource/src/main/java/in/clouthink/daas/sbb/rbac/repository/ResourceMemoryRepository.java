@@ -116,7 +116,7 @@ public class ResourceMemoryRepository implements ResourceRepository {
 	}
 
 	@Override
-	public List<? extends Resource> getFlattenResources() {
+	public List<Resource> getFlattenResources() {
 		List<String> resourceCodes = new ArrayList<>();
 		resourceCodes.addAll(rootResourceCodes);
 		parentChildrenMap.values().stream().forEach(codes -> resourceCodes.addAll(codes));

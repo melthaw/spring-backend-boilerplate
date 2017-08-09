@@ -62,7 +62,7 @@ public interface ResourceRepository {
 	 *
 	 * @return
 	 */
-	List<? extends Resource> getFlattenResources();
+	List<Resource> getFlattenResources();
 
 	/**
 	 * get the parent of specified resource

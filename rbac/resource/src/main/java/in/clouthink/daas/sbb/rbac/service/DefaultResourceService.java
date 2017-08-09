@@ -59,7 +59,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
 
 	@Override
 	public List<Resource> getFlattenResources() {
-		return null;
+		return resourceRepository.getFlattenResources();
 	}
 
 	@Override
