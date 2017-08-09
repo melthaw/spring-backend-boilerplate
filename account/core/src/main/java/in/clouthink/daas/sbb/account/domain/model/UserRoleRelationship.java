@@ -12,7 +12,7 @@ public class UserRoleRelationship extends StringIdentifier {
 
 	@Indexed
 	@DBRef
-	private ExtRole role;
+	private AppRole role;
 
 	@Indexed
 	@DBRef
@@ -20,11 +20,11 @@ public class UserRoleRelationship extends StringIdentifier {
 
 	private Date createdAt;
 
-	public ExtRole getRole() {
+	public AppRole getRole() {
 		return role;
 	}
 
-	public void setRole(ExtRole role) {
+	public void setRole(AppRole role) {
 		this.role = role;
 	}
 

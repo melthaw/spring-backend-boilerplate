@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.rest.support.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.AppRole;
 import in.clouthink.daas.sbb.account.domain.model.RoleType;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.account.service.RoleService;
@@ -48,12 +48,11 @@ public class PermissionRestSupportImpl implements PermissionRestSupport {
 		//granted resource codes & action codes
 		Map<String,Set<String>> resourceCodes =
 
-				resourceRoleRelationshipService.listAllowedResource(roleCode)
+				resourceRoleRelationshipService.listGrantedResources(roleCode)
 											   .stream()
-											   .collect(Collectors.toMap(resource -> resource.getCode(),
-																		 resource -> resource.getActions()
+											   .collect(Collectors.toMap(resource -> resource.getResourceCode(),
+																		 resource -> resource.getAllowedActions()
 																							 .stream()
-																							 .map(action -> action.getCode())
 																							 .collect(Collectors.toSet())));
 
 		List<PrivilegedResourceWithChildren> result = resourceCacheService.listResources(false);
@@ -77,7 +76,7 @@ public class PermissionRestSupportImpl implements PermissionRestSupport {
 
 	@Override
 	public List<TypedRole> listGrantedRoles(String code) {
-		return resourceRoleRelationshipService.listAllowedRoles(code)
+		return resourceRoleRelationshipService.listGrantedRoles(code)
 											  .stream()
 											  .map(authority -> RbacUtils.convertToTypedRole(authority))
 											  .collect(Collectors.toList());
@@ -89,16 +88,16 @@ public class PermissionRestSupportImpl implements PermissionRestSupport {
 		String resourceCode = parameter.getResourceCode();
 		String[] actionCodes = parameter.getActionCodes();
 
-		if (RoleType.EXT_ROLE.name().equals(typedCode.getType())) {
-			ExtRole appRole = roleService.findByCode(typedCode.getCode());
+		if (RoleType.APP_ROLE.name().equals(typedCode.getType())) {
+			AppRole appRole = roleService.findByCode(typedCode.getCode());
 			if (appRole != null) {
-				resourceRoleRelationshipService.bindResourceAndRole(resourceCode, actionCodes, appRole);
+				resourceRoleRelationshipService.grantPermission(resourceCode, actionCodes, appRole);
 			}
 		}
 		else if (RoleType.SYS_ROLE.name().equals(typedCode.getType())) {
 			SysRole sysRole = SysRole.valueOf(typedCode.getCode());
 			if (sysRole != null) {
-				resourceRoleRelationshipService.bindResourceAndRole(resourceCode, actionCodes, sysRole);
+				resourceRoleRelationshipService.grantPermission(resourceCode, actionCodes, sysRole);
 			}
 		}
 	}
@@ -106,16 +105,16 @@ public class PermissionRestSupportImpl implements PermissionRestSupport {
 	@Override
 	public void revokeResourcesFromRole(String typedRoleCode, String resourceCode) {
 		TypedCode typedCode = roleCodeParser.parse(typedRoleCode);
-		if (RoleType.EXT_ROLE.name().equals(typedCode.getType())) {
-			ExtRole appRole = roleService.findByCode(typedCode.getCode());
+		if (RoleType.APP_ROLE.name().equals(typedCode.getType())) {
+			AppRole appRole = roleService.findByCode(typedCode.getCode());
 			if (appRole != null) {
-				resourceRoleRelationshipService.unbindResourceAndRole(resourceCode, appRole);
+				resourceRoleRelationshipService.revokePermission(resourceCode, appRole);
 			}
 		}
 		else if (RoleType.SYS_ROLE.name().equals(typedCode.getType())) {
 			SysRole sysRole = SysRole.valueOf(typedCode.getCode());
 			if (sysRole != null) {
-				resourceRoleRelationshipService.unbindResourceAndRole(resourceCode, sysRole);
+				resourceRoleRelationshipService.revokePermission(resourceCode, sysRole);
 			}
 		}
 	}

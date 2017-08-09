@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.account.rest.support.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.AppRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.account.domain.request.RoleQueryRequest;
@@ -8,7 +8,7 @@ import in.clouthink.daas.sbb.account.exception.RoleException;
 import in.clouthink.daas.sbb.account.rest.dto.*;
 import in.clouthink.daas.sbb.account.service.RoleService;
 import in.clouthink.daas.sbb.account.service.AccountService;
-import in.clouthink.daas.sbb.account.rest.support.ExtRoleRestSupport;
+import in.clouthink.daas.sbb.account.rest.support.AppRoleRestSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ExtRoleRestSupportImpl implements ExtRoleRestSupport {
+public class AppRoleRestSupportImpl implements AppRoleRestSupport {
 
 	@Autowired
 	private RoleService appRoleService;
@@ -48,7 +48,7 @@ public class ExtRoleRestSupportImpl implements ExtRoleRestSupport {
 
 	@Override
 	public Page<RoleSummary> getAppRoles(RoleQueryRequest request) {
-		Page<ExtRole> appRoles = appRoleService.listAppRoles(request);
+		Page<AppRole> appRoles = appRoleService.listAppRoles(request);
 		return new PageImpl<>(appRoles.getContent().stream().map(RoleSummary::from).collect(Collectors.toList()),
 							  new PageRequest(request.getStart(), request.getLimit()),
 							  appRoles.getTotalElements());
@@ -84,7 +84,7 @@ public class ExtRoleRestSupportImpl implements ExtRoleRestSupport {
 	}
 
 	@Override
-	public ExtRole createAppRole(SaveRoleParameter request) {
+	public AppRole createAppRole(SaveRoleParameter request) {
 		return appRoleService.createAppRole(request);
 	}
 

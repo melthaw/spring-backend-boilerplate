@@ -4,6 +4,7 @@ import in.clouthink.daas.sbb.shared.domain.model.StringIdentifier;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class ResourceRoleRelationship extends StringIdentifier {
 	private String roleCode;
 
 	//the allowed actions code
-	private List<String> allowedActions;
+	private List<String> allowedActions = new ArrayList<>();
 
 	public String getResourceCode() {
 		return resourceCode;

@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.account.service.impl;
 
 import com.google.common.collect.Lists;
-import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.AppRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.account.domain.model.UserRoleRelationship;
@@ -11,11 +11,11 @@ import in.clouthink.daas.sbb.account.domain.request.UserQueryRequest;
 import in.clouthink.daas.sbb.account.exception.UserNotFoundException;
 import in.clouthink.daas.sbb.account.exception.RoleException;
 import in.clouthink.daas.sbb.account.exception.RoleNotFoundException;
-import in.clouthink.daas.sbb.account.repository.ExtRoleRepository;
+import in.clouthink.daas.sbb.account.repository.AppRoleRepository;
 import in.clouthink.daas.sbb.account.repository.UserRepository;
 import in.clouthink.daas.sbb.account.repository.UserRoleRelationshipRepository;
 import in.clouthink.daas.sbb.account.service.RoleService;
-import in.clouthink.daas.sbb.account.spi.ExtRoleReference;
+import in.clouthink.daas.sbb.account.spi.AppRoleReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class RoleServiceImpl implements RoleService {
 
 	@Autowired
-	private ExtRoleRepository extRoleRepository;
+	private AppRoleRepository appRoleRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -41,22 +41,22 @@ public class RoleServiceImpl implements RoleService {
 	private UserRoleRelationshipRepository relationshipRepository;
 
 	@Autowired(required = false)
-	private List<ExtRoleReference> roleReferenceList;
+	private List<AppRoleReference> roleReferenceList;
 
 	@Override
-	public Page<ExtRole> listAppRoles(RoleQueryRequest request) {
+	public Page<AppRole> listAppRoles(RoleQueryRequest request) {
 		// TODO 查询条件
-		return extRoleRepository.findAll(new PageRequest(request.getStart(), request.getLimit()));
+		return appRoleRepository.findAll(new PageRequest(request.getStart(), request.getLimit()));
 	}
 
 	@Override
-	public List<ExtRole> listAppRoles() {
-		return Lists.newArrayList(extRoleRepository.findAll());
+	public List<AppRole> listAppRoles() {
+		return Lists.newArrayList(appRoleRepository.findAll());
 	}
 
 	@Override
 	public Page<User> listBindUsers(String id, UserQueryRequest request) {
-		ExtRole appRole = findById(id);
+		AppRole appRole = findById(id);
 		Page<UserRoleRelationship> relationships = relationshipRepository.findByRole(appRole,
 																					 new PageRequest(request.getStart(),
 																										request.getLimit()));
@@ -69,27 +69,27 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public ExtRole findById(String id) {
-		return extRoleRepository.findById(id);
+	public AppRole findById(String id) {
+		return appRoleRepository.findById(id);
 	}
 
 	@Override
-	public ExtRole findByCode(String code) {
+	public AppRole findByCode(String code) {
 		if (code == null) {
 			return null;
 		}
-		return extRoleRepository.findByCode(code.toUpperCase());
+		return appRoleRepository.findByCode(code.toUpperCase());
 	}
 
 	@Override
-	public ExtRole createAppRole(SaveRoleRequest request) {
+	public AppRole createAppRole(SaveRoleRequest request) {
 		if (StringUtils.isEmpty(request.getCode())) {
 			throw new RoleException("角色编码不能为空");
 		}
 		if (request.getCode().toUpperCase().startsWith("ROLE_")) {
 			throw new RoleException("角色编码不需要以ROLE_作为前缀");
 		}
-		if (ExtRole.isIllegal(request.getCode())) {
+		if (AppRole.isIllegal(request.getCode())) {
 			throw new RoleException("不能使用内置角色编码");
 		}
 		if (StringUtils.isEmpty(request.getName())) {
@@ -98,23 +98,23 @@ public class RoleServiceImpl implements RoleService {
 
 		String roleCode = "ROLE_" + request.getCode();
 
-		ExtRole roleByCode = extRoleRepository.findByCode(roleCode);
+		AppRole roleByCode = appRoleRepository.findByCode(roleCode);
 		if (roleByCode != null) {
 			throw new RoleException("角色编码不能重复");
 		}
 
-		ExtRole roleByName = extRoleRepository.findByName(request.getName());
+		AppRole roleByName = appRoleRepository.findByName(request.getName());
 		if (roleByName != null) {
 			throw new RoleException("角色名称不能重复");
 		}
 
-		ExtRole appRole = new ExtRole();
+		AppRole appRole = new AppRole();
 		appRole.setCode(roleCode);
 		appRole.setName(request.getName());
 		appRole.setDescription(request.getDescription());
 		appRole.setCreatedAt(new Date());
 		appRole.setModifiedAt(new Date());
-		return extRoleRepository.save(appRole);
+		return appRoleRepository.save(appRole);
 	}
 
 	@Override
@@ -123,12 +123,12 @@ public class RoleServiceImpl implements RoleService {
 			throw new RoleException("角色名称不能为空");
 		}
 
-		ExtRole target = findById(id);
+		AppRole target = findById(id);
 		if (target == null) {
 			throw new RoleNotFoundException(id);
 		}
 
-		ExtRole roleByName = extRoleRepository.findByName(request.getName());
+		AppRole roleByName = appRoleRepository.findByName(request.getName());
 		if (roleByName != null && !roleByName.getId().equals(target.getId())) {
 			throw new RoleException("角色名称不能重复");
 		}
@@ -136,12 +136,12 @@ public class RoleServiceImpl implements RoleService {
 		target.setName(request.getName());
 		target.setDescription(request.getDescription());
 		target.setModifiedAt(new Date());
-		extRoleRepository.save(target);
+		appRoleRepository.save(target);
 	}
 
 	@Override
 	public void deleteAppRole(String id) {
-		ExtRole role = extRoleRepository.findById(id);
+		AppRole role = appRoleRepository.findById(id);
 		if (role == null) {
 			return;
 		}
@@ -157,12 +157,12 @@ public class RoleServiceImpl implements RoleService {
 			});
 		}
 
-		extRoleRepository.delete(role);
+		appRoleRepository.delete(role);
 	}
 
 	@Override
 	public void bindUsers4AppRole(String id, List<String> userIds) {
-		ExtRole appRole = findById(id);
+		AppRole appRole = findById(id);
 		if (appRole == null) {
 			throw new RoleNotFoundException(id);
 		}
@@ -181,7 +181,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public void unBindUsers4AppRole(String id, List<String> userIds) {
-		ExtRole appRole = findById(id);
+		AppRole appRole = findById(id);
 		if (appRole == null) {
 			throw new RoleNotFoundException(id);
 		}

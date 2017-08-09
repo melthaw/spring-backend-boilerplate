@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.account.service;
 
-import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.AppRole;
 import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.account.domain.request.RoleQueryRequest;
 import in.clouthink.daas.sbb.account.domain.request.SaveRoleRequest;
@@ -11,17 +11,17 @@ import java.util.List;
 
 public interface RoleService {
     
-    Page<ExtRole> listAppRoles(RoleQueryRequest request);
+    Page<AppRole> listAppRoles(RoleQueryRequest request);
 
-    List<ExtRole> listAppRoles();
+    List<AppRole> listAppRoles();
 
     Page<User> listBindUsers(String id, UserQueryRequest request);
     
-    ExtRole findById(String id);
+    AppRole findById(String id);
 
-    ExtRole findByCode(String code);
+    AppRole findByCode(String code);
 
-    ExtRole createAppRole(SaveRoleRequest request);
+    AppRole createAppRole(SaveRoleRequest request);
     
     void updateAppRole(String id, SaveRoleRequest request);
     

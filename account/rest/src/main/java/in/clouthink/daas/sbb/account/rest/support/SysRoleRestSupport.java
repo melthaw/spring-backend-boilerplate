@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.account.rest.support;
 
-import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.AppRole;
 import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.account.domain.request.RoleQueryRequest;
 import in.clouthink.daas.sbb.account.rest.dto.*;
@@ -26,7 +26,7 @@ public interface SysRoleRestSupport {
 
 	Page<UserSummary> getUsersByAppRoleId(String roleId, UserQueryParameter request);
 
-	ExtRole createAppRole(SaveRoleParameter request);
+	AppRole createAppRole(SaveRoleParameter request);
 
 	void updateAppRole(String id, SaveRoleParameter request);
 

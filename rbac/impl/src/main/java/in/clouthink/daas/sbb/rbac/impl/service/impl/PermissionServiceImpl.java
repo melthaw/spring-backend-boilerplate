@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.impl.service.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.AppRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.account.service.RoleService;
 import in.clouthink.daas.sbb.rbac.impl.model.ResourceRoleRelationship;
@@ -84,13 +84,13 @@ public class PermissionServiceImpl implements PermissionService {
 
 	@Override
 	public List<Role> getGrantedRoles(String resourceCode) {
-		return resourceRoleRelationshipRepository.findByResourceCode(resourceCode)
+		return resourceRoleRelationshipRepository.findListByResourceCode(resourceCode)
 												 .stream()
 												 .map(relationship -> relationship.getRoleCode())
 												 .collect(Collectors.toSet())
 												 .stream()
 												 .map(roleCode -> {
-													 ExtRole role = roleService.findByCode(roleCode);
+													 AppRole role = roleService.findByCode(roleCode);
 													 TypedRole result = TypedRole.newSysRole();
 													 result.setCode(role.getCode());
 													 result.setName(role.getName());

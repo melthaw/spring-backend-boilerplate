@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.impl.service.support.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.AppRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.account.service.RoleService;
 import in.clouthink.daas.sbb.rbac.impl.model.ResourceRoleRelationship;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -42,59 +43,36 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 	}
 
 	@Override
-	public Resource findResourceByCode(String code) {
-		return resourceService.findByCode(code);
-	}
-
-	@Override
-	public List<Resource> listRootResources() {
-		return resourceService.getRootResources();
-	}
-
-	@Override
-	public List<Resource> listResourceChildren(String resourceCode) {
-		return listResourceChildren(resourceService.findByCode(resourceCode));
-	}
-
-	@Override
-	public List<Resource> listResourceChildren(Resource parent) {
-		return resourceService.getResourceChildren(parent.getCode());
-	}
-
-	@Override
-	public List<Resource> listAllowedResource(GrantedAuthority role) {
+	public List<ResourceRoleRelationship> listGrantedResources(GrantedAuthority role) {
 		String roleCode = RbacUtils.buildRoleCode(role);
-		return listAllowedResource(roleCode);
+		return listGrantedResources(roleCode);
 	}
 
 	@Override
-	public List<Resource> listAllowedResource(String roleCode) {
-		return resourceRoleRelationshipRepository.findByRoleCode(roleCode)
-												 .stream()
-												 .map(relationship -> resourceService.findByCode(relationship.getResourceCode()))
-												 .collect(Collectors.toList());
+	public List<ResourceRoleRelationship> listGrantedResources(String roleCode) {
+		return resourceRoleRelationshipRepository.findListByRoleCode(roleCode);
 	}
 
 	@Override
-	public List<String> listAllowedRoleCodes(String resourceCode) {
-		return resourceRoleRelationshipRepository.findByResourceCode(resourceCode)
+	public List<String> listGrantedRoleCodes(String resourceCode) {
+		return resourceRoleRelationshipRepository.findListByResourceCode(resourceCode)
 												 .stream()
 												 .map(relationship -> relationship.getRoleCode())
 												 .collect(Collectors.toList());
 	}
 
 	@Override
-	public List<String> listAllowedRoleCodes(Resource resource) {
-		return listAllowedRoleCodes(resource.getCode());
+	public List<String> listGrantedRoleCodes(Resource resource) {
+		return listGrantedRoleCodes(resource.getCode());
 	}
 
 	@Override
-	public List<GrantedAuthority> listAllowedRoles(String resourceCode) {
-		return resourceRoleRelationshipRepository.findByResourceCode(resourceCode).stream().map(relationship -> {
+	public List<GrantedAuthority> listGrantedRoles(String resourceCode) {
+		return resourceRoleRelationshipRepository.findListByResourceCode(resourceCode).stream().map(relationship -> {
 			String role = relationship.getRoleCode();
 			TypedCode typedCode = roleParser.parse(role.toUpperCase());
 			if (TypedRole.isAppRole(typedCode.getType())) {
-				ExtRole appRole = roleService.findByCode(typedCode.getCode());
+				AppRole appRole = roleService.findByCode(typedCode.getCode());
 				if (appRole != null) {
 					return appRole;
 				}
@@ -110,12 +88,12 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 	}
 
 	@Override
-	public List<GrantedAuthority> listAllowedRoles(Resource resource) {
-		return listAllowedRoles(resource.getCode());
+	public List<GrantedAuthority> listGrantedRoles(Resource resource) {
+		return listGrantedRoles(resource.getCode());
 	}
 
 	@Override
-	public void bindResourceAndRole(String resourceCode, String[] actionCodes, GrantedAuthority role) {
+	public void grantPermission(String resourceCode, String[] actionCodes, GrantedAuthority role) {
 		String roleCode = RbacUtils.buildRoleCode(role);
 		Resource resource = resourceService.findByCode(resourceCode);
 		if (resource == null) {
@@ -129,7 +107,16 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 			resourceRoleRelationship.setResourceCode(resourceCode);
 			resourceRoleRelationship.setRoleCode(roleCode);
 		}
-		resourceRoleRelationship.setAllowedActions(Arrays.asList(actionCodes));
+		//filter the invalid action
+		final Set<String> resourceActionCodes = resource.getActions()
+														.stream()
+														.map(action -> action.getCode())
+														.collect(Collectors.toSet());
+
+		resourceRoleRelationship.setAllowedActions(Arrays.asList(actionCodes)
+														 .stream()
+														 .filter(code -> resourceActionCodes.contains(code))
+														 .collect(Collectors.toList()));
 		resourceRoleRelationshipRepository.save(resourceRoleRelationship);
 
 		Resource parentResource = resourceService.getResourceParent(resource.getCode());
@@ -150,7 +137,7 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 	}
 
 	@Override
-	public void unbindResourceAndRole(String resourceCode, GrantedAuthority role) {
+	public void revokePermission(String resourceCode, GrantedAuthority role) {
 		String roleCode = RbacUtils.buildRoleCode(role);
 
 		ResourceRoleRelationship resourceRoleRelationship = resourceRoleRelationshipRepository.findByResourceCodeAndRoleCode(

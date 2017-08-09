@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>661A06C5-A296-4C8D-B50E-AA584014F494</UUID>
-        <nextObjectID>140</nextObjectID>
+        <nextObjectID>142</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -126,7 +126,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="order" type="int64">14</attribute>
+        <attribute name="order" type="int64">15</attribute>
         <attribute name="name" type="string">list news</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -192,7 +192,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="order" type="int64">16</attribute>
+        <attribute name="order" type="int64">17</attribute>
         <attribute name="name" type="string">get system setting</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -227,7 +227,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="order" type="int64">15</attribute>
+        <attribute name="order" type="int64">16</attribute>
         <attribute name="name" type="string">get attachment</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -245,7 +245,7 @@
     </object>
     <object type="LMREQUEST" id="z119">
         <attribute name="uuid" type="string">D3AA95EF-CA1C-44A3-A478-91964CEAC50E</attribute>
-        <attribute name="url" type="string">http://127.0.0.1:8081/api/roles/sysroles</attribute>
+        <attribute name="url" type="string">http://127.0.0.1:8081/api/sysroles</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -280,7 +280,7 @@
     </object>
     <object type="LMREQUEST" id="z122">
         <attribute name="uuid" type="string">FB983046-2626-4E27-B7D0-6D1C8C294219</attribute>
-        <attribute name="url" type="string">http://127.0.0.1:8081/api/roles/extroles</attribute>
+        <attribute name="url" type="string">http://127.0.0.1:8081/api/approles</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -288,7 +288,7 @@
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="order" type="int64">8</attribute>
-        <attribute name="name" type="string">list ext roles</attribute>
+        <attribute name="name" type="string">list app roles</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z121"></relationship>
@@ -434,7 +434,7 @@
     </object>
     <object type="LMREQUEST" id="z134">
         <attribute name="uuid" type="string">DDCCD69E-2BEB-4A5A-8269-546CF038CB77</attribute>
-        <attribute name="url" type="string">http://127.0.0.1:8081/api/roles/extroles</attribute>
+        <attribute name="url" type="string">http://127.0.0.1:8081/api/approles</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -460,7 +460,7 @@
     </object>
     <object type="LMREQUEST" id="z136">
         <attribute name="uuid" type="string">B5BC7737-C65A-4B03-BBC6-25C231A76CD2</attribute>
-        <attribute name="url" type="string">http://127.0.0.1:8081/api/permissions/roles/ROLE_USER/resources</attribute>
+        <attribute name="url" type="string">http://127.0.0.1:8081/api/permissions/roles/SYS_ROLE:ROLE_USER/resources</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -475,29 +475,30 @@
     </object>
     <object type="LMREQUEST" id="z137">
         <attribute name="uuid" type="string">1429CF13-546D-44BF-AC9F-FBE5A6C51AF5</attribute>
-        <attribute name="url" type="string">http://127.0.0.1:8081/api/resources</attribute>
+        <attribute name="url" type="string">http://127.0.0.1:8081/api/permissions/resources/menu:dashboard:news/roles</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
         <attribute name="redirectauthorization" type="bool">0</attribute>
-        <attribute name="method" type="string">POST</attribute>
+        <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="order" type="int64">12</attribute>
+        <attribute name="order" type="int64">13</attribute>
         <attribute name="name" type="string">list granted roles</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z139"></relationship>
     </object>
     <object type="LMREQUEST" id="z138">
+        <attribute name="body" type="string">[{"data":{"json":"{\\"resourceCode\\":\\"menu:dashboard:news\\",\\"actionCodes\\":[\\"create\\",\\"retrieve\\",\\"update\\",\\"ignore\\"]}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="uuid" type="string">FBA9C139-D5D3-4142-B54E-CC2536AFC32F</attribute>
-        <attribute name="url" type="string">http://127.0.0.1:8081/api/resources</attribute>
+        <attribute name="url" type="string">http://127.0.0.1:8081/api/permissions/roles/APP_ROLE:ROLE_TEST/resources</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="order" type="int64">13</attribute>
+        <attribute name="order" type="int64">14</attribute>
         <attribute name="name" type="string">grant</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -522,5 +523,30 @@
         <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z138"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z141">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z142"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z142">
+        <attribute name="uuid" type="string">9AAFA3BF-8DAE-4D69-B2B2-9DA34FBA3B4E</attribute>
+        <attribute name="url" type="string">http://127.0.0.1:8081/api/permissions/roles/APP_ROLE:ROLE_TEST/resources</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">GET</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="order" type="int64">12</attribute>
+        <attribute name="name" type="string">list granted resources</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z141"></relationship>
     </object>
 </database>

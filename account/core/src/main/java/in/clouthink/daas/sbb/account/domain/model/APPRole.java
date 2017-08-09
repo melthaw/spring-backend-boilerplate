@@ -8,10 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Date;
 
 /**
- * 系统扩展角色,是系统内置角色（Role）的补充
+ * 应用扩展角色,是系统内置角色（Role）的补充
  */
-@Document(collection = "ExtRoles")
-public class ExtRole extends StringIdentifier implements GrantedAuthority {
+@Document(collection = "AppRoles")
+public class AppRole extends StringIdentifier implements GrantedAuthority {
 
 	//扩展角色不能使用以下编码（内置角色已经占用）
 	public static String SYS_ROLE_NAME_ADMIN = "ADMIN";

@@ -4,8 +4,8 @@ import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.account.rest.dto.RoleSummary;
 import in.clouthink.daas.sbb.account.rest.dto.UserQueryParameter;
 import in.clouthink.daas.sbb.account.rest.dto.UserSummary;
-import in.clouthink.daas.sbb.account.rest.support.SysRoleRestSupport;
 import in.clouthink.daas.sbb.account.rest.dto.UsersForRoleParameter;
+import in.clouthink.daas.sbb.account.rest.support.SysRoleRestSupport;
 import in.clouthink.daas.sbb.security.SecurityContexts;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("角色管理")
+@Api("系统内置角色管理")
 @RestController
-@RequestMapping("/api/roles")
+@RequestMapping("/api")
 public class SysRoleRestControler {
 
 	@Autowired

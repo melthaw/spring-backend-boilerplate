@@ -1,20 +1,22 @@
 package in.clouthink.daas.sbb.account.rest.support.mock;
 
-import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.AppRole;
 import in.clouthink.daas.sbb.account.domain.request.RoleQueryRequest;
 import in.clouthink.daas.sbb.account.rest.dto.*;
-import in.clouthink.daas.sbb.account.rest.support.ExtRoleRestSupport;
+import in.clouthink.daas.sbb.account.rest.support.AppRoleRestSupport;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
- * ExtRoleRestSupport mocker
+ * AppRoleRestSupport mocker
+ *
  * @author dz
  */
 @Component
-public class ExtRoleRestSupportMockImpl implements ExtRoleRestSupport {
+public class AppRoleRestSupportMockImpl implements AppRoleRestSupport {
+
 	@Override
 	public List<RoleSummary> getSysRoles() {
 		return null;
@@ -46,7 +48,7 @@ public class ExtRoleRestSupportMockImpl implements ExtRoleRestSupport {
 	}
 
 	@Override
-	public ExtRole createAppRole(SaveRoleParameter request) {
+	public AppRole createAppRole(SaveRoleParameter request) {
 		return null;
 	}
 

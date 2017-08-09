@@ -15,7 +15,7 @@ public class TypedRole extends DefaultRole {
 
 	public static TypedRole newAppRole() {
 		TypedRole result = new TypedRole();
-		result.setRoleType(RoleType.EXT_ROLE);
+		result.setRoleType(RoleType.APP_ROLE);
 		return result;
 	}
 
@@ -24,7 +24,7 @@ public class TypedRole extends DefaultRole {
 	}
 
 	public static boolean isAppRole(String roleType) {
-		return RoleType.EXT_ROLE.name().equalsIgnoreCase(roleType);
+		return RoleType.APP_ROLE.name().equalsIgnoreCase(roleType);
 	}
 
 	private RoleType roleType;

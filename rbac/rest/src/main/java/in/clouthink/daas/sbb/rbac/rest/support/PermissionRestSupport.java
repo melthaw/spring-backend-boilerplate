@@ -12,26 +12,26 @@ import java.util.List;
 public interface PermissionRestSupport {
 
 	/**
-	 * @param roleCode
+	 * @param typedRoleCode
 	 * @return
 	 */
-	List<PrivilegedResourceWithChildren> listGrantedResources(String roleCode);
+	List<PrivilegedResourceWithChildren> listGrantedResources(String typedRoleCode);
 
 	/**
-	 * @param code
+	 * @param resourceCode
 	 * @return
 	 */
-	List<TypedRole> listGrantedRoles(String code);
+	List<TypedRole> listGrantedRoles(String resourceCode);
 
 	/**
-	 * @param roleCode
+	 * @param typedRoleCode
 	 * @param grantRequest
 	 */
-	void grantResourcesToRole(String roleCode, GrantResourceParameter grantRequest);
+	void grantResourcesToRole(String typedRoleCode, GrantResourceParameter grantRequest);
 
 	/**
-	 * @param roleCode
+	 * @param typedRoleCode
 	 * @param resourceCode
 	 */
-	void revokeResourcesFromRole(String roleCode, String resourceCode);
+	void revokeResourcesFromRole(String typedRoleCode, String resourceCode);
 }

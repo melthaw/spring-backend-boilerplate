@@ -1,6 +1,7 @@
 package in.clouthink.daas.sbb.rbac.impl.service.support;
 
 
+import in.clouthink.daas.sbb.rbac.impl.model.ResourceRoleRelationship;
 import in.clouthink.daas.sbb.rbac.model.Resource;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -11,28 +12,53 @@ import java.util.List;
  */
 public interface ResourceRoleRelationshipService {
 
-	Resource findResourceByCode(String code);
+	/**
+	 * @param role
+	 * @return
+	 */
+	List<ResourceRoleRelationship> listGrantedResources(GrantedAuthority role);
 
-	List<Resource> listRootResources();
+	/**
+	 * @param roleCode
+	 * @return
+	 */
+	List<ResourceRoleRelationship> listGrantedResources(String roleCode);
 
-	List<Resource> listResourceChildren(String resourceCode);
+	/**
+	 * @param resourceCode
+	 * @return typed role codes
+	 */
+	List<String> listGrantedRoleCodes(String resourceCode);
 
-	List<Resource> listResourceChildren(Resource parent);
+	/**
+	 * @param resource
+	 * @return typed role codes
+	 */
+	List<String> listGrantedRoleCodes(Resource resource);
 
-	List<Resource> listAllowedResource(GrantedAuthority role);
+	/**
+	 * @param resourceCode
+	 * @return
+	 */
+	List<GrantedAuthority> listGrantedRoles(String resourceCode);
 
-	List<Resource> listAllowedResource(String roleCode);
+	/**
+	 * @param resource
+	 * @return
+	 */
+	List<GrantedAuthority> listGrantedRoles(Resource resource);
 
-	List<String> listAllowedRoleCodes(String resourceCode);
+	/**
+	 * @param resourceCode
+	 * @param actionCodes
+	 * @param role
+	 */
+	void grantPermission(String resourceCode, String[] actionCodes, GrantedAuthority role);
 
-	List<String> listAllowedRoleCodes(Resource resource);
-
-	List<GrantedAuthority> listAllowedRoles(String resourceCode);
-
-	List<GrantedAuthority> listAllowedRoles(Resource resource);
-
-	void bindResourceAndRole(String resourceCode, String[] actionCodes, GrantedAuthority role);
-
-	void unbindResourceAndRole(String resourceCode, GrantedAuthority role);
+	/**
+	 * @param resourceCode
+	 * @param role
+	 */
+	void revokePermission(String resourceCode, GrantedAuthority role);
 
 }

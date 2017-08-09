@@ -12,10 +12,8 @@ public interface ResourceRoleRelationshipRepository extends AbstractRepository<R
 
 	ResourceRoleRelationship findByResourceCodeAndRoleCode(String resourceCode, String roleCode);
 
-	List<ResourceRoleRelationship> findByResourceCode(String resourceCode);
+	List<ResourceRoleRelationship> findListByResourceCode(String resourceCode);
 
-	List<ResourceRoleRelationship> findByRoleCode(String roleCode);
-
-	ResourceRoleRelationship findFirstByRoleCode(String roleCode);
+	List<ResourceRoleRelationship> findListByRoleCode(String roleCode);
 
 }

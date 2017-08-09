@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.account.repository;
 
-import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.AppRole;
 import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.account.domain.model.UserRoleRelationship;
 import in.clouthink.daas.sbb.shared.repository.AbstractRepository;
@@ -15,14 +15,14 @@ import java.util.List;
  */
 public interface UserRoleRelationshipRepository extends AbstractRepository<UserRoleRelationship> {
 
-	Page<UserRoleRelationship> findByRole(ExtRole role, Pageable pageable);
+	Page<UserRoleRelationship> findByRole(AppRole role, Pageable pageable);
 
 	Page<UserRoleRelationship> findByUser(User user, Pageable pageable);
 
 	List<UserRoleRelationship> findListByUser(User user);
 
-	UserRoleRelationship findByUserAndRole(User user, ExtRole role);
+	UserRoleRelationship findByUserAndRole(User user, AppRole role);
 
-	UserRoleRelationship findFirstByRole(ExtRole appRole);
+	UserRoleRelationship findFirstByRole(AppRole appRole);
 
 }

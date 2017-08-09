@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.account.rest.support.impl;
 
-import in.clouthink.daas.sbb.account.domain.model.ExtRole;
+import in.clouthink.daas.sbb.account.domain.model.AppRole;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.account.domain.request.RoleQueryRequest;
@@ -74,7 +74,7 @@ public class SysRoleRestSupportImpl implements SysRoleRestSupport {
 
 	@Override
 	public Page<RoleSummary> getAppRoles(RoleQueryRequest request) {
-		Page<ExtRole> appRoles = appRoleService.listAppRoles(request);
+		Page<AppRole> appRoles = appRoleService.listAppRoles(request);
 		return new PageImpl<>(appRoles.getContent().stream().map(RoleSummary::from).collect(Collectors.toList()),
 							  new PageRequest(request.getStart(), request.getLimit()),
 							  appRoles.getTotalElements());
@@ -94,7 +94,7 @@ public class SysRoleRestSupportImpl implements SysRoleRestSupport {
 	}
 
 	@Override
-	public ExtRole createAppRole(SaveRoleParameter request) {
+	public AppRole createAppRole(SaveRoleParameter request) {
 		return appRoleService.createAppRole(request);
 	}
 
