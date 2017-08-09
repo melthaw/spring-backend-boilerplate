@@ -16,16 +16,20 @@ import java.util.Collection;
  */
 public class RbacWebSecurityExpressionRoot extends WebSecurityExpressionRoot {
 
-	private ResourceService resourceService;
+	private FilterInvocation filterInvocation;
 
 	private PermissionService permissionService;
 
-	private FilterInvocation filterInvocation;
+	private ResourceService resourceService;
 
-	public RbacWebSecurityExpressionRoot(Authentication a, FilterInvocation fi, PermissionService permissionService) {
+	public RbacWebSecurityExpressionRoot(Authentication a,
+										 FilterInvocation fi,
+										 PermissionService permissionService,
+										 ResourceService resourceService) {
 		super(a, fi);
 		this.filterInvocation = fi;
 		this.permissionService = permissionService;
+		this.resourceService = resourceService;
 	}
 
 	public boolean isPassRbacCheck() {
