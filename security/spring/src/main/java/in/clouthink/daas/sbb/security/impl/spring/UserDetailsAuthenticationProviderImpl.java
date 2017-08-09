@@ -1,5 +1,6 @@
 package in.clouthink.daas.sbb.security.impl.spring;
 
+import in.clouthink.daas.sbb.account.domain.model.PasswordSaltProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -15,8 +16,10 @@ import org.springframework.util.Assert;
 
 public class UserDetailsAuthenticationProviderImpl extends AbstractUserDetailsAuthenticationProvider {
 
-	// FIXME move the key to configurable place
-	private PasswordEncoder passwordEncoder = new StandardPasswordEncoder("bbt2016@bbt.com.cn");
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private PasswordSaltProvider passwordSaltProvider;
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -82,6 +85,9 @@ public class UserDetailsAuthenticationProviderImpl extends AbstractUserDetailsAu
 	// ***********InitializingBean*************
 	protected void doAfterPropertiesSet() throws Exception {
 		Assert.notNull(this.userDetailsService, "A UserDetailsService must be set");
+		Assert.notNull(this.passwordSaltProvider, "A PasswordSaltProvider must be set");
+
+		passwordEncoder = new StandardPasswordEncoder(passwordSaltProvider.getSalt());
 	}
 
 }

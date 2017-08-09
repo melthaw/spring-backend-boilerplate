@@ -103,7 +103,7 @@ public class OpenApiSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		http.headers().frameOptions().disable();
 
 		http.authorizeRequests()
-			.antMatchers("/", "/40*", "/static/**", "/login**", "/api/guest/**", "/api/dict/**")
+			.antMatchers("/", "/40*", "/static/**", "/login**", "/api/guest/**", "/api/shared/**")
 			.permitAll()
 			.antMatchers("/api/**")
 			.hasRole("USER")

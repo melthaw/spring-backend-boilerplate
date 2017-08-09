@@ -66,7 +66,7 @@
         <relationship name="variable" type="1/1" destination="LMENVIRONMENTVARIABLE" idrefs="z105"></relationship>
     </object>
     <object type="LMREQUEST" id="z103">
-        <attribute name="body" type="string">[{"data":{"keyValues":[[["username"],["administrator"],true],[["password"],["z@88888888"],true]]},"identifier":"com.luckymarmot.BodyFormKeyValueDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"keyValues":[[["username"],["administrator"],true],[["password"],["Please_change"],true]]},"identifier":"com.luckymarmot.BodyFormKeyValueDynamicValue"}]</attribute>
         <attribute name="uuid" type="string">91ECC018-2BC1-40E1-892B-C607487CF2C2</attribute>
         <attribute name="url" type="string">http://127.0.0.1:8081/login</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
