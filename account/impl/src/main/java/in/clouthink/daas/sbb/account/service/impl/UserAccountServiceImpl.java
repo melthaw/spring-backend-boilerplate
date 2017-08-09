@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.account.service.impl;
 
-import in.clouthink.daas.sbb.account.AccountConfigurationProperties;
+import in.clouthink.daas.sbb.account.AccountPasswordConfigurationProperties;
 import in.clouthink.daas.sbb.account.domain.model.SysRole;
 import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.account.domain.request.AbstractUserRequest;
@@ -40,7 +40,7 @@ public class UserAccountServiceImpl implements AccountService, InitializingBean 
 	private static final Log logger = LogFactory.getLog(UserAccountServiceImpl.class);
 
 	@Autowired
-	private AccountConfigurationProperties accountConfigurationProperties;
+	private AccountPasswordConfigurationProperties accountConfigurationProperties;
 
 	private PasswordEncoder passwordEncoder;
 
@@ -62,7 +62,7 @@ public class UserAccountServiceImpl implements AccountService, InitializingBean 
 		}
 
 		User result = new User();
-		BeanUtils.copyProperties(account, result, new String[]{"roles"});
+		BeanUtils.copyProperties(account, result, "roles");
 		//populate sys roles
 		result.getAuthorities().addAll(account.getRoles());
 		//populate app role
@@ -405,6 +405,6 @@ public class UserAccountServiceImpl implements AccountService, InitializingBean 
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		this.passwordEncoder = new StandardPasswordEncoder(accountConfigurationProperties.getPasswordSalt());
+		this.passwordEncoder = new StandardPasswordEncoder(accountConfigurationProperties.getSalt());
 	}
 }

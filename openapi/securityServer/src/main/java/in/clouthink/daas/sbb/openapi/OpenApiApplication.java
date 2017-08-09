@@ -8,11 +8,10 @@ import in.clouthink.daas.sbb.attachment.AttachmentRestModuleConfiguration;
 import in.clouthink.daas.sbb.audit.AuditRestModuleConfiguration;
 import in.clouthink.daas.sbb.menu.MenuRestModuleConfiguration;
 import in.clouthink.daas.sbb.news.NewsRestModuleConfiguration;
-import in.clouthink.daas.sbb.notice.NoticeRestModuleConfiguration;
 import in.clouthink.daas.sbb.rbac.RbacRestModuleConfiguration;
 import in.clouthink.daas.sbb.security.impl.audit.AuditEventPersisterImpl;
 import in.clouthink.daas.sbb.security.impl.audit.SecurityContextAuditImpl;
-import in.clouthink.daas.sbb.setting.SettingRestModuleConfiguration;
+import in.clouthink.daas.sbb.setting.SystemSettingRestModuleConfiguration;
 import in.clouthink.daas.sbb.sms.DummySmsRestModuleConfiguration;
 import in.clouthink.daas.sbb.storage.GridfsModuleConfiguration;
 import in.clouthink.daas.sbb.storage.StorageRestModuleConfiguration;
@@ -63,9 +62,8 @@ public class OpenApiApplication extends SpringBootServletInitializer {
 										   StorageRestModuleConfiguration.class,
 										   DummySmsRestModuleConfiguration.class,
 										   NewsRestModuleConfiguration.class,
-										   NoticeRestModuleConfiguration.class,
 										   AttachmentRestModuleConfiguration.class,
-										   SettingRestModuleConfiguration.class,
+										   SystemSettingRestModuleConfiguration.class,
 										   OpenApiApplication.class}, args);
 	}
 

@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 @Service
 public class ResourceCacheServiceMemoryImpl implements ResourceCacheService {
 
+	public static final Object LOCK_OBJECT = new Object();
+
 	@Autowired
 	private ResourceService resourceService;
 
@@ -30,7 +32,7 @@ public class ResourceCacheServiceMemoryImpl implements ResourceCacheService {
 			return cachedValue;
 		}
 
-		synchronized (cacheHash) {
+		synchronized (LOCK_OBJECT) {
 			//try again
 			if (!isDirty()) {
 				return cachedValue;

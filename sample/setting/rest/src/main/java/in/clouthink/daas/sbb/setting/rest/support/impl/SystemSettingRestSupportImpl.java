@@ -1,7 +1,9 @@
 package in.clouthink.daas.sbb.setting.rest.support.impl;
 
+import in.clouthink.daas.sbb.account.domain.model.User;
+import in.clouthink.daas.sbb.setting.domain.request.SaveSystemSettingRequest;
+import in.clouthink.daas.sbb.setting.rest.dto.SystemSettingSummary;
 import in.clouthink.daas.sbb.setting.rest.support.SystemSettingRestSupport;
-import in.clouthink.daas.sbb.setting.domain.model.SystemSetting;
 import in.clouthink.daas.sbb.setting.service.SystemSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,13 +15,13 @@ public class SystemSettingRestSupportImpl implements SystemSettingRestSupport {
 	private SystemSettingService systemSettingService;
 
 	@Override
-	public SystemSetting getSystemSetting() {
-		return systemSettingService.getSystemSetting();
+	public SystemSettingSummary getSystemSetting() {
+		return SystemSettingSummary.from(systemSettingService.getSystemSetting());
 	}
 
 	@Override
-	public void updateSystemSetting(SystemSetting systemSetting) {
-		systemSettingService.updateSystemSetting(systemSetting);
+	public void updateSystemSetting(SaveSystemSettingRequest systemSetting, User byWho) {
+		systemSettingService.saveSystemSetting(systemSetting, byWho);
 	}
 
 }

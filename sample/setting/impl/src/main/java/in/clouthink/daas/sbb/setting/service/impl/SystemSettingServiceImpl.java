@@ -1,15 +1,18 @@
 package in.clouthink.daas.sbb.setting.service.impl;
 
+import in.clouthink.daas.sbb.account.domain.model.User;
 import in.clouthink.daas.sbb.setting.domain.model.SystemSetting;
+import in.clouthink.daas.sbb.setting.domain.request.SaveSystemSettingRequest;
 import in.clouthink.daas.sbb.setting.exception.SystemSettingException;
 import in.clouthink.daas.sbb.setting.repository.SystemSettingRepository;
 import in.clouthink.daas.sbb.setting.service.SystemSettingService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Date;
+import java.util.List;
 
 /**
  * @author dz
@@ -22,24 +25,27 @@ public class SystemSettingServiceImpl implements SystemSettingService {
 
 	@Override
 	public SystemSetting getSystemSetting() {
-		return systemSettingRepository.findById(SystemSetting.DEFAULT_ID);
+		return ((List<SystemSetting>) systemSettingRepository.findAll(new Sort(new Sort.Order(Sort.Direction.ASC,
+																							  "createdAt")))).stream()
+																											 .findFirst()
+																											 .orElse(null);
 	}
 
 	@Override
-	public void updateSystemSetting(SystemSetting systemSetting) {
-		if (StringUtils.isEmpty(systemSetting.getName())) {
+	public void saveSystemSetting(SaveSystemSettingRequest request, User byWho) {
+		if (StringUtils.isEmpty(request.getName())) {
 			throw new SystemSettingException("系统名称不能为空");
 		}
 
 		SystemSetting existedSystemSetting = getSystemSetting();
 		if (existedSystemSetting == null) {
 			existedSystemSetting = new SystemSetting();
-			existedSystemSetting.setId(SystemSetting.DEFAULT_ID);
-			existedSystemSetting.setCreatedAt(new Date());
+			SystemSetting.onCreate(existedSystemSetting, byWho);
 		}
 
-		BeanUtils.copyProperties(systemSetting, existedSystemSetting, "id", "createdAt", "modifiedAt");
-		existedSystemSetting.setModifiedAt(new Date());
+		BeanUtils.copyProperties(request, existedSystemSetting);
+		SystemSetting.onModify(existedSystemSetting, byWho);
+
 		systemSettingRepository.save(existedSystemSetting);
 	}
 

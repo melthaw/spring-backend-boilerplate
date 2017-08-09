@@ -8,5 +8,4 @@ import in.clouthink.daas.sbb.shared.repository.AbstractRepository;
  */
 public interface SystemSettingRepository extends AbstractRepository<SystemSetting> {
 
-
 }

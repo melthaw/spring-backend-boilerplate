@@ -19,7 +19,6 @@ dependencies {
 	compile libs.springBoot
 	compile libs.springDataMongodb
 	compile libs.springSecurity
-	compile libs.springThymeleaf
 	compile libs.springBootTomcat
 	compile libs.daas
 
@@ -30,7 +29,6 @@ dependencies {
 	compile project(':menu/rest')
 	compile project(':rbac/rest')
 	compile project(':sample/news/rest')
-	compile project(':sample/notice/rest')
 	compile project(':sample/attachment/rest')
 	compile project(':sample/setting/rest')
 	compile project(':message/sms/rest')
