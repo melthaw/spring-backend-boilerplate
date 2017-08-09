@@ -13,15 +13,15 @@ public interface ResourceRoleRelationshipService {
 
 	Resource findResourceByCode(String code);
 
-	List<? extends Resource> listRootResources();
+	List<Resource> listRootResources();
 
-	List<? extends Resource> listResourceChildren(String resourceCode);
+	List<Resource> listResourceChildren(String resourceCode);
 
-	List<? extends Resource> listResourceChildren(Resource parent);
+	List<Resource> listResourceChildren(Resource parent);
 
-	List<? extends Resource> listAllowedResource(GrantedAuthority role);
+	List<Resource> listAllowedResource(GrantedAuthority role);
 
-	List<? extends Resource> listAllowedResource(String roleCode);
+	List<Resource> listAllowedResource(String roleCode);
 
 	List<String> listAllowedRoleCodes(String resourceCode);
 

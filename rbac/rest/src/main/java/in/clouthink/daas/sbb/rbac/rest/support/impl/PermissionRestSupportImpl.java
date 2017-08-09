@@ -9,8 +9,7 @@ import in.clouthink.daas.sbb.rbac.impl.service.support.RbacUtils;
 import in.clouthink.daas.sbb.rbac.impl.service.support.ResourceRoleRelationshipService;
 import in.clouthink.daas.sbb.rbac.model.TypedCode;
 import in.clouthink.daas.sbb.rbac.rest.dto.GrantResourceParameter;
-import in.clouthink.daas.sbb.rbac.rest.dto.ResourceWithChildren;
-import in.clouthink.daas.sbb.rbac.rest.dto.TypedRoleSummary;
+import in.clouthink.daas.sbb.rbac.rest.dto.PrivilegedResourceWithChildren;
 import in.clouthink.daas.sbb.rbac.rest.service.ResourceCacheService;
 import in.clouthink.daas.sbb.rbac.rest.support.PermissionRestSupport;
 import in.clouthink.daas.sbb.rbac.service.PermissionService;
@@ -45,7 +44,7 @@ public class PermissionRestSupportImpl implements PermissionRestSupport {
 	private ResourceRoleRelationshipService resourceRoleRelationshipService;
 
 	@Override
-	public List<ResourceWithChildren> listGrantedResources(String roleCode) {
+	public List<PrivilegedResourceWithChildren> listGrantedResources(String roleCode) {
 		//granted resource codes & action codes
 		Map<String,Set<String>> resourceCodes =
 
@@ -57,14 +56,14 @@ public class PermissionRestSupportImpl implements PermissionRestSupport {
 																							 .map(action -> action.getCode())
 																							 .collect(Collectors.toSet())));
 
-		List<ResourceWithChildren> result = resourceCacheService.listResources(false);
+		List<PrivilegedResourceWithChildren> result = resourceCacheService.listResources(false);
 
 		processChildren(result, resourceCodes);
 
 		return result;
 	}
 
-	private void processChildren(List<ResourceWithChildren> result, Map<String,Set<String>> resourceCodes) {
+	private void processChildren(List<PrivilegedResourceWithChildren> result, Map<String,Set<String>> resourceCodes) {
 		result.stream().forEach(resourceWithChildren -> {
 			resourceWithChildren.setGranted(resourceCodes.containsKey(resourceWithChildren.getCode()));
 			resourceWithChildren.getActions().stream().forEach(action -> {
@@ -77,11 +76,10 @@ public class PermissionRestSupportImpl implements PermissionRestSupport {
 	}
 
 	@Override
-	public List<TypedRoleSummary> listGrantedRoles(String code) {
+	public List<TypedRole> listGrantedRoles(String code) {
 		return resourceRoleRelationshipService.listAllowedRoles(code)
 											  .stream()
 											  .map(authority -> RbacUtils.convertToTypedRole(authority))
-											  .map(role -> TypedRoleSummary.from((TypedRole) role))
 											  .collect(Collectors.toList());
 	}
 

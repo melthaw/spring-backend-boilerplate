@@ -37,9 +37,9 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 	@Autowired
 	private RoleService roleService;
 
-//	public void setRoleParser(RoleParser<TypedCode> roleParser) {
-//		this.roleParser = roleParser;
-//	}
+	public void setRoleParser(RoleParser<TypedCode> roleParser) {
+		this.roleParser = roleParser;
+	}
 
 	@Override
 	public Resource findResourceByCode(String code) {
@@ -47,28 +47,28 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 	}
 
 	@Override
-	public List<? extends Resource> listRootResources() {
+	public List<Resource> listRootResources() {
 		return resourceService.getRootResources();
 	}
 
 	@Override
-	public List<? extends Resource> listResourceChildren(String resourceCode) {
+	public List<Resource> listResourceChildren(String resourceCode) {
 		return listResourceChildren(resourceService.findByCode(resourceCode));
 	}
 
 	@Override
-	public List<? extends Resource> listResourceChildren(Resource parent) {
+	public List<Resource> listResourceChildren(Resource parent) {
 		return resourceService.getResourceChildren(parent.getCode());
 	}
 
 	@Override
-	public List<? extends Resource> listAllowedResource(GrantedAuthority role) {
+	public List<Resource> listAllowedResource(GrantedAuthority role) {
 		String roleCode = RbacUtils.buildRoleCode(role);
 		return listAllowedResource(roleCode);
 	}
 
 	@Override
-	public List<? extends Resource> listAllowedResource(String roleCode) {
+	public List<Resource> listAllowedResource(String roleCode) {
 		return resourceRoleRelationshipRepository.findByRoleCode(roleCode)
 												 .stream()
 												 .map(relationship -> resourceService.findByCode(relationship.getResourceCode()))
@@ -171,7 +171,7 @@ public class ResourceRoleRelationshipServiceImpl implements ResourceRoleRelation
 				roleCode);
 		if (parentResourceRoleRelationship != null) {
 			//if no child is granted , the parent can be revoke
-			List<? extends Resource> children = resourceService.getResourceChildren(parentResource.getCode());
+			List<Resource> children = resourceService.getResourceChildren(parentResource.getCode());
 
 			boolean hasChildGranted = false;
 			for (Resource child : children) {

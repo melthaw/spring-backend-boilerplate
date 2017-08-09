@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.rest.service.impl;
 
-import in.clouthink.daas.sbb.rbac.rest.dto.ResourceWithChildren;
+import in.clouthink.daas.sbb.rbac.rest.dto.PrivilegedResourceWithChildren;
 import in.clouthink.daas.sbb.rbac.rest.service.ResourceCacheService;
 import in.clouthink.daas.sbb.rbac.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +23,10 @@ public class ResourceCacheServiceMemoryImpl implements ResourceCacheService {
 
 	private String cacheHash = UUID.randomUUID().toString();
 
-	private List<ResourceWithChildren> cachedValue;
+	private List<PrivilegedResourceWithChildren> cachedValue;
 
 	@Override
-	public List<ResourceWithChildren> listResources() {
+	public List<PrivilegedResourceWithChildren> listResources() {
 		//try get cache
 		if (!isDirty()) {
 			return cachedValue;
@@ -39,11 +39,12 @@ public class ResourceCacheServiceMemoryImpl implements ResourceCacheService {
 			}
 
 			//else build new one
-			List<ResourceWithChildren> result = resourceService.getRootResources()
-															   .stream()
-															   .filter(resource -> !resource.isOpen())
-															   .map(resource -> ResourceWithChildren.from(resource))
-															   .collect(Collectors.toList());
+			List<PrivilegedResourceWithChildren> result = resourceService.getRootResources()
+																		 .stream()
+																		 .filter(resource -> !resource.isOpen())
+																		 .map(resource -> PrivilegedResourceWithChildren
+																				 .from(resource))
+																		 .collect(Collectors.toList());
 
 			processChildren(result);
 
@@ -56,16 +57,17 @@ public class ResourceCacheServiceMemoryImpl implements ResourceCacheService {
 	}
 
 	@Override
-	public List<ResourceWithChildren> listResources(boolean cached) {
+	public List<PrivilegedResourceWithChildren> listResources(boolean cached) {
 		if (cached) {
 			return listResources();
 		}
 
-		List<ResourceWithChildren> result = resourceService.getRootResources()
-														   .stream()
-														   .filter(resource -> !resource.isOpen())
-														   .map(resource -> ResourceWithChildren.from(resource))
-														   .collect(Collectors.toList());
+		List<PrivilegedResourceWithChildren> result = resourceService.getRootResources()
+																	 .stream()
+																	 .filter(resource -> !resource.isOpen())
+																	 .map(resource -> PrivilegedResourceWithChildren.from(
+																			 resource))
+																	 .collect(Collectors.toList());
 
 		processChildren(result);
 
@@ -76,13 +78,14 @@ public class ResourceCacheServiceMemoryImpl implements ResourceCacheService {
 		return !resourceService.getHashcode().equals(cacheHash);
 	}
 
-	private void processChildren(List<ResourceWithChildren> result) {
+	private void processChildren(List<PrivilegedResourceWithChildren> result) {
 		result.stream().forEach(resource -> {
-			List<ResourceWithChildren> children = resourceService.getResourceChildren(resource.getCode())
-																 .stream()
-																 .filter(child -> !child.isOpen())
-																 .map(child -> ResourceWithChildren.from(child))
-																 .collect(Collectors.toList());
+			List<PrivilegedResourceWithChildren> children = resourceService.getResourceChildren(resource.getCode())
+																		   .stream()
+																		   .filter(child -> !child.isOpen())
+																		   .map(child -> PrivilegedResourceWithChildren.from(
+																				   child))
+																		   .collect(Collectors.toList());
 			resource.getChildren().addAll(children);
 			processChildren(children);
 		});

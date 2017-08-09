@@ -6,10 +6,14 @@ import org.springframework.beans.BeanUtils;
 /**
  * @author dz
  */
-public class ActionSummary {
+public class PrivilegedAction {
 
-	public static ActionSummary from(Action action, boolean granted) {
-		ActionSummary result = new ActionSummary();
+	public static PrivilegedAction from(Action action) {
+		return from(action, false);
+	}
+
+	public static PrivilegedAction from(Action action, boolean granted) {
+		PrivilegedAction result = new PrivilegedAction();
 		BeanUtils.copyProperties(action, result);
 		result.setGranted(granted);
 		return result;

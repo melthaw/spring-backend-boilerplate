@@ -71,6 +71,6 @@ public interface Resource {
 	 *
 	 * @return
 	 */
-	Map getMetadata();
+	Map<String,Object> getMetadata();
 
 }

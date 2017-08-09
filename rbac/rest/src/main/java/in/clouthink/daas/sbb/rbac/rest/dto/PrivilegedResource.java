@@ -10,26 +10,27 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 /**
+ * privileged resource
  */
-public class ResourceSummary {
+public class PrivilegedResource {
 
-	static void convert(Resource resource, ResourceSummary target, Predicate<Resource> predicate) {
-		BeanUtils.copyProperties(resource, target);
+	static void convert(Resource resource, PrivilegedResource target, Predicate<Resource> predicate) {
+		BeanUtils.copyProperties(resource, target, "actions");
 	}
 
-	public static ResourceSummary from(Resource resource) {
+	public static PrivilegedResource from(Resource resource) {
 		//always convert by default
 		return from(resource, res -> true);
 	}
 
-	public static ResourceSummary from(Resource resource, Predicate<Resource> predicate) {
+	public static PrivilegedResource from(Resource resource, Predicate<Resource> predicate) {
 		if (resource == null) {
 			return null;
 		}
 		if (!predicate.test(resource)) {
 			return null;
 		}
-		ResourceSummary result = new ResourceSummary();
+		PrivilegedResource result = new PrivilegedResource();
 		convert(resource, result, predicate);
 		return result;
 	}
@@ -44,7 +45,7 @@ public class ResourceSummary {
 
 	private String type;
 
-	private List<ActionSummary> actions = new ArrayList<>();
+	private List<PrivilegedAction> actions = new ArrayList<>();
 
 	private Map<String,Object> metadata = new HashMap<>();
 
@@ -88,11 +89,11 @@ public class ResourceSummary {
 		this.type = type;
 	}
 
-	public List<ActionSummary> getActions() {
+	public List<PrivilegedAction> getActions() {
 		return actions;
 	}
 
-	public void setActions(List<ActionSummary> actions) {
+	public void setActions(List<PrivilegedAction> actions) {
 		this.actions = actions;
 	}
 

@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.rest.service;
 
-import in.clouthink.daas.sbb.rbac.rest.dto.ResourceWithChildren;
+import in.clouthink.daas.sbb.rbac.rest.dto.PrivilegedResourceWithChildren;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface ResourceCacheService {
 
-	List<ResourceWithChildren> listResources();
+	List<PrivilegedResourceWithChildren> listResources();
 
-	List<ResourceWithChildren> listResources(boolean cached);
+	List<PrivilegedResourceWithChildren> listResources(boolean cached);
 
 }

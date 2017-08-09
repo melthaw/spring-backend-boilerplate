@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.rest.support.impl;
 
-import in.clouthink.daas.sbb.rbac.rest.dto.ResourceWithChildren;
+import in.clouthink.daas.sbb.rbac.rest.dto.PrivilegedResourceWithChildren;
 import in.clouthink.daas.sbb.rbac.rest.service.ResourceCacheService;
 import in.clouthink.daas.sbb.rbac.rest.support.ResourceRestSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class ResourceRestSupportImpl implements ResourceRestSupport {
 	private ResourceCacheService resourceService;
 
 	@Override
-	public List<ResourceWithChildren> listResources() {
+	public List<PrivilegedResourceWithChildren> listResources() {
 		return resourceService.listResources();
 	}
 

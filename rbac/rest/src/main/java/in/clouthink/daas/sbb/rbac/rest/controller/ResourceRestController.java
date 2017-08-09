@@ -1,6 +1,6 @@
 package in.clouthink.daas.sbb.rbac.rest.controller;
 
-import in.clouthink.daas.sbb.rbac.rest.dto.ResourceWithChildren;
+import in.clouthink.daas.sbb.rbac.rest.dto.PrivilegedResourceWithChildren;
 import in.clouthink.daas.sbb.rbac.rest.support.ResourceRestSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +21,7 @@ public class ResourceRestController {
 
 	@ApiOperation(value = "获取资源列表(不包括open)")
 	@RequestMapping(method = RequestMethod.GET)
-	public List<ResourceWithChildren> listResources() {
+	public List<PrivilegedResourceWithChildren> listResources() {
 		return resourceRestSupport.listResources();
 	}
 
