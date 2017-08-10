@@ -58,8 +58,8 @@ public class StorageRestModuleConfiguration {
 }
 
 ```
-If we want the blob is upload and saved to the local storage ( your runtime server's file system ), 
-just import another one replace it with
+If you want upload the file and save it to the local storage ( your runtime server's file system ), 
+just import another one and replace it as follow
 
 ```
 @Import({LocalStorageModuleConfiguration.class})
@@ -78,7 +78,64 @@ Based on the flexibility provided by Spring Security , we add more interesting f
 multi-factor authentication, user device, audit and pluggable account system.
 
 
+### Context 
+
+Yes, Spring Security provides the context named `org.springframework.security.core.context.SecurityContext` and 
+the corresponding helper class `org.springframework.security.core.context.SecurityContextHolder`. 
+
+Why we need another one? 
+
+```
+Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+if (authentication == null) {
+    throw some exception here?
+}
+
+```
+
+Every time we retrieve the authentication , we must check the authentication , duplicated code everywhere.
+
+What we supposed is that an exception is thrown automatically if no authentication found in the context,  
+not check it and throw it by manual.
+
+So we provide one new generic interface in module(:security/core)
+
+```
+public interface SecurityContext<T> {
+
+	/**
+	 * @return current user , or null if not authenticated
+	 */
+	T currentUser();
+
+	/**
+	 * @return the current user
+	 * @throw AuthenticationRequiredException if not authenticated
+	 */
+	T requireUser();
+
+}
+```
+
+And we provide one helper named `SecurityContexts` to load the implementation. Here is the sample: 
+
+```
+User user = (User)SecurityContexts.getContext().requireUser();
+```
+
+As you see, `requireUser()` is invoked which means if no authenticated user found in the context, it will throw one AuthenticationRequiredException.
+
+
+The `SecurityContexts` requires that the implementation must follow the Java SPI  Spec and provide it in the file as follow
+
+```
+META-INF/services/in.clouthink.daas.sbb.security.SecurityContext
+```
+
+
 ### Authentication 
+
+
 `TODO`
 
 

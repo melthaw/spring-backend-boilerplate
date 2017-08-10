@@ -1,8 +1,9 @@
 package in.clouthink.daas.sbb.security;
 
-
 /**
- * The security content to get the user
+ * The security context to get the authenticated user
+ *
+ * @author dz
  */
 public interface SecurityContext<T> {
 
@@ -13,7 +14,7 @@ public interface SecurityContext<T> {
 
 	/**
 	 * @return the current user
-	 * @throw exception if not authenticated
+	 * @throw AuthenticationRequiredException if not authenticated
 	 */
 	T requireUser();
 

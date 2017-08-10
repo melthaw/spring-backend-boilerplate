@@ -37,7 +37,7 @@ public class NewsRestController {
 	@ApiOperation(value = "创建新闻")
 	@RequestMapping(value = "/news", method = RequestMethod.POST)
 	public String createNews(@RequestBody SaveNewsParameter request) {
-		User user = (User) SecurityContexts.getContext().requireUser();
+		User user = (User)SecurityContexts.getContext().requireUser();
 		return newsRestSupport.createNews(request, user);
 	}
 

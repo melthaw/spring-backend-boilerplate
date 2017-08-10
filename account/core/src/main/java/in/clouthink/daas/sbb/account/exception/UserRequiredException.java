@@ -1,9 +1,11 @@
 package in.clouthink.daas.sbb.account.exception;
 
+import in.clouthink.daas.security.token.exception.AuthenticationRequiredException;
+
 /**
  *
  */
-public class UserRequiredException extends UserException {
+public class UserRequiredException extends AuthenticationRequiredException {
 
 	public UserRequiredException() {
 	}
