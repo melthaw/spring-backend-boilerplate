@@ -6,4 +6,7 @@ dependencies {
     compile project(":account/core")
     compile project(":security/core")
     compile project(":storage/core")
+    compile project(":storage/alioss")
+    compile project(":storage/gridfs")
+    compile project(":storage/local")
 }

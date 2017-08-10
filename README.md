@@ -1,90 +1,167 @@
-# 介绍 - Introduction
+# Introduction
 
-基于Spring(Boot)的快速开发框架,覆盖了应用系统后端常用需求,
-例如账户系统,安全设施,访问审计,文件或图片的上传下载,消息通知等.
-我们希望达到的目标是使用者熟悉框架后,对代码进行微调或者调整后,
-只需要关注业务,往里面添加业务模块,进行一些简单的配置,就可开发出满足业务需求的系统.
+The quick development boilerplate based on Spring (Boot) Framework which covers the general case of Java backend application
+something like Account Module, Security Foundation, Audit System, Blog Upload/Download, Message Notification, Role Based Access Control etc.
+
+We hope this boilerplate can help the users to focus on their business part when they know how this boilerplate is designed and implemented.
  
-# 功能特征 - Features
+# Features
+
+## Modularization
+
+First we design a modularized system (Thanks Spring and Gradle), 
+our goal is simple add or remove one module without changing the Application , except the foundational modules.
+
+For example, remove the message module in the boilerplate won't break the application, because the message is event-driven ,
+The other modules dispatch event to the event bus, the event bus simply discard it if the message module not found. 
+
+```
+//Before
+public class OpenApiApplication extends SpringBootServletInitializer {
+
+	public static void main(String[] args) {
+		SpringApplication.run(new Object[]{...,
+		                                    SmsRestModuleConfiguration.class,
+		                                    ..., 
+										   OpenApiApplication.class}, args);
+	}
+
+}
+```
+
+Simply remove the module configuration from the startup script.
+
+```
+//After
+public class OpenApiApplication extends SpringBootServletInitializer {
+
+	public static void main(String[] args) {
+		SpringApplication.run(new Object[]{...,
+										   OpenApiApplication.class}, args);
+	}
+
+}
+
+```
 
 
-## 安全 - Security
 
-### 基础设施 - Foundation
+And we also force the module convention that's separating the abstraction and implementation, then your can switch from one 
+implementation to another easily. 
 
+For example, we provide more than one implementation module for the storage abstraction (:storage/core).
 
-### 认证策略 - Authentication 
+```
+@Import({GridfsModuleConfiguration.class})
+public class StorageRestModuleConfiguration {
 
+}
 
-### 授权策略 - Authorization
+```
+If we want the blob is upload and saved to the local storage ( your runtime server's file system ), 
+just import another one replace it with
 
+```
+@Import({LocalStorageModuleConfiguration.class})
+public class StorageRestModuleConfiguration {
 
-### 用户设备 - User Device
-
-
-### 双因子 - Two Factor Support
-
-
-## 多套账户示例 - Multi-Account Template
-
-
-## 文件上传下载 - File Storage
-
-
-## 访问审计 - Audit
-
-### 登录审计 - Login
+}
+```
 
 
-### 操作审计 - Operation
 
 
-### 统计报表 - Report
+
+## Security
+
+### Foundation
+
+We add a classics security extension to Spring Security
 
 
-## 消息通知 - Message
-
-### 短信通知 - SMS
-
-
-### 邮件通知 - Email
+### Authentication 
+`TODO`
 
 
-### 移动端通知 - Mobile
+### Authorization
+`TODO`
 
 
-### 微信通知 - Wechat
+### User Device
+`TODO`
+
+### Two Factor Support
+`TODO`
 
 
-# 模块化设计 - Modularization
+## Multi-Account Template
+`TODO`
 
 
-# 使用指南 - Get Started
+## File Storage
+`TODO`
+
+
+## Audit
+`TODO`
+
+### Login
+`TODO`
+
+
+### Operation
+`TODO`
+
+
+### Report
+`TODO`
+
+
+## Message
+`TODO`
+
+
+### SMS
+`TODO`
+
+
+### Email
+`TODO`
+
+
+### Wechat
+`TODO`
+
+
+
+# Get Started
+ `TODO`
+
+## Source Code Inside
+`TODO`
+
+
+
+# `TODO`
+Configuration
+
+
+3 Ways to go
+* application.properties
+* zookeeper
+* customized
+
  
-## 源码组织结构 - Source Code Inside
-
-
-
-# 参数配置 - Configuration
-
-
-参数配置支持四种方式
-* 文件配置
-* 数据库配置
-* zookeeper配置
-* 自定义配置
-
+# Appendix - Development ENV
  
-# 附录 - 开发环境
- 
-## IDEA 导入 - how to import the project to IDEA IDE
+## IDEA - how to import the project to IDEA IDE
 
 ```
 > gradle cleanIdea
 > gradle idea
 ```
 
-## IDEA 调试 - how to debug in IDEA IDE
+## IDEA - how to debug in IDEA IDE
 
 Create new debug configuration (type of gradle), and pop it with following value.
 
@@ -93,5 +170,5 @@ name | value
 Gradle Project | in.clouthink.daas.sbb:openapiServer
 Tasks | clean bootRun
 VM Options | <keep it empty>
-Script parameters | -PjvmArgs="-Dspring.config.location=/var/sbb/etc/openapiServer/application.properties"
+Script parameters | -PjvmArgs="-Dspring.config.location=/var/sbb/etc/securityServer/application.properties"
 
