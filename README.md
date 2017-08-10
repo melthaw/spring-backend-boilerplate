@@ -307,8 +307,7 @@ Finally configure the authorization part
 			.accessDeniedHandler(accessDeniedHandlerImpl());
 	}
 
-``
-
+```
 
 ### User Device
 `TODO`
