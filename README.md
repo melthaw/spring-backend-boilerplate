@@ -1,5 +1,3 @@
-[TOC]
-
 # Introduction
 
 The quick development boilerplate based on Spring (Boot) Framework which covers the general case of Java backend application
@@ -323,31 +321,49 @@ Finally configure the authorization part
 
 
 ## Audit
+
+The [daas-audit](https://github.com/melthaw/spring-mvc-audit) is a simple and quick audit abstraction lib for spring mvc http request.
+Please go https://github.com/melthaw/spring-mvc-audit to get more detail about it. Here we only explain what we extended and customized.  
+
 `TODO`
-
-### Login
-`TODO`
-
-
-### Operation
-`TODO`
-
-
-### Report
-`TODO`
-
-
 
 ## File Storage
-`TODO`
 
+The [daas-fss](https://github.com/melthaw/spring-file-storage-service) is APIs which make storing the blob file easy and simple.
+Please go https://github.com/melthaw/spring-file-storage-service to get more detail about it. Here we only explain what we extended and customized.  
+
+`TODO`
 
 ## Message
-`TODO`
+
+The [daas-edm](https://github.com/melthaw/spring-event-driven-message) is a lightweight event driven message framework based on reactor.
+Please go https://github.com/melthaw/spring-event-driven-message to get more detail about it. Here we only explain what we extended and customized.
 
 
 ### SMS
-`TODO`
+
+In the boilerplate we choose the [aliyun SMS](https://www.aliyun.com/product/sms) as example .
+It's simple and easy to integrate your SMS provider , just implement the following interface.
+
+```
+in.clouthink.daas.edm.sms.SmsSender
+```
+
+We also supply one dummy module(:message/sms/mock) which can be used in the development ENV. 
+
+```
+//for development
+@Import({SmsAliyunModuleConfiguration.class})
+//for production
+@Import({DummySmsModuleConfiguration.class})
+```
+
+One more thing, the SMS history can be saved if you import the history module (:message/sms/history). 
+By default we enable the SMS history in the boilerplate, if you don't like it, simple remove the import part to disable this feature.
+
+```
+@Import({SmsHistoryModuleConfiguration.class})
+```
 
 
 ### Email
@@ -356,7 +372,6 @@ Finally configure the authorization part
 
 ### Wechat
 `TODO`
-
 
 
 # Get Started
