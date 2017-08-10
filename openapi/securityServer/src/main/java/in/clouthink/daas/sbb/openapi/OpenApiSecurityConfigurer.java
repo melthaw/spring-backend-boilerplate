@@ -128,7 +128,7 @@ public class OpenApiSecurityConfigurer extends WebSecurityConfigurerAdapter {
 			.permitAll()
 			.and()
 			.rememberMe()
-			.key("BBT#EF871D0AC3C5A2B7DAF6B4DC1E9D119E");
+			.key("SSB#EF871D0AC3C5A2B7DAF6B4DC1E9D119E");
 	}
 
 	private void configAccess(HttpSecurity http) throws Exception {
@@ -136,7 +136,7 @@ public class OpenApiSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests()
 			.accessDecisionManager(accessDecisionManager())
-			.antMatchers("/", "/40*", "/static/**", "/login**", "/api/guest/**")
+			.antMatchers("/", "/static/**", "/login**", "/guest/**")
 			.permitAll()
 			.antMatchers("/api/shared/**")
 			.hasRole("USER")

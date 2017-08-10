@@ -1,3 +1,5 @@
+[TOC]
+
 # Introduction
 
 The quick development boilerplate based on Spring (Boot) Framework which covers the general case of Java backend application
@@ -140,19 +142,16 @@ First let's list the extension points what we implemented for Spring Security.
 
 `User`
 
-* org.springframework.security.core.userdetails.UserDetailsService
 * org.springframework.security.authentication.AuthenticationProvider
     * org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider
 * org.springframework.security.core.userdetails.User
+* org.springframework.security.core.userdetails.UserDetailsService
 
 `Login & Logout`
 
 * org.springframework.security.web.AuthenticationEntryPoint
-    * org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
 * org.springframework.security.web.authentication.AuthenticationFailureHandler
-    * org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler
 * org.springframework.security.web.authentication.AuthenticationSuccessHandler
-    * org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler
 * org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 
 `Access`
@@ -161,6 +160,156 @@ First let's list the extension points what we implemented for Spring Security.
     * org.springframework.security.web.access.AccessDeniedHandlerImpl
 * org.springframework.security.access.expression.SecurityExpressionHandler
     * org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler
+* org.springframework.security.web.access.expression.WebSecurityExpressionRoot
+
+
+The backend is designed as a restful service provider, 
+so the security foundation must has the ability to process the restful request and response , 
+not only the web page request and response.
+
+And our implementations are listed as follow: 
+
+`User`
+* in.clouthink.daas.sbb.security.impl.spring.UserDetailsAuthenticationProviderImpl
+* in.clouthink.daas.sbb.security.impl.spring.UserDetails
+* in.clouthink.daas.sbb.security.impl.spring.UserDetailsServiceImpl
+
+`Login & Logout`
+* in.clouthink.daas.sbb.security.impl.spring.rest.AuthenticationEntryPointRestImpl
+* in.clouthink.daas.sbb.security.impl.spring.rest.AuthenticationFailureHandlerRestImpl
+* in.clouthink.daas.sbb.security.impl.spring.rest.AuthenticationSuccessHandlerRestImpl
+* in.clouthink.daas.sbb.security.impl.spring.rest.LogoutSuccessHandlerRestImpl
+
+`Access`
+* in.clouthink.daas.sbb.security.impl.spring.rest.AccessDeniedHandlerRestImpl
+* in.clouthink.daas.sbb.rbac.impl.spring.security.RbacWebSecurityExpressionHandler
+* in.clouthink.daas.sbb.rbac.impl.spring.security.RbacWebSecurityExpressionRoot
+
+#### How to configure Spring Security 
+
+Please refer to `in.clouthink.daas.sbb.openapi.OpenApiSecurityConfigurer`. 
+
+First , export the Spring Security extension points implementation. 
+
+```
+
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		return new UserDetailsAuthenticationProviderImpl();
+	}
+
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new UserDetailsServiceImpl();
+	}
+
+	@Bean
+	public AuthenticationSuccessHandler authenticationSuccessHandlerImpl() {
+		return new AuthenticationSuccessHandlerRestImpl();
+	}
+
+	@Bean
+	public AuthenticationFailureHandler authenticationFailureHandlerImpl() {
+		return new AuthenticationFailureHandlerRestImpl();
+	}
+
+	@Bean
+	public AccessDeniedHandler accessDeniedHandlerImpl() {
+		return new AccessDeniedHandlerRestImpl();
+	}
+
+	@Bean
+	public LogoutSuccessHandler logoutSuccessHandlerImpl() {
+		return new LogoutSuccessHandlerRestImpl();
+	}
+
+	@Bean
+	public AuthenticationEntryPoint authenticationEntryPointImpl() {
+		return new AuthenticationEntryPointRestImpl();
+	}
+
+	@Bean
+	public AccessDecisionManager accessDecisionManager() {
+		List<AccessDecisionVoter<? extends Object>> decisionVoters = new ArrayList<>();
+		decisionVoters.add(new RoleVoter());
+		decisionVoters.add(new AuthenticatedVoter());
+		decisionVoters.add(webExpressionVoter());
+		return new AffirmativeBased(decisionVoters);
+	}
+
+	@Bean
+	public WebExpressionVoter webExpressionVoter() {
+		WebExpressionVoter result = new WebExpressionVoter();
+		result.setExpressionHandler(rbacWebSecurityExpressionHandler());
+		return result;
+	}
+
+	@Bean
+	public SecurityExpressionHandler rbacWebSecurityExpressionHandler() {
+		return new RbacWebSecurityExpressionHandler();
+	}
+
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(authenticationProvider())
+			.eraseCredentials(true)
+			.userDetailsService(userDetailsService());
+	}
+
+```
+
+Then configure the authentication part
+```
+
+	private void configLogin(HttpSecurity http) throws Exception {
+		http.csrf()
+			.disable()
+			.formLogin()
+			.loginPage("/login")
+			.permitAll()
+			.successHandler(authenticationSuccessHandlerImpl())
+			.failureHandler(authenticationFailureHandlerImpl())
+			.loginProcessingUrl("/login")
+			.usernameParameter("username")
+			.passwordParameter("password")
+			.and()
+			.logout()
+			.logoutUrl("/logout")
+			.logoutSuccessHandler(logoutSuccessHandlerImpl())
+			.invalidateHttpSession(true)
+			.deleteCookies("JSESSIONID")
+			.permitAll()
+			.and()
+			.rememberMe()
+			.key("PLEASE_CHANGE_THIS");
+	}
+
+```
+
+Finally configure the authorization part
+
+```
+
+	private void configAccess(HttpSecurity http) throws Exception {
+		http.headers().frameOptions().disable();
+
+		http.authorizeRequests()
+			.accessDecisionManager(accessDecisionManager())
+			.antMatchers("/", "/static/**", "/login**", "/guest/**")
+			.permitAll()
+			.antMatchers("/api/shared/**")
+			.hasRole("USER")
+			.antMatchers("/api/_devops_/**")
+			.hasRole("ADMIN")
+			.antMatchers("/api/**")
+			.access("passRbacCheck")
+			.and()
+			.exceptionHandling()
+			.authenticationEntryPoint(authenticationEntryPointImpl())
+			.accessDeniedHandler(accessDeniedHandlerImpl());
+	}
+
+``
 
 
 ### User Device

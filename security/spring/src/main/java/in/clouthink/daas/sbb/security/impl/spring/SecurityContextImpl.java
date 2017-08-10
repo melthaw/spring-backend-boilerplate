@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
+ * The SecurityContext Spring Security Implementation.
  */
 public class SecurityContextImpl implements SecurityContext {
 
