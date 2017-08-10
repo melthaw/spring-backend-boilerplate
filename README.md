@@ -3,6 +3,8 @@
 The quick development boilerplate based on Spring (Boot) Framework which covers the general case of Java backend application
 something like Account Module, Security Foundation, Audit System, File Upload/Download, Message Notification, Role Based Access Control etc.
 
+And we also provide the CRUD sample to show how manage the item list , add new one item , update it or remove it.  
+
 We hope this boilerplate can help the users to focus on their business part with this boilerplate, but first we will explain how it is designed and implemented.
  
 # Features
@@ -132,15 +134,33 @@ The `SecurityContexts` requires that the implementation must follow the Java SPI
 META-INF/services/in.clouthink.daas.sbb.security.SecurityContext
 ```
 
+### Authentication & Authorization
 
-### Authentication 
+First let's list the extension points what we implemented for Spring Security.
 
+`User`
 
-`TODO`
+* org.springframework.security.core.userdetails.UserDetailsService
+* org.springframework.security.authentication.AuthenticationProvider
+    * org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider
+* org.springframework.security.core.userdetails.User
 
+`Login & Logout`
 
-### Authorization
-`TODO`
+* org.springframework.security.web.AuthenticationEntryPoint
+    * org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
+* org.springframework.security.web.authentication.AuthenticationFailureHandler
+    * org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler
+* org.springframework.security.web.authentication.AuthenticationSuccessHandler
+    * org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler
+* org.springframework.security.web.authentication.logout.LogoutSuccessHandler
+
+`Access`
+
+* org.springframework.security.web.access.AccessDeniedHandler
+    * org.springframework.security.web.access.AccessDeniedHandlerImpl
+* org.springframework.security.access.expression.SecurityExpressionHandler
+    * org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler
 
 
 ### User Device
@@ -149,12 +169,7 @@ META-INF/services/in.clouthink.daas.sbb.security.SecurityContext
 ### Two Factor Support
 `TODO`
 
-
 ## Multi-Account Template
-`TODO`
-
-
-## File Storage
 `TODO`
 
 
@@ -170,6 +185,11 @@ META-INF/services/in.clouthink.daas.sbb.security.SecurityContext
 
 
 ### Report
+`TODO`
+
+
+
+## File Storage
 `TODO`
 
 
