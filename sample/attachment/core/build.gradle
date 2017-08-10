@@ -5,7 +5,7 @@ dependencies {
     compile libs.daas
 
     compile project(':shared')
-    compile project(':audit/core')
+    compile project(':account/core')
     compile project(':storage/core')
 
 }

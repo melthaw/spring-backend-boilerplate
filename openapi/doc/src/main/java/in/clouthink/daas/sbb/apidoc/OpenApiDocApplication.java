@@ -7,7 +7,7 @@ import in.clouthink.daas.sbb.menu.MenuMockModuleConfiguration;
 import in.clouthink.daas.sbb.news.NewsMockModuleConfiguration;
 import in.clouthink.daas.sbb.rbac.RbacMockModuleConfiguration;
 import in.clouthink.daas.sbb.setting.SystemSettingMockModuleConfiguration;
-import in.clouthink.daas.sbb.sms.SmsMockModuleConfiguration;
+import in.clouthink.daas.sbb.sms.history.SmsHistoryMockModuleConfiguration;
 import in.clouthink.daas.sbb.storage.StorageMockModuleConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -35,7 +35,7 @@ public class OpenApiDocApplication extends SpringBootServletInitializer {
 										   MenuMockModuleConfiguration.class,
 										   RbacMockModuleConfiguration.class,
 										   StorageMockModuleConfiguration.class,
-										   SmsMockModuleConfiguration.class,
+										   SmsHistoryMockModuleConfiguration.class,
 										   NewsMockModuleConfiguration.class,
 										   AttachmentMockModuleConfiguration.class,
 										   SystemSettingMockModuleConfiguration.class,

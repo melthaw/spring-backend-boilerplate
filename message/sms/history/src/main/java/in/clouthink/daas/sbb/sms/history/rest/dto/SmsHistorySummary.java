@@ -1,21 +1,21 @@
-package in.clouthink.daas.sbb.sms.history.domain.model;
+package in.clouthink.daas.sbb.sms.history.rest.dto;
 
-import in.clouthink.daas.sbb.shared.domain.model.StringIdentifier;
-import org.springframework.data.mongodb.core.mapping.Document;
+import in.clouthink.daas.sbb.sms.history.domain.model.SmsHistory;
+import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
 
-/**
- * @author dz
- */
-@Document(collection = "SmsHistories")
-public class SmsHistory extends StringIdentifier {
-
-	public enum SmsStatus {
-		SENT, FAILED
+public class SmsHistorySummary {
+	public static SmsHistorySummary from(SmsHistory smsHistory) {
+		if (smsHistory == null) {
+			return null;
+		}
+		SmsHistorySummary result = new SmsHistorySummary();
+		BeanUtils.copyProperties(smsHistory, result);
+		return result;
 	}
 
-	private String provider;
+	private String id;
 
 	private String cellphone;
 
@@ -25,16 +25,16 @@ public class SmsHistory extends StringIdentifier {
 
 	private String category;
 
-	private SmsStatus status;
+	private SmsHistory.SmsStatus status;
 
 	private String failureReason;
 
-	public String getProvider() {
-		return provider;
+	public String getId() {
+		return id;
 	}
 
-	public void setProvider(String provider) {
-		this.provider = provider;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getCellphone() {
@@ -69,11 +69,11 @@ public class SmsHistory extends StringIdentifier {
 		this.category = category;
 	}
 
-	public SmsStatus getStatus() {
+	public SmsHistory.SmsStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(SmsStatus status) {
+	public void setStatus(SmsHistory.SmsStatus status) {
 		this.status = status;
 	}
 
@@ -84,4 +84,5 @@ public class SmsHistory extends StringIdentifier {
 	public void setFailureReason(String failureReason) {
 		this.failureReason = failureReason;
 	}
+
 }

@@ -5,5 +5,4 @@ dependencies {
 	compile libs.aliyun
 
 	compile project(':passcode/core')
-	compile project(':menu/core')
 }

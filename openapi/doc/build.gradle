@@ -33,7 +33,7 @@ dependencies {
     compile project(':sample/news/rest')
     compile project(':sample/attachment/rest')
     compile project(':sample/setting/rest')
-    compile project(':message/sms/rest')
+    compile project(':message/sms/history')
     compile project(':storage/gridfs')
     compile project(':storage/rest')
 }

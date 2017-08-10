@@ -20,7 +20,6 @@ include 'rbac/rest'
 include 'menu/core'
 include 'menu/rest'
 
-include 'audit/core'
 include 'audit/impl'
 include 'audit/rest'
 
@@ -30,11 +29,9 @@ include 'storage/alioss'
 include 'storage/local'
 include 'storage/rest'
 
-include 'message/sms/core'
-include 'message/sms/history'
-include 'message/sms/impl'
+include 'message/sms/aliyun'
 include 'message/sms/mock'
-include 'message/sms/event'
+include 'message/sms/history'
 include 'message/sms/rest'
 
 include 'sample/setting/core'

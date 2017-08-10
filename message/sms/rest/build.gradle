@@ -5,11 +5,8 @@ dependencies {
 
     compile project(':shared')
     compile project(':security/core')
-    compile project(':message/sms/core')
     compile project(':message/sms/history')
-    compile project(':message/sms/impl')
+    compile project(':message/sms/aliyun')
     compile project(':message/sms/mock')
-    compile project(':message/sms/event')
-    compile project(':menu/core')
 
 }
