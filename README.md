@@ -1,9 +1,9 @@
 # Introduction
 
 The quick development boilerplate based on Spring (Boot) Framework which covers the general case of Java backend application
-something like Account Module, Security Foundation, Audit System, Blog Upload/Download, Message Notification, Role Based Access Control etc.
+something like Account Module, Security Foundation, Audit System, File Upload/Download, Message Notification, Role Based Access Control etc.
 
-We hope this boilerplate can help the users to focus on their business part when they know how this boilerplate is designed and implemented.
+We hope this boilerplate can help the users to focus on their business part with this boilerplate, but first we will explain how it is designed and implemented.
  
 # Features
 
@@ -69,14 +69,13 @@ public class StorageRestModuleConfiguration {
 ```
 
 
-
-
-
 ## Security
 
 ### Foundation
 
-We add a classics security extension to Spring Security
+Spring Security is a powerful security framework , it's easy to customize and extend . 
+Based on the flexibility provided by Spring Security , we add more interesting feature to it like
+multi-factor authentication, user device, audit and pluggable account system.
 
 
 ### Authentication 
