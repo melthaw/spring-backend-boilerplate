@@ -23,7 +23,7 @@ public class OpenApiApplication extends SpringBootServletInitializer {
 		SpringApplication.run(new Object[]{...,
 		                                    SmsRestModuleConfiguration.class,
 		                                    ..., 
-										   OpenApiApplication.class}, args);
+		                                    OpenApiApplication.class}, args);
 	}
 
 }
@@ -37,7 +37,7 @@ public class OpenApiApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(new Object[]{...,
-										   OpenApiApplication.class}, args);
+		                                    OpenApiApplication.class}, args);
 	}
 
 }
