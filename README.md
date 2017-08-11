@@ -446,9 +446,26 @@ One more thing, the SMS history can be saved if you import the history module (:
 By default we enable the SMS history in the boilerplate, if you don't like it, simple remove the import part to disable this feature.
 
 ```
+@Configuration
 @Import({SmsHistoryModuleConfiguration.class})
+public class SmsRestModuleConfiguration {
+
+}
+
 ```
 
+Here is the configuration to enable the audit module
+
+```
+public class SpringBootApplication extends SpringBootServletInitializer {
+
+    public static void main(String[] args) { 
+        SmsRestModuleConfiguration.class,
+        ...
+        SpringBootApplication.class
+    }
+}
+```
 
 ### Email
 `TODO`
