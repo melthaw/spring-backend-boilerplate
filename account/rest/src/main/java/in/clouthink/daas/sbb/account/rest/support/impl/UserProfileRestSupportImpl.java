@@ -6,7 +6,7 @@ import in.clouthink.daas.sbb.account.rest.dto.ChangeMyProfileParameter;
 import in.clouthink.daas.sbb.account.rest.dto.UserProfile;
 import in.clouthink.daas.sbb.account.rest.support.UserProfileRestSupport;
 import in.clouthink.daas.sbb.account.service.UserProfileService;
-import in.clouthink.daas.sbb.storage.service.StorageService;
+import in.clouthink.daas.sbb.storage.spi.DownloadUrlProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -18,7 +18,7 @@ public class UserProfileRestSupportImpl implements UserProfileRestSupport {
 	private UserProfileService userProfileService;
 
 	@Autowired
-	private StorageService storageService;
+	private DownloadUrlProvider storageService;
 
 	@Override
 	public UserProfile getUserProfile(User user) {
@@ -42,7 +42,7 @@ public class UserProfileRestSupportImpl implements UserProfileRestSupport {
 			userProfileService.updateUserAvatar(null, null, byWho);
 		}
 		else {
-			String avatarUrl = storageService.resolveImageUrl(imageId);
+			String avatarUrl = storageService.getDownloadUrl(imageId);
 			userProfileService.updateUserAvatar(imageId, avatarUrl, byWho);
 		}
 	}

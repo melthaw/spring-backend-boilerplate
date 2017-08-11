@@ -19,19 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 @Ignored
 @RestController
 @RequestMapping("/api")
-public class SysAuthReportController {
+public class AuthReportController {
 
 	@Autowired
 	private AuthReportRestSupport authReportRestSupport;
 
 	@ApiOperation(value = "审计报表列表（月）,支持分页")
-	@RequestMapping(value = "/sysAuthReports/byMonth", method = RequestMethod.GET)
+	@RequestMapping(value = "/authReports/byMonth", method = RequestMethod.GET)
 	public Page<AuthEventAggregation> listAuthReportByMonth(PageQueryParameter queryRequest) {
 		return authReportRestSupport.listAuthReportByMonth("backend", queryRequest);
 	}
 
 	@ApiOperation(value = "审计报表列表（日）,支持分页")
-	@RequestMapping(value = "/sysAuthReports/byDay", method = RequestMethod.GET)
+	@RequestMapping(value = "/authReports/byDay", method = RequestMethod.GET)
 	public Page<AuthEventAggregation> listAuthReportByDay(PageQueryParameter queryRequest) {
 		return authReportRestSupport.listAuthReportByDay("backend", queryRequest);
 	}

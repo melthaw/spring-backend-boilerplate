@@ -26,7 +26,7 @@ include 'audit/rest'
 include 'storage/core'
 include 'storage/gridfs'
 include 'storage/alioss'
-include 'storage/local'
+include 'storage/localfs'
 include 'storage/rest'
 
 include 'message/sms/aliyun'

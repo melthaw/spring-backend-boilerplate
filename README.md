@@ -324,14 +324,99 @@ Finally configure the authorization part
 The [daas-audit](https://github.com/melthaw/spring-mvc-audit) is a simple and quick audit abstraction lib for spring mvc http request.
 Please go https://github.com/melthaw/spring-mvc-audit to get more detail about it. Here we only explain what we extended and customized.  
 
-`TODO`
+The module(:audit/impl) implements the daas-audit's AuditEvent SPI including:
+ 
+* in.clouthink.daas.audit.core.MutableAuditEvent
+    * in.clouthink.daas.sbb.audit.domain.model.AuditEvent
+* in.clouthink.daas.audit.spi.AuditEventPersister
+    * in.clouthink.daas.sbb.audit.spiImpl.AuditEventPersisterImpl
+
+And the login history is supported which is not covered in daas-audit.
+
+* in.clouthink.daas.sbb.audit.domain.model.AuthEvent
+* in.clouthink.daas.sbb.audit.service.AuthEventService
+
+Here is the configuration to enable the audit module
+
+```
+@EnableAudit
+public class SpringBootApplication extends SpringBootServletInitializer {
+
+	@Bean
+	public AuditEventPersister auditEventPersisterImpl() {
+		return new AuditEventPersisterImpl();
+	}
+
+	@Bean
+	public AuditConfigurer auditConfigurer() {
+		return result -> {
+			result.setSecurityContext(new SecurityContextAuditImpl());
+			result.setAuditEventPersister(auditEventPersisterImpl());
+			result.setErrorDetailRequired(true);
+		};
+	}
+
+    public static void main(String[] args) { 
+        AuditRestModuleConfiguration.class,
+        ...
+        SpringBootApplication.class
+    }
+}
+```
 
 ## File Storage
 
 The [daas-fss](https://github.com/melthaw/spring-file-storage-service) is APIs which make storing the blob file easy and simple.
 Please go https://github.com/melthaw/spring-file-storage-service to get more detail about it. Here we only explain what we extended and customized.  
 
-`TODO`
+Now we provide three file storage implementation 
+* aliyun oss (:storage/alioss)
+* mongodb gridfs (:storage/gridfs)
+* local file system (:storage/localfs)
+
+Because different storage service stores the file in different system , the download url goes to different as well.
+
+Here is the abstraction we supplied to extend.
+
+* in.clouthink.daas.sbb.storage.spi.DownloadUrlProvider
+
+For example, if you choose the :storage/localfs , the download url goes to:
+
+```
+public class LocalfsDownloadUrlProvider implements DownloadUrlProvider {
+
+	@Autowired
+	private LocalfsConfigureProperties localfsConfigureProperties;
+
+	@Autowired
+	private FileObjectService fileObjectService;
+
+	@Override
+	public String getDownloadUrl(String id) {
+		FileObject fileObject = fileObjectService.findById(id);
+		if (fileObject == null) {
+			throw new FileNotFoundException(id);
+		}
+
+		return localfsConfigureProperties.getDowloadUrlPrefix() + fileObject.getFinalFilename();
+	}
+
+}
+
+```
+
+Here is the configuration to enable the audit module
+
+```
+public class SpringBootApplication extends SpringBootServletInitializer {
+
+    public static void main(String[] args) { 
+        StorageModuleConfiguration.class,
+        ...
+        SpringBootApplication.class
+    }
+}
+```
 
 ## Message
 

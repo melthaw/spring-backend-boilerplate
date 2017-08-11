@@ -5,13 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "in.clouthink.daas.sbb.storage.local")
 public class LocalfsConfigureProperties {
 
-	public static final String BY_MONTH = "MONTH";
-
-	public static final String BY_DAY = "DAY";
-
 	private String path = "/var/sbb/storage";
 
-	private String strategy = BY_DAY;
+	private String dowloadUrlPrefix = "/static/download";
 
 	public String getPath() {
 		return path;
@@ -21,11 +17,12 @@ public class LocalfsConfigureProperties {
 		this.path = path;
 	}
 
-	public String getStrategy() {
-		return strategy;
+	public String getDowloadUrlPrefix() {
+		return dowloadUrlPrefix;
 	}
 
-	public void setStrategy(String strategy) {
-		this.strategy = strategy;
+	public void setDowloadUrlPrefix(String dowloadUrlPrefix) {
+		this.dowloadUrlPrefix = dowloadUrlPrefix;
 	}
+
 }

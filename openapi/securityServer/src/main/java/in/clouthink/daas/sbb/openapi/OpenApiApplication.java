@@ -13,7 +13,7 @@ import in.clouthink.daas.sbb.security.impl.audit.AuditEventPersisterImpl;
 import in.clouthink.daas.sbb.security.impl.audit.SecurityContextAuditImpl;
 import in.clouthink.daas.sbb.setting.SystemSettingRestModuleConfiguration;
 import in.clouthink.daas.sbb.sms.DummySmsRestModuleConfiguration;
-import in.clouthink.daas.sbb.storage.StorageRestModuleConfiguration;
+import in.clouthink.daas.sbb.storage.StorageModuleConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -57,7 +57,7 @@ public class OpenApiApplication extends SpringBootServletInitializer {
 										   AuditRestModuleConfiguration.class,
 										   MenuRestModuleConfiguration.class,
 										   RbacRestModuleConfiguration.class,
-										   StorageRestModuleConfiguration.class,
+										   StorageModuleConfiguration.class,
 										   DummySmsRestModuleConfiguration.class,
 										   NewsRestModuleConfiguration.class,
 										   AttachmentRestModuleConfiguration.class,

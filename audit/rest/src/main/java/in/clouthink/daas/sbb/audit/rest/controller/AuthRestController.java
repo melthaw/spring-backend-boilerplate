@@ -22,33 +22,33 @@ import java.util.Date;
 @Api("系统登录认证日志")
 @RestController
 @RequestMapping("/api")
-public class SysAuthRestController {
+public class AuthRestController {
 
 	@Autowired
 	private AuthEventRestSupport authEventRestSupport;
 
 	@ApiOperation(value = "用户登录日志列表,支持分页,支持动态查询(按名称,状态查询)")
-	@RequestMapping(value = "/sysAuthEvents", method = RequestMethod.GET)
+	@RequestMapping(value = "/authEvents", method = RequestMethod.GET)
 	public Page<AuthEvent> listAuthEventPage(AuthEventQueryParameter queryRequest) {
 		queryRequest.setRealm("backend");
 		return authEventRestSupport.listAuthEventPage(queryRequest);
 	}
 
 	@ApiOperation(value = "用户登录日志详情")
-	@RequestMapping(value = "/sysAuthEvents/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/authEvents/{id}", method = RequestMethod.GET)
 	public AuthEvent getAuthEventDetail(@PathVariable String id) {
 		return authEventRestSupport.getAuthEventDetail(id);
 	}
 
 	@ApiOperation(value = "删除日志-以天为单位")
-	@RequestMapping(value = "/sysAuthEvents/byDay/{day}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/authEvents/byDay/{day}", method = RequestMethod.DELETE)
 	public void deleteAuditEventsByDay(@PathVariable Date day) {
 		User user = (User) SecurityContexts.getContext().requireUser();
 		authEventRestSupport.deleteAuthEventsByDay("backend", day, user);
 	}
 
 	@ApiOperation(value = "删除日志-删除指定日期（不包括）之前的所有数据")
-	@RequestMapping(value = "/sysAuthEvents/beforeDay/{day}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/authEvents/beforeDay/{day}", method = RequestMethod.DELETE)
 	public void deleteAuditEventsBeforeDay(@PathVariable Date day) {
 		User user = (User) SecurityContexts.getContext().requireUser();
 		authEventRestSupport.deleteAuthEventsBeforeDay("backend", day, user);

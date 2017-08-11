@@ -1,7 +1,7 @@
 package in.clouthink.daas.sbb.storage;
 
-import in.clouthink.daas.sbb.storage.local.StorageServiceLocalFsImpl;
-import in.clouthink.daas.sbb.storage.service.StorageService;
+import in.clouthink.daas.sbb.storage.local.LocalfsDownloadUrlProvider;
+import in.clouthink.daas.sbb.storage.spi.DownloadUrlProvider;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 public class LocalfsModuleConfiguration {
 
 	@Bean
-	public StorageService storageService() {
-		return new StorageServiceLocalFsImpl();
+	public DownloadUrlProvider storageService() {
+		return new LocalfsDownloadUrlProvider();
 	}
 
 }

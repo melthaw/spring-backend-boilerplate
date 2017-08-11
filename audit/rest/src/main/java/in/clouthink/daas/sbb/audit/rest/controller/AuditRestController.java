@@ -26,33 +26,33 @@ import java.util.Date;
 @Ignored
 @RestController
 @RequestMapping("/api")
-public class SysAuditRestController {
+public class AuditRestController {
 
 	@Autowired
 	private AuditEventRestSupport auditEventRestSupport;
 
 	@ApiOperation(value = "审计日志列表,支持分页,支持动态查询(按名称,分类查询)")
-	@RequestMapping(value = "/sysAuditEvents", method = RequestMethod.GET)
+	@RequestMapping(value = "/auditEvents", method = RequestMethod.GET)
 	public Page<AuditEvent> listAuditEventPage(AuditEventQueryParameter queryRequest) {
 		queryRequest.setRealm("backend");
 		return auditEventRestSupport.listAuditEventPage(queryRequest);
 	}
 
 	@ApiOperation(value = "审计日志明细")
-	@RequestMapping(value = "/sysAuditEvents/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/auditEvents/{id}", method = RequestMethod.GET)
 	public AuditEvent getAuditEventDetail(@PathVariable String id) {
 		return auditEventRestSupport.getAuditEventDetail(id);
 	}
 
 	@ApiOperation(value = "删除日志-以天为单位")
-	@RequestMapping(value = "/sysAuditEvents/byDay/{day}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/auditEvents/byDay/{day}", method = RequestMethod.DELETE)
 	public void deleteAuditEventsByDay(@PathVariable Date day) {
 		User user = (User) SecurityContexts.getContext().requireUser();
 		auditEventRestSupport.deleteAuditEventsByDay("backend", day, user);
 	}
 
 	@ApiOperation(value = "删除日志-删除指定日期（不包括）之前的所有数据")
-	@RequestMapping(value = "/sysAuditEvents/beforeDay/{day}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/auditEvents/beforeDay/{day}", method = RequestMethod.DELETE)
 	public void deleteAuditEventsBeforeDay(@PathVariable Date day) {
 		User user = (User) SecurityContexts.getContext().requireUser();
 		auditEventRestSupport.deleteAuditEventsBeforeDay("backend", day, user);

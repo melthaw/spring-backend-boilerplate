@@ -1,8 +1,8 @@
 package in.clouthink.daas.sbb.storage;
 
 import in.clouthink.daas.fss.mongodb.MongoModuleConfiguration;
-import in.clouthink.daas.sbb.storage.gridfs.StorageServiceGridfsImpl;
-import in.clouthink.daas.sbb.storage.service.StorageService;
+import in.clouthink.daas.sbb.storage.gridfs.GridfsDownloadUrlProvider;
+import in.clouthink.daas.sbb.storage.spi.DownloadUrlProvider;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Import;
 public class GridfsModuleConfiguration {
 
 	@Bean
-	public StorageService storageService() {
-		return new StorageServiceGridfsImpl();
+	public DownloadUrlProvider storageService() {
+		return new GridfsDownloadUrlProvider();
 	}
 
 }

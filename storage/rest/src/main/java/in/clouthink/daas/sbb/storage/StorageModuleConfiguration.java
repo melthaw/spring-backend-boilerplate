@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Import;
 				"in.clouthink.daas.sbb.storage.rest.controller",
 				"in.clouthink.daas.sbb.storage.rest.support.impl"})
 @Import({GridfsModuleConfiguration.class})
-public class StorageRestModuleConfiguration {
+public class StorageModuleConfiguration {
 
 }

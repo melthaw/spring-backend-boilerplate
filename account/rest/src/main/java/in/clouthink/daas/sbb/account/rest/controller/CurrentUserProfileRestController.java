@@ -6,7 +6,6 @@ import in.clouthink.daas.sbb.account.rest.dto.ChangeMyProfileParameter;
 import in.clouthink.daas.sbb.account.rest.dto.UserProfile;
 import in.clouthink.daas.sbb.account.rest.support.UserProfileRestSupport;
 import in.clouthink.daas.sbb.security.SecurityContexts;
-import in.clouthink.daas.sbb.storage.service.StorageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
