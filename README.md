@@ -10,9 +10,8 @@ We hope this boilerplate can help the users to focus on their business part with
 
 # Get Started
   
-Please make sure the Java 8, Gradle 2.x and Mongodb are on hand.  
-Here is minimized the application.properties to start the boilerplate. 
-  
+Please make sure the Java 8, Gradle 2.x and Mongodb are installed on your development machine.  
+And here is the minimized application.properties to start the boilerplate. 
   
 ```
 app.name=spring-backend-boilerplate
