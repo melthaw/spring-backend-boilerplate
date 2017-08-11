@@ -15,7 +15,6 @@ import java.util.List;
 @Configuration
 @ComponentScan({"in.clouthink.daas.sbb.rbac.impl.service", "in.clouthink.daas.sbb.rbac.impl.repository"})
 @EnableMongoRepositories({"in.clouthink.daas.sbb.rbac.impl.repository"})
-@EnableConfigurationProperties(RbacServiceConfigurationProperties.class)
 public class RbacServiceModuleConfiguration {
 
 	@Bean

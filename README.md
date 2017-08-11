@@ -492,10 +492,45 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 
 ### account
 
+```
+in.clouthink.daas.sbb.account.password.salt=
+in.clouthink.daas.sbb.account.administrator.email=
+in.clouthink.daas.sbb.account.administrator.username=
+in.clouthink.daas.sbb.account.administrator.cellphone=
+in.clouthink.daas.sbb.account.administrator.password=
+```
 ### storage
- 
+
+```
+#alioss
+in.clouthink.daas.sbb.storage.alioss.keyId=
+in.clouthink.daas.sbb.storage.alioss.secret=
+in.clouthink.daas.sbb.storage.alioss.ossDomain=
+in.clouthink.daas.sbb.storage.alioss.imgDomain=
+in.clouthink.daas.sbb.storage.alioss.defaultBucket=
+in.clouthink.daas.sbb.storage.alioss.buckets.key1=
+in.clouthink.daas.sbb.storage.alioss.buckets.key2=
+```
+
 ### sms
 
+```
+in.clouthink.daas.sbb.sms.aliyun.area=
+in.clouthink.daas.sbb.sms.aliyun.accessKey=
+in.clouthink.daas.sbb.sms.aliyun.accessSecret=
+in.clouthink.daas.sbb.sms.aliyun.signature=
+in.clouthink.daas.sbb.sms.aliyun.smsEndpoint=
+in.clouthink.daas.sbb.sms.aliyun.templateId=
+```
+
+
+### setting
+
+```
+in.clouthink.daas.sbb.setting.system.name=
+in.clouthink.daas.sbb.setting.system.contactEmail=
+in.clouthink.daas.sbb.setting.system.contactPhone=
+```
 
 ## resource 
 
