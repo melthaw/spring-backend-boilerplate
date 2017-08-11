@@ -476,21 +476,65 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 
 
 # Get Started
- `TODO`
+  
 
 ## Source Code Inside
 `TODO`
 
 
-
-# `TODO`
-Configuration
+# Configuration
 
 
-3 Ways to go
-* application.properties
-* zookeeper
-* customized
+## application.properties
+
+
+### audit
+
+### account
+
+### storage
+ 
+### sms
+
+
+## resource 
+
+The resource is the term we called in RBAC, which is protected by authorization system. 
+The resource should be a rest endpoint,or the visible menu item in the GUI , even a Create button in a page.
+ 
+We design a resource registry SPI as 
+
+* in.clouthink.daas.sbb.rbac.spi.ResourceProvider
+
+All the resource provider implementation only required to implement it as a spring bean. 
+The boilerplate scans and discovers it , and register the resources automatically.
+
+The classic resource is the menu and action which are granted to the role and accessed control by role permission.
+We design the pluggable menu & action module , and supply the annotation to make it easy to use.
+
+Here is the example
+
+```
+@EnableMenu(pluginId = "plugin:menu:sample",
+			extensionPointId = Menus.ROOT_EXTENSION_POINT_ID,
+			menu = {@Menu(virtual = true,
+						  code = "menu:dashboard:sample",
+						  name = "sample",
+						  order = 100,
+						  metadata = {@Metadata(key = "icon", value = "fa fa-gear")},
+						  extensionPoint = {@ExtensionPoint(id = "extension:menu:sample")}),
+
+					@Menu(virtual = true,
+						  code = "menu:dashboard:system",
+						  name = "system",
+						  order = 200,
+						  metadata = {@Metadata(key = "icon", value = "fa fa-gear")},
+						  extensionPoint = {@ExtensionPoint(id = "extension:menu:system")}),
+
+			})
+```
+
+More detail about the usage please check out the description of the Java file.
 
  
 # Appendix - Development ENV
