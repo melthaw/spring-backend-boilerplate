@@ -6,7 +6,60 @@ something like Account Module, Security Foundation, Audit System, File Upload/Do
 And we also provide the CRUD sample to show how manage the item list , add new one item , update it or remove it.  
 
 We hope this boilerplate can help the users to focus on their business part with this boilerplate, but first we will explain how it is designed and implemented.
- 
+
+
+# Get Started
+  
+Please make sure the Java 8, Gradle 2.x and Mongodb are on hand.  
+Here is minimized the application.properties to start the boilerplate. 
+  
+  
+```
+app.name=spring-backend-boilerplate
+app.description=spring-backend-boilerplate
+
+in.clouthink.daas.sbb.account.password.salt=@account.sbb.daas.clouthink.in
+in.clouthink.daas.sbb.account.administrator.email=changeit@example.com
+in.clouthink.daas.sbb.account.administrator.username=administrator
+in.clouthink.daas.sbb.account.administrator.cellphone=13000000000
+in.clouthink.daas.sbb.account.administrator.password=Please_change_the_pwd
+
+in.clouthink.daas.sbb.setting.system.name=spring-backend-boilerplate
+in.clouthink.daas.sbb.setting.system.contactEmail=support-team@example.com
+in.clouthink.daas.sbb.setting.system.contactPhone=13000000000
+
+logging.file=/var/sbb/log/server.log
+logging.level.*=INFO
+logging.level.in.clouthink.daas=DEBUG
+
+server.port=8081
+server.address=127.0.0.1
+server.session-timeout=360000 
+
+spring.mvc.date-format=yyyy-MM-dd
+spring.mvc.favicon.enabled=false
+
+multipart.enabled=true
+multipart.max-file-size=20Mb
+multipart.max-request-size=20Mb
+
+spring.http.encoding.charset=UTF-8
+spring.http.encoding.enabled=true
+spring.http.encoding.force=true
+
+spring.jackson.date-format=yyyy-MM-dd'T'HH:mm:ss.sss'Z'
+
+spring.data.mongodb.uri=mongodb://localhost:27017/spring-backend-boilerplate
+
+```  
+
+Then we can start it with
+
+```
+> cd openapi/securityServer
+> gradle clean bootRun  -PjvmArgs="-Dspring.config.location=the_full_path_of_the_application.properties"
+```
+
 # Features
 
 ## Modularization
@@ -475,10 +528,8 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 `TODO`
 
 
-# Get Started
-  
 
-## Source Code Inside
+# Source Code Inside
 `TODO`
 
 
