@@ -5,7 +5,7 @@ something like Account Module, Security Foundation, Audit System, File Upload/Do
 
 And we also provide the CRUD sample to show how manage the item list , add new one item , update it or remove it.  
 
-We hope this boilerplate can help the users to focus on their business part with this boilerplate, but first we will explain how it is designed and implemented.
+We hope this boilerplate can help the users to focus on their business part . Before that ,  we will explain how it is designed and implemented.
 
 
 # Get Started
@@ -536,11 +536,6 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 }
 ```
 
-
-# Source Code Inside
-`TODO`
-
-
 # Configuration
 
 
@@ -627,6 +622,9 @@ Here is the example
 
 More detail about the usage please check out the description of the Java file.
 
+# Sample - new business module 
+
+`TODO`
  
 # Appendix - Development ENV
  
