@@ -8,5 +8,5 @@ dependencies {
     compile project(":storage/core")
     compile project(":storage/alioss")
     compile project(":storage/gridfs")
-    compile project(":storage/local")
+    compile project(":storage/localfs")
 }

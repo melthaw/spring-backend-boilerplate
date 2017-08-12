@@ -46,6 +46,5 @@ include 'sample/attachment/core'
 include 'sample/attachment/impl'
 include 'sample/attachment/rest'
 
+include 'openapi/server'
 include 'openapi/doc'
-include 'openapi/securityServer'
-include 'openapi/jwtServer'

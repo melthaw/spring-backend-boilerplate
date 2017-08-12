@@ -10,6 +10,8 @@ We hope this boilerplate can help the users to focus on their business part with
 
 # Get Started
   
+## Start API Server  
+  
 Please make sure the Java 8, Gradle 2.x and Mongodb are installed on your development machine.  
 And here is the minimized application.properties to start the boilerplate. 
   
@@ -55,8 +57,34 @@ spring.data.mongodb.uri=mongodb://localhost:27017/spring-backend-boilerplate
 Then we can start it with
 
 ```
-> cd openapi/securityServer
+> cd openapi/server
 > gradle clean bootRun  -PjvmArgs="-Dspring.config.location=the_full_path_of_the_application.properties"
+```
+
+## Start ApiDoc Server
+
+And here is the minimized application.properties to start the boilerplate. 
+
+```
+app.name=spring-backend-boilerplate-api-doc
+app.description=spring backend boilerplate api doc
+
+server.port=8082
+server.address=127.0.0.1
+server.session-timeout=360000
+```
+
+Then we can start it with
+
+```
+> cd openapi/doc
+> gradle clean bootRun  -PjvmArgs="-Dspring.config.location=the_full_path_of_the_application.properties"
+```
+
+After the swagger doc server booted, open browser and visit the api doc at
+
+```
+http://127.0.0.1:8082/swagger-ui.html
 ```
 
 # Features
@@ -97,8 +125,6 @@ public class OpenApiApplication extends SpringBootServletInitializer {
 }
 
 ```
-
-
 
 And we also force the module convention that's separating the abstraction and implementation, then your can switch from one 
 implementation to another easily. 
@@ -361,15 +387,6 @@ Finally configure the authorization part
 
 ```
 
-### User Device
-`TODO`
-
-### Two Factor Support
-`TODO`
-
-## Multi-Account Template
-`TODO`
-
 
 ## Audit
 
@@ -519,14 +536,6 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 }
 ```
 
-### Email
-`TODO`
-
-
-### Wechat
-`TODO`
-
-
 
 # Source Code Inside
 `TODO`
@@ -536,9 +545,6 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 
 
 ## application.properties
-
-
-### audit
 
 ### account
 
