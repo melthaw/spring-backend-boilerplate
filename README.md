@@ -15,7 +15,7 @@ We hope this boilerplate can help the users to focus on their business part . Be
 Please make sure the Java 8, Gradle 2.x and Mongodb are installed on your development machine.  
 And here is the minimized application.properties to start the boilerplate. 
   
-```
+```ini
 app.name=spring-backend-boilerplate
 app.description=spring-backend-boilerplate
 
@@ -56,7 +56,7 @@ spring.data.mongodb.uri=mongodb://localhost:27017/spring-backend-boilerplate
 
 Then we can start it with
 
-```
+```sh
 > cd openapi/server
 > gradle clean bootRun  -PjvmArgs="-Dspring.config.location=the_full_path_of_the_application.properties"
 ```
@@ -65,7 +65,7 @@ Then we can start it with
 
 And here is the minimized application.properties to start the boilerplate. 
 
-```
+```ini
 app.name=spring-backend-boilerplate-api-doc
 app.description=spring backend boilerplate api doc
 
@@ -76,7 +76,7 @@ server.session-timeout=360000
 
 Then we can start it with
 
-```
+```sh
 > cd openapi/doc
 > gradle clean bootRun  -PjvmArgs="-Dspring.config.location=the_full_path_of_the_application.properties"
 ```
@@ -97,7 +97,7 @@ our goal is simple add or remove one module without changing the Application , e
 For example, remove the message module in the boilerplate won't break the application, because the message is event-driven ,
 The other modules dispatch event to the event bus, the event bus simply discard it if the message module not found. 
 
-```
+```java
 //Before
 public class OpenApiApplication extends SpringBootServletInitializer {
 
@@ -113,7 +113,7 @@ public class OpenApiApplication extends SpringBootServletInitializer {
 
 Simply remove the module configuration from the startup script.
 
-```
+```java
 //After
 public class OpenApiApplication extends SpringBootServletInitializer {
 
@@ -131,7 +131,7 @@ implementation to another easily.
 
 For example, we provide more than one implementation module for the storage abstraction (:storage/core).
 
-```
+```java
 @Import({GridfsModuleConfiguration.class})
 public class StorageRestModuleConfiguration {
 
@@ -141,7 +141,7 @@ public class StorageRestModuleConfiguration {
 If you want upload the file and save it to the local storage ( your runtime server's file system ), 
 just import another one and replace it as follow
 
-```
+```java
 @Import({LocalStorageModuleConfiguration.class})
 public class StorageRestModuleConfiguration {
 
@@ -165,7 +165,7 @@ the corresponding helper class `org.springframework.security.core.context.Securi
 
 Why we need another one? 
 
-```
+```java
 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 if (authentication == null) {
     throw some exception here?
@@ -180,7 +180,7 @@ not check it and throw it by manual.
 
 So we provide one new generic interface in module(:security/core)
 
-```
+```java
 public interface SecurityContext<T> {
 
 	/**
@@ -199,7 +199,7 @@ public interface SecurityContext<T> {
 
 And we provide one helper named `SecurityContexts` to load the implementation. Here is the sample: 
 
-```
+```java
 User user = (User)SecurityContexts.getContext().requireUser();
 ```
 
@@ -267,7 +267,7 @@ Please refer to `in.clouthink.daas.sbb.openapi.OpenApiSecurityConfigurer`.
 
 First , export the Spring Security extension points implementation. 
 
-```
+```java
 
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
@@ -335,8 +335,8 @@ First , export the Spring Security extension points implementation.
 ```
 
 Then configure the authentication part
-```
 
+```java
 	private void configLogin(HttpSecurity http) throws Exception {
 		http.csrf()
 			.disable()
@@ -364,8 +364,7 @@ Then configure the authentication part
 
 Finally configure the authorization part
 
-```
-
+```java
 	private void configAccess(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().disable();
 
@@ -407,7 +406,7 @@ And the login history is supported which is not covered in daas-audit.
 
 Here is the configuration to enable the audit module
 
-```
+```java
 @EnableAudit
 public class SpringBootApplication extends SpringBootServletInitializer {
 
@@ -451,7 +450,7 @@ Here is the abstraction we supplied to extend.
 
 For example, if you choose the :storage/localfs , the download url goes to:
 
-```
+```java
 public class LocalfsDownloadUrlProvider implements DownloadUrlProvider {
 
 	@Autowired
@@ -476,7 +475,7 @@ public class LocalfsDownloadUrlProvider implements DownloadUrlProvider {
 
 Here is the configuration to enable the audit module
 
-```
+```java
 public class SpringBootApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) { 
@@ -504,7 +503,7 @@ in.clouthink.daas.edm.sms.SmsSender
 
 We also supply one dummy module(:message/sms/mock) which can be used in the development ENV. 
 
-```
+```java
 //for development
 @Import({SmsAliyunModuleConfiguration.class})
 //for production
@@ -514,7 +513,7 @@ We also supply one dummy module(:message/sms/mock) which can be used in the deve
 One more thing, the SMS history can be saved if you import the history module (:message/sms/history). 
 By default we enable the SMS history in the boilerplate, if you don't like it, simple remove the import part to disable this feature.
 
-```
+```java
 @Configuration
 @Import({SmsHistoryModuleConfiguration.class})
 public class SmsRestModuleConfiguration {
@@ -525,7 +524,7 @@ public class SmsRestModuleConfiguration {
 
 Here is the configuration to enable the audit module
 
-```
+```java
 public class SpringBootApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) { 
@@ -543,7 +542,7 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 
 ### account
 
-```
+```ini
 in.clouthink.daas.sbb.account.password.salt=
 in.clouthink.daas.sbb.account.administrator.email=
 in.clouthink.daas.sbb.account.administrator.username=
@@ -552,7 +551,7 @@ in.clouthink.daas.sbb.account.administrator.password=
 ```
 ### storage
 
-```
+```ini
 #alioss
 in.clouthink.daas.sbb.storage.alioss.keyId=
 in.clouthink.daas.sbb.storage.alioss.secret=
@@ -565,7 +564,7 @@ in.clouthink.daas.sbb.storage.alioss.buckets.key2=
 
 ### sms
 
-```
+```ini
 in.clouthink.daas.sbb.sms.aliyun.area=
 in.clouthink.daas.sbb.sms.aliyun.accessKey=
 in.clouthink.daas.sbb.sms.aliyun.accessSecret=
@@ -577,7 +576,7 @@ in.clouthink.daas.sbb.sms.aliyun.templateId=
 
 ### setting
 
-```
+```ini
 in.clouthink.daas.sbb.setting.system.name=
 in.clouthink.daas.sbb.setting.system.contactEmail=
 in.clouthink.daas.sbb.setting.system.contactPhone=
@@ -600,7 +599,7 @@ We design the pluggable menu & action module , and supply the annotation to make
 
 Here is the example
 
-```
+```java
 @EnableMenu(pluginId = "plugin:menu:sample",
 			extensionPointId = Menus.ROOT_EXTENSION_POINT_ID,
 			menu = {@Menu(virtual = true,
@@ -630,7 +629,7 @@ More detail about the usage please check out the description of the Java file.
  
 ## IDEA - how to import the project to IDEA IDE
 
-```
+```sh
 > gradle cleanIdea
 > gradle idea
 ```
