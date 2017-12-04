@@ -473,7 +473,7 @@ public class LocalfsDownloadUrlProvider implements DownloadUrlProvider {
 
 ```
 
-Here is the configuration to enable the audit module
+Here is the configuration to enable the `Storage` module
 
 ```java
 public class SpringBootApplication extends SpringBootServletInitializer {
@@ -522,7 +522,7 @@ public class SmsRestModuleConfiguration {
 
 ```
 
-Here is the configuration to enable the audit module
+Here is the configuration to enable the `Message` module
 
 ```java
 public class SpringBootApplication extends SpringBootServletInitializer {
