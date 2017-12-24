@@ -1,6 +1,9 @@
 rootProject.name = 'spring-backend-boilerplate'
 include 'shared'
 
+include 'identity/core'
+include 'identity/impl'
+
 include 'account/core'
 include 'account/impl'
 include 'account/rest'
