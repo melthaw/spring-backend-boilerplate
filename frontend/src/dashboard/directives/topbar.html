@@ -1,0 +1,62 @@
+<header class="main-header">
+    <!-- Logo -->
+    <a onclick="javascript:void(0);" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini">OA</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"> {{branding.name}}</span>
+    </a>
+
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a  class="sidebar-toggle"
+           data-toggle="offcanvas">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+
+
+                <!-- Messages: style can be found in dropdown.less-->
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu" >
+                    <a  class="dropdown-toggle"
+                       data-toggle="dropdown" dropdown-toggle>
+                        <img ng-if="currentUser.avatarId" ng-src="{{currentUser.avatarId | escape}}" class="user-image" />
+                        <img ng-if="!currentUser.avatarId" src="/asserts/lib/admin-lte/img/avatar5.png" class="user-image" />
+                        <span class="hidden-xs">{{currentUser.username}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img ng-if="currentUser.avatarId" ng-src="{{currentUser.avatarId | escape}}" class="img-circle" alt="图片不存在" />
+                            <img ng-if="!currentUser.avatarId" src="/asserts/lib/admin-lte/img/avatar5.png" class="img-circle" />
+                            <p>{{currentUser.username}}</p>
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a ng-click="profile()"
+                                   class="btn btn-default btn-flat">个人资料</a>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                <a ng-click="changePwd()"
+                                   class="btn btn-default btn-flat"
+                                   id="changePwdBtn">修改密码</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="logout"
+                                   class="btn btn-default btn-flat">注销</a>
+                            </div>
+
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+</header>

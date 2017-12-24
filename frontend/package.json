@@ -1,0 +1,59 @@
+{
+  "name": "frontend-boilerplate-ng1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "dev": "webpack-dev-server --inline  --port 8886 --content-base dist/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanish1984/frontend-boilerplate-ng1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vanish1984/frontend-boilerplate-ng1/issues"
+  },
+  "homepage": "https://github.com/vanish1984/frontend-boilerplate-ng1#readme",
+  "dependencies": {
+    "angular": "^1.3.16",
+    "angular-ui-router": "^0.2.15",
+    "autoprefixer": "^6.0.3",
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "copy-webpack-plugin": "4.0.1",
+    "bootstrap": "^3.3.5",
+    "css-loader": "0.26.1",
+    "extract-text-webpack-plugin": "2.0.0-beta.5",
+    "file-loader": "^0.9.0",
+    "font-awesome": "^4.7.0",
+    "html-webpack-plugin": "^2.7.1",
+    "istanbul-instrumenter-loader": "^1.0.0",
+    "jasmine-core": "^2.3.4",
+    "jquery": "^3.2.1",
+    "karma": "^1.1.0",
+    "karma-coverage": "^1.0.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.26",
+    "karma-webpack": "2.0.1",
+    "node-libs-browser": "2.0.0",
+    "null-loader": "^0.1.1",
+    "phantomjs-prebuilt": "^2.1.4",
+    "postcss-loader": "1.2.2",
+    "raw-loader": "^0.5.1",
+    "rimraf": "^2.5.1",
+    "style-loader": "^0.13.0",
+    "webpack": "2.2.0",
+    "webpack-dev-server": "^2.6.1"
+  },
+  "devDependencies": {
+    "webpack": "^3.4.1"
+  }
+}
