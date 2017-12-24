@@ -91,39 +91,56 @@ http://127.0.0.1:8082/swagger-ui.html
 
 ## Modularization
 
-First we design a modularized system (Thanks Spring and Gradle), 
-our goal is simple add or remove one module without changing the Application , except the foundational modules.
+First we design a modularized system (Thanks Spring Boot and Gradle),
+our goal is to simple add or remove one module without changing the Application , except the foundational modules.
+
+All these come to reality are belongs to the features of Spring Boot Starter.
+
+1 Provide the auto configuration for each module.
+2 Tell spring how to enable the auto configuration.
+
+Message module for example
+
+```ini
+#message/sms/starter/src/main/resources/META-INF/spring.factories
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+in.clouthink.daas.sbb.sms.DummySmsRestModuleConfiguration
+```
 
 For example, remove the message module in the boilerplate won't break the application, because the message is event-driven ,
 The other modules dispatch event to the event bus, the event bus simply discard it if the message module not found. 
 
-```java
-//Before
-public class OpenApiApplication extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(new Object[]{...,
-		                                    SmsRestModuleConfiguration.class,
-		                                    ..., 
-		                                    OpenApiApplication.class}, args);
-	}
+```gradle
+//openapi/server/build.gradle
+dependencies {
 
+    ...
+    compile project(':sample/setting/starter')
+
+    compile project(':message/sms/starter')
+
+    compile project(':storage/starter')
+    ...
 }
+
 ```
 
 Simply remove the module configuration from the startup script.
 
-```java
-//After
-public class OpenApiApplication extends SpringBootServletInitializer {
+```gradle
+//openapi/server/build.gradle
+dependencies {
 
-	public static void main(String[] args) {
-		SpringApplication.run(new Object[]{...,
-		                                    OpenApiApplication.class}, args);
-	}
+    ...
+    compile project(':sample/setting/starter')
 
+    //after
+    //compile project(':message/sms/starter')
+
+    compile project(':storage/starter')
+    ...
 }
-
 ```
 
 And we also force the module convention that's separating the abstraction and implementation, then your can switch from one 
