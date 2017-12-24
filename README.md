@@ -96,10 +96,24 @@ our goal is to simple add or remove one module without changing the Application 
 
 All these come to reality are belongs to the features of Spring Boot Starter.
 
-1 Provide the auto configuration for each module.
-2 Tell spring how to enable the auto configuration.
+* Provide the auto configuration for each module.
+* Tell spring how to enable the auto configuration.
+
+### Example
 
 Message module for example
+
+Auto Configuration
+
+```
+@Configuration
+@Import({MockSmsModuleConfiguration.class, SmsHistoryModuleConfiguration.class})
+public class DummySmsRestModuleConfiguration {
+
+}
+```
+
+Starter by spring.factories
 
 ```ini
 #message/sms/starter/src/main/resources/META-INF/spring.factories
@@ -107,9 +121,10 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 in.clouthink.daas.sbb.sms.DummySmsRestModuleConfiguration
 ```
 
-For example, remove the message module in the boilerplate won't break the application, because the message is event-driven ,
-The other modules dispatch event to the event bus, the event bus simply discard it if the message module not found. 
+### Practise
 
+Remove the message module in the boilerplate won't break the application, because the message is event-driven ,
+The other modules dispatch event to the event bus, the event bus simply discard it if the message module not found. 
 
 ```gradle
 //openapi/server/build.gradle
@@ -142,6 +157,8 @@ dependencies {
     ...
 }
 ```
+
+### Without Starter
 
 And we also force the module convention that's separating the abstraction and implementation, then your can switch from one 
 implementation to another easily. 
