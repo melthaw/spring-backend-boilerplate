@@ -1,0 +1,5 @@
+dependencies {
+    compile project(':account/core')
+    compile project(':account/impl')
+    compile project(':account/rest')
+}

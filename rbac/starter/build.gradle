@@ -1,0 +1,6 @@
+dependencies {
+    compile project(':rbac/resource')
+    compile project(':rbac/permission')
+    compile project(':rbac/impl')
+    compile project(':rbac/rest')
+}

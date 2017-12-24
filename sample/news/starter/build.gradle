@@ -1,0 +1,5 @@
+dependencies {
+	compile project(':sample/news/core')
+	compile project(':sample/news/impl')
+	compile project(':sample/news/rest')
+}

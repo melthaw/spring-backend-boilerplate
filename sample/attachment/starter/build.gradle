@@ -1,0 +1,5 @@
+dependencies {
+    compile project(':sample/attachment/core')
+    compile project(':sample/attachment/impl')
+    compile project(':sample/attachment/rest')
+}

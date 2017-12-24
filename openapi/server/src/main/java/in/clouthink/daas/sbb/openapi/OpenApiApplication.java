@@ -3,7 +3,6 @@ package in.clouthink.daas.sbb.openapi;
 import in.clouthink.daas.audit.annotation.EnableAudit;
 import in.clouthink.daas.audit.configure.AuditConfigurer;
 import in.clouthink.daas.audit.spi.AuditEventPersister;
-import in.clouthink.daas.sbb.menu.MenuRestModuleConfiguration;
 import in.clouthink.daas.sbb.security.impl.audit.AuditEventPersisterImpl;
 import in.clouthink.daas.sbb.security.impl.audit.SecurityContextAuditImpl;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
-@Import({MenuRestModuleConfiguration.class, OpenApiSecurityConfigurer.class, OpenApiWebMvcConfigurer.class})
+@Import({OpenApiSecurityConfigurer.class, OpenApiWebMvcConfigurer.class})
 @EnableAsync
 @EnableAudit
 public class OpenApiApplication extends SpringBootServletInitializer {

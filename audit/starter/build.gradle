@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':audit/impl')
+    compile project(':audit/rest')
+}
