@@ -24,11 +24,12 @@
 [User Guide - English Version](./README.md)
 
 # 快速上手
-  
+
+> 首先请提前在自己开发机上准备开发环境, 包括 Java 8, Gradle 2.x 和 Mongodb Server等.
+
 ## 启动API服务器
 
 API服务器负责将业务服务通过REST API的形式发布出来, 首先我们演示一下如何启动API服务器.
-我们需要用户提前在自己开发机上准备开发环境, 包括 Java 8, Gradle 2.x 和 Mongodb Server等.
 
 在此我们提供了启动API服务器需要的一个最小配置的`application.properties`（该配置文件是Spring Boot启动时需要的）
   
@@ -121,6 +122,17 @@ Spring Boot Starter是最关键的, 因为除了Gradle, 我们还可以选择Mav
 * 为每个模块提供一个自动配置的文件 （`@Configuration`）
 * 告诉Spring Boot 启动我们定义的自动配置文件 （`META-INF/spring.factories`）
 
+目前我们提供了以下快速启动模块
+
+* :account/starter
+* :audit/starter
+* :menu/starter
+* :rbac/starter
+* :sample/news/starter
+* :sample/attachment/starter
+* :sample/setting/starter
+* :message/sms/starter
+* :storage/starter
 
 ### 代码示例
 
@@ -151,7 +163,6 @@ in.clouthink.daas.sbb.sms.DummySmsRestModuleConfiguration
 ### 最佳实践
 
 我们前面提到了我们的目标是不修改业务代码的情况下可以做到快速的添加或者移除一个模块, 做法很简单, 在gradle的build文件里面添加或者拿掉业务模块对应的starter就可以了.
-
 
 1.添加新闻管理(news)模块
 
@@ -427,7 +438,6 @@ in.clouthink.daas.sbb.security.impl.spring.SecurityContextImpl
 
 ```
 
-
 接下来在`Spring Security`中集成这些扩展实现.
 
 认证示例:
@@ -591,14 +601,16 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 
 ### 短信通知
 
-In the boilerplate we choose the [aliyun SMS](https://www.aliyun.com/product/sms) as example .
-It's simple and easy to integrate your SMS provider , just implement the following interface.
+> 在本模板中我们用[阿里云短消息](https://www.aliyun.com/product/sms) 作为示例.
+
+我们对短信通知进行抽象, 只需要实现下面这个接口就可以集成你的短信通知服务.
+
 
 ```
 in.clouthink.daas.edm.sms.SmsSender
 ```
 
-We also supply one dummy module(:message/sms/mock) which can be used in the development ENV. 
+我们也提供了一个模拟实现(`:message/sms/mock`) , 该实现可以用于开发环境, 接受所有的短信发送请求, 只是简单的在console打印出已发送, 这样可以避免在开发过程中消耗你的实际流量.
 
 ```java
 //for development
@@ -607,8 +619,9 @@ We also supply one dummy module(:message/sms/mock) which can be used in the deve
 @Import({DummySmsModuleConfiguration.class})
 ```
 
-One more thing, the SMS history can be saved if you import the history module (:message/sms/history). 
-By default we enable the SMS history in the boilerplate, if you don't like it, simple remove the import part to disable this feature.
+如果你导入短消息发送历史模块(`:message/sms/history`), 所有的短消息发送记录将会记录在案.
+默认情况下, 我们启用了短消息历史纪录功能, 如果你不需要, 注释掉或者删除对应的`Import`代码即可.
+
 
 ```java
 @Configuration
@@ -619,15 +632,14 @@ public class SmsRestModuleConfiguration {
 
 ```
 
-Here is the configuration to enable the `Message` module
+下面是手工启用短消息服务模块, 我们推荐的方式是使用`Spring Boot Starter`, 请参考模块化章节.
 
 ```java
+@Import(SmsRestModuleConfiguration.class)
 public class SpringBootApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) { 
-        SmsRestModuleConfiguration.class,
         ...
-        SpringBootApplication.class
     }
 }
 ```
@@ -680,22 +692,24 @@ in.clouthink.daas.sbb.setting.system.contactEmail=
 in.clouthink.daas.sbb.setting.system.contactPhone=
 ```
 
-## resource 
+## resource - 资源
 
-The resource is the term we called in RBAC, which is protected by authorization system. 
-The resource should be a rest endpoint,or the visible menu item in the GUI , even a Create button in a page.
- 
-We design a resource registry SPI as 
+在RBAC（基于角色的访问控制）中, 我们把要保护的对象叫做resource（资源）, resource可能（但是不限于）包括以下类型:
+
+* REST服务
+* 菜单
+* 按钮
+* 某个页面
+
+为此我们设计了一个资源服务提供者的API :
 
 * in.clouthink.daas.sbb.rbac.spi.ResourceProvider
 
-All the resource provider implementation only required to implement it as a spring bean. 
-The boilerplate scans and discovers it , and register the resources automatically.
+所有的ResourceProvider（资源服务提供者）最终需要以`Spring Bean`的形式暴露给框架（和我们常用的Component, Service, Controller类似）.
+当应用启动的时候会自动扫描并注册这些resource bean.
 
-The classic resource is the menu and action which are granted to the role and accessed control by role permission.
-We design the pluggable menu & action module , and supply the annotation to make it easy to use.
-
-Here is the example
+最常见的资源莫过于菜单, 在大量的应用中几乎都会包括一个菜单授权功能, 一般是将菜单授权给某个角色或者某个用户组.
+我们设计了一个插拔式的菜单模块, 并提供了一整套注解（annotation) , 有了这套注解, 定义菜单和扩展菜单就很轻松了.
 
 ```java
 @EnableMenu(pluginId = "plugin:menu:sample",
@@ -717,29 +731,27 @@ Here is the example
 			})
 ```
 
-More detail about the usage please check out the description of the Java file.
-
-# Sample - new business module 
+# 示例 - 快速开发业务模块
 
 `TODO`
  
-# Appendix - Development ENV
+# 附录 - 开发环境
  
-## IDEA - how to import the project to IDEA IDE
+## IDEA - 如何导入
 
 ```sh
 > gradle cleanIdea
 > gradle idea
 ```
 
-## IDEA - how to debug in IDEA IDE
+## IDEA - 怎么调试
 
-Create new debug configuration (type of gradle), and pop it with following value.
+新增类型为Gradle的调试配置, 对应的值如下:
 
-name | value
+配置项 | 值
 -----|-----
-Gradle Project | in.clouthink.daas.sbb:openapiServer
+Gradle Project | spring-backend-boilerplate:openapi:server
 Tasks | clean bootRun
-VM Options | <keep it empty>
+VM Options | 保留为空
 Script parameters | -PjvmArgs="-Dspring.config.location=/var/sbb/etc/securityServer/application.properties"
 

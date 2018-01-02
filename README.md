@@ -675,7 +675,7 @@ Create new debug configuration (type of gradle), and pop it with following value
 
 name | value
 -----|-----
-Gradle Project | in.clouthink.daas.sbb:openapiServer
+Gradle Project | spring-backend-boilerplate:openapi:server
 Tasks | clean bootRun
 VM Options | <keep it empty>
 Script parameters | -PjvmArgs="-Dspring.config.location=/var/sbb/etc/securityServer/application.properties"
