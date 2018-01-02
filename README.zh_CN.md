@@ -753,5 +753,5 @@ in.clouthink.daas.sbb.setting.system.contactPhone=
 Gradle Project | spring-backend-boilerplate:openapi:server
 Tasks | clean bootRun
 VM Options | 保留为空
-Script parameters | -PjvmArgs="-Dspring.config.location=/var/sbb/etc/securityServer/application.properties"
+Script parameters | -PjvmArgs="-Dspring.config.location=/var/sbb/etc/openapi/application.properties"
 

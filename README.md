@@ -678,5 +678,5 @@ name | value
 Gradle Project | spring-backend-boilerplate:openapi:server
 Tasks | clean bootRun
 VM Options | <keep it empty>
-Script parameters | -PjvmArgs="-Dspring.config.location=/var/sbb/etc/securityServer/application.properties"
+Script parameters | -PjvmArgs="-Dspring.config.location=/var/sbb/etc/openapi/application.properties"
 
