@@ -1,20 +1,29 @@
-# Overview
+# 概述
 
-The quick development boilerplate based on Spring (Boot) Framework which covers the general case of Java backend application
-something like Account Module, Security Foundation, Audit System, File Upload/Download, Message Notification, Role Based Access Control etc.
+本项目基于Spring技术栈,覆盖Java后端应用的最基础和最常见的功能:
 
-And we also provide the CRUD sample to show how manage the item list , add new one item , update it or remove it.  
+* 身份管理
+* 审计系统
+* 安全设施
+* 文件管理
+* 消息通知
+* 基于角色的权限管理
 
-We hope this boilerplate can help the users to focus on their business part . Before that ,  we will explain how it is designed and implemented.
+同时我们提供了部分示例,展现如何快速的增加业务模块,特别是最常见的增删改查操作.
 
-[用户使用指南-中文版](./README.zh_CN.md)
+我们的定位是提供基于Spring (Boot)框架的快速开发模板和最佳实践, 让用户关注核心业务, 而不是纠结于搭建开发环境.
+当然, 使用者需要掌握本框架的设计思路和实现方式. 接下来, 我们会逐一进行解释.
 
-# Get Started
+[User Guide - English Version](./README.md)
+
+# 快速上手
   
-## Start API Server  
-  
-Please make sure the Java 8, Gradle 2.x and Mongodb are installed on your development machine.  
-And here is the minimized application.properties to start the boilerplate. 
+## 启动API服务器
+
+API服务器负责将业务服务通过REST API的形式发布出来, 首先我们演示一下如何启动API服务器.
+我们需要用户提前在自己开发机上准备开发环境, 包括 Java 8, Gradle 2.x 和 Mongodb Server等.
+
+在此我们提供了启动API服务器需要的一个最小配置的`application.properties`（该配置文件是Spring Boot启动时需要的）
   
 ```ini
 app.name=spring-backend-boilerplate
@@ -55,16 +64,16 @@ spring.data.mongodb.uri=mongodb://localhost:27017/spring-backend-boilerplate
 
 ```  
 
-Then we can start it with
+将`application.properties`放在任意可访问的目录,然后按照下面的方式启动,记得替换`spring.config.location`为`application.properties`全路径名.
 
 ```sh
 > cd openapi/server
 > gradle clean bootRun  -PjvmArgs="-Dspring.config.location=the_full_path_of_the_application.properties"
 ```
 
-## Start ApiDoc Server
+## 启动API文档服务器
 
-And here is the minimized application.properties to start the boilerplate. 
+我们使用swagger2来生成API说明文档,下面是启动API文档服务器的最小配置`application.properties`
 
 ```ini
 app.name=spring-backend-boilerplate-api-doc
@@ -75,22 +84,22 @@ server.address=127.0.0.1
 server.session-timeout=360000
 ```
 
-Then we can start it with
+启动方式和API服务器类似,请按照相同的思路来操作:
 
 ```sh
 > cd openapi/doc
 > gradle clean bootRun  -PjvmArgs="-Dspring.config.location=the_full_path_of_the_application.properties"
 ```
 
-After the swagger doc server booted, open browser and visit the api doc at
+当API文档服务器启动完成后,打开浏览器,访问以下地址即可:
 
 ```
 http://127.0.0.1:8082/swagger-ui.html
 ```
 
-# Features
+# 功能特征
 
-## Modularization
+## 模块化
 
 First we design a modularized system (Thanks Spring Boot and Gradle),
 our goal is to simple add or remove one module without changing the Application , except the foundational modules.
