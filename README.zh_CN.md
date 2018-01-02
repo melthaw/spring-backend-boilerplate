@@ -101,21 +101,29 @@ http://127.0.0.1:8082/swagger-ui.html
 
 ## 模块化
 
-First we design a modularized system (Thanks Spring Boot and Gradle),
-our goal is to simple add or remove one module without changing the Application , except the foundational modules.
+Spring Boot和Gradle的功能已经非常强,在这个基础上,我们去设计一个完全模块化的系统就变得很容易了.
+我们的目标是不需要修改程序源码的情况下, 可以非常轻松的添加或者移除一个模块（当然被整个框架依赖的基础设施模块除外）.
 
-All these come to reality are belongs to the features of Spring Boot Starter.
+要达到这个目标,需要依赖以下技术:
 
-* Provide the auto configuration for each module.
-* Tell spring how to enable the auto configuration.
+* Spring Boot Starter (这是自动化注入模块和启动模块的解决方案)
+* Gradle Build（我们需要根据Gradle的使用规范,设计一个多模块的Gradle工程）
 
-### Example
+Spring Boot Starter是最关键的, 因为除了Gradle, 我们还可以选择Maven作为构建工具.
 
-Message module for example
+* 为每个模块提供一个自动配置的文件 （`@Configuration`）
+* 告诉Spring Boot 启动我们定义的自动配置文件 （`META-INF/spring.factories`）
 
-Auto Configuration
+
+### 代码示例
+
+我们以本项目中的消息模块 (位于`$RROJECT_ROOT/message/sms`目录下) 为例:
+
+Spring的配置文件如下:
 
 ```
+package in.clouthink.daas.sbb.sms;
+
 @Configuration
 @Import({MockSmsModuleConfiguration.class, SmsHistoryModuleConfiguration.class})
 public class DummySmsRestModuleConfiguration {
@@ -123,7 +131,7 @@ public class DummySmsRestModuleConfiguration {
 }
 ```
 
-Starter by spring.factories
+对应的`starter/src/main/resources/META-INF/spring.factories`文件内容如下:
 
 ```ini
 #message/sms/starter/src/main/resources/META-INF/spring.factories
@@ -131,7 +139,9 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 in.clouthink.daas.sbb.sms.DummySmsRestModuleConfiguration
 ```
 
-### Practise
+接下来我们演示一下怎么样实现动态添加和移除该模块:
+
+### 最佳实践
 
 Remove the message module in the boilerplate won't break the application, because the message is event-driven ,
 The other modules dispatch event to the event bus, the event bus simply discard it if the message module not found. 
