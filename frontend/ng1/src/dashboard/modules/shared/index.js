@@ -1,7 +1,7 @@
 import angular from "angular";
-import AuthenticationServcie from "./authentication.service";
-import escapeFilter from "./escape.filter";
-import httpProvider from "./httpProvider.config";
+import AuthenticationServcie from "./authentication.service.js";
+import escapeFilter from "./escape.filter.js";
+import httpProvider from "./httpProvider.config.js";
 import run from "./run";
 
 export default angular.module('dashboard.shared', [])
