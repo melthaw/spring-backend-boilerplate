@@ -72,7 +72,7 @@ spring.data.mongodb.uri=mongodb://localhost:27017/spring-backend-boilerplate
 
 ```  
 
-将`application.properties`放在任意可访问的目录,然后按照下面的方式启动,记得替换`spring.config.location`为`application.properties`全路径名.
+将`application.properties`放在任意可访问的目录,然后按照下面的方式启动,记得将`spring.config.location`的值替换为`application.properties`全路径名.
 
 ```sh
 > cd openapi/server
@@ -230,10 +230,6 @@ public class StorageRestModuleConfiguration {
 ## 安全
 
 ### 基础
-
-Spring Security is a powerful security framework , it's easy to customize and extend . 
-Based on the flexibility provided by Spring Security , we add more interesting feature to it like
-multi-factor authentication, user device, audit and pluggable account system.
 
 `Spring Security`是一个功能全面而且非常强大的安全框架, 在设计上充分考虑了定制化和扩展性.
 基于`Spring Security`提供的弹性设计, 我们在此基础上增加了一些非常有缺的特征:
