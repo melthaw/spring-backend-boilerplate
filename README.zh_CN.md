@@ -186,10 +186,17 @@ dependencies {
 
 ### 手工注入（不采用spring boot starter）
 
-And we also force the module convention that's separating the abstraction and implementation, then your can switch from one 
-implementation to another easily. 
+Spring Boot Starter非常强大, 但是对于那些不熟悉或者不喜欢Spring Boot Starter的使用者, 我们也支持编程式的方式来增加新的业务模块.
 
-For example, we provide more than one implementation module for the storage abstraction (:storage/core).
+首先我们强制分离模块的接口和实现, 这样才可能在不同的实现版本之间轻松切换. 这是模块化的最佳实践.
+
+以本项目提供的文件存储服务(接口定义在`:storage/core`)为例, 我们提供了好几个版本的实现:
+
+* 本地文件系统
+* Mongodb的Gridfs系统
+* 阿里云存储
+
+下面这段代码表示采用Mongodb提供的Gridfs系统来进行存储
 
 ```java
 @Import({GridfsModuleConfiguration.class})
@@ -198,8 +205,8 @@ public class StorageRestModuleConfiguration {
 }
 
 ```
-If you want upload the file and save it to the local storage ( your runtime server's file system ), 
-just import another one and replace it as follow
+
+如果你只需要把文件存储在本地（ 和你的服务器放在一起 ）, 只需要注入一个实现了本地文件存储的模块即可, 示例如下:
 
 ```java
 @Import({LocalStorageModuleConfiguration.class})
@@ -209,7 +216,7 @@ public class StorageRestModuleConfiguration {
 ```
 
 
-## Security
+## 安全
 
 ### Foundation
 
