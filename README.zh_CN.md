@@ -232,14 +232,13 @@ public class StorageRestModuleConfiguration {
 ### 基础
 
 `Spring Security`是一个功能全面而且非常强大的安全框架, 在设计上充分考虑了定制化和扩展性.
-基于`Spring Security`提供的弹性设计, 我们在此基础上增加了一些非常有缺的特征:
+基于`Spring Security`提供的弹性设计, 我们在此基础上增加了一些非常有趣的特征:
 
 * 用户管理
 * 设备管理
 * 多因子认证
 * 审计系统
 * 可插拔的账户系统
-
 
 ### 安全上下文
 
