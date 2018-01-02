@@ -1,6 +1,13 @@
 # 概述
 
-本项目基于Spring技术栈,覆盖Java后端应用的最基础和最常见的功能:
+本项目基于Spring技术栈, 提供了一套快速的JAVA后端应用的开发模板, 我们区别与其他的开发模板的特点是:
+
+* 高度模块化
+* 可扩展的插件机制
+* Spring最佳实践
+* 不夹带私货
+
+目前我们覆盖Java后端应用的最基础和最常见的功能:
 
 * 身份管理
 * 审计系统
@@ -102,7 +109,7 @@ http://127.0.0.1:8082/swagger-ui.html
 ## 模块化
 
 Spring Boot和Gradle的功能已经非常强,在这个基础上,我们去设计一个完全模块化的系统就变得很容易了.
-我们的目标是不需要修改程序源码的情况下, 可以非常轻松的添加或者移除一个模块（当然被整个框架依赖的基础设施模块除外）.
+我们的目标是不需要修改业务代码的情况下, 可以非常轻松的添加或者移除一个模块（当然被整个框架依赖的基础设施模块除外）.
 
 要达到这个目标,需要依赖以下技术:
 
@@ -143,42 +150,41 @@ in.clouthink.daas.sbb.sms.DummySmsRestModuleConfiguration
 
 ### 最佳实践
 
-Remove the message module in the boilerplate won't break the application, because the message is event-driven ,
-The other modules dispatch event to the event bus, the event bus simply discard it if the message module not found. 
+我们前面提到了我们的目标是不修改业务代码的情况下可以做到快速的添加或者移除一个模块, 做法很简单, 在gradle的build文件里面添加或者拿掉业务模块对应的starter就可以了.
+
+
+1.添加新闻管理(news)模块
+
+> 不需要修改业务代码,添加该模块后,新闻管理模块自动注册到整个应用,API Server启动后, 自动发布和新闻管理有关的所有REST API, 菜单中自动出现新闻管理的菜单项.
 
 ```gradle
 //openapi/server/build.gradle
 dependencies {
 
     ...
-    compile project(':sample/setting/starter')
-
-    compile project(':message/sms/starter')
-
-    compile project(':storage/starter')
+    compile project(':sample/news/starter')
     ...
 }
 
 ```
 
-Simply remove the module configuration from the startup script.
+2.移除新闻管理(news)模块
+
+> 不需要修改业务代码,移除该模块后,API Server启动后, 新闻管理有关的所有REST API下架, 菜单中不会出现新闻管理的菜单项
 
 ```gradle
 //openapi/server/build.gradle
 dependencies {
 
     ...
-    compile project(':sample/setting/starter')
-
     //after
-    //compile project(':message/sms/starter')
-
-    compile project(':storage/starter')
+    //compile project(':sample/news/starter')
     ...
 }
 ```
 
-### Without Starter
+
+### 手工注入（不采用spring boot starter）
 
 And we also force the module convention that's separating the abstraction and implementation, then your can switch from one 
 implementation to another easily. 
