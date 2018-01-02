@@ -5,7 +5,7 @@
 * 高度模块化
 * 可扩展的插件机制
 * Spring最佳实践
-* 不夹带私货
+* 不夹带私货（部分代码闭源并收费）
 
 目前我们覆盖Java后端应用的最基础和最常见的功能:
 
@@ -483,24 +483,25 @@ in.clouthink.daas.sbb.security.impl.spring.SecurityContextImpl
 ```
 
 
-## Audit
+## 审计
 
-The [daas-audit](https://github.com/melthaw/spring-mvc-audit) is a simple and quick audit abstraction lib for spring mvc http request.
-Please go https://github.com/melthaw/spring-mvc-audit to get more detail about it. Here we only explain what we extended and customized.  
+[daas-audit](https://github.com/melthaw/spring-mvc-audit) 是一个简单易用的审计库, 专门对Spring Mvc的HTTP请求进行审计.
+我们在本项目中集成了该审计库, 关于如何集成, 请查看 https://github.com/melthaw/spring-mvc-audit , 里面有详细的使用说明.
 
-The module(:audit/impl) implements the daas-audit's AuditEvent SPI including:
- 
+
+在本项目中, `:audit/impl`模块完整实现了[daas-audit](https://github.com/melthaw/spring-mvc-audit) 的`AuditEvent` 审计API:
+
 * in.clouthink.daas.audit.core.MutableAuditEvent
     * in.clouthink.daas.sbb.audit.domain.model.AuditEvent
 * in.clouthink.daas.audit.spi.AuditEventPersister
     * in.clouthink.daas.sbb.audit.spiImpl.AuditEventPersisterImpl
 
-And the login history is supported which is not covered in daas-audit.
+[daas-audit](https://github.com/melthaw/spring-mvc-audit) 并不支持对用户登录和登出历史的审计, 我们也进行了扩展.
 
 * in.clouthink.daas.sbb.audit.domain.model.AuthEvent
 * in.clouthink.daas.sbb.audit.service.AuthEventService
 
-Here is the configuration to enable the audit module
+下面的代码示例演示了如何启用审计功能 （使用`@EnableAudit`注解）:
 
 ```java
 @EnableAudit
@@ -521,30 +522,32 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 	}
 
     public static void main(String[] args) { 
-        AuditRestModuleConfiguration.class,
         ...
-        SpringBootApplication.class
     }
+
 }
 ```
 
-## File Storage
+## 文件存储
 
-The [daas-fss](https://github.com/melthaw/spring-file-storage-service) is APIs which make storing the blob file easy and simple.
-Please go https://github.com/melthaw/spring-file-storage-service to get more detail about it. Here we only explain what we extended and customized.  
+[daas-fss](https://github.com/melthaw/spring-file-storage-service) 是一个简单易用的文件存储库 ,
+我们在本项目中集成了文件存储功能, 关于如何集成, 请查看 https://github.com/melthaw/spring-file-storage-service , 里面有详细的使用说明.
 
-Now we provide three file storage implementation 
+接下来我们解释一下我们基于[daas-fss](https://github.com/melthaw/spring-file-storage-service)所做的扩展和定制.
+
+目前我们提供了三种文件存储实现:
+
 * aliyun oss (:storage/alioss)
 * mongodb gridfs (:storage/gridfs)
 * local file system (:storage/localfs)
 
-Because different storage service stores the file in different system , the download url goes to different as well.
+> 不同的文件存储服务依赖于不同的底层服务, 因此最终导致的下载链接也不一样, 这个可能对你的业务系统造成一定影响, 例如你刚开始选择了一种实现 , 后来又切换到另外一种实现 , 就需要进行数据迁移.
 
-Here is the abstraction we supplied to extend.
+下面是我们提供的下载链接的抽象接口
 
 * in.clouthink.daas.sbb.storage.spi.DownloadUrlProvider
 
-For example, if you choose the :storage/localfs , the download url goes to:
+例如: 如果你选择使用`:storage/localfs` 本地文件系统来存储文件, 对应的下载地址如下:
 
 ```java
 public class LocalfsDownloadUrlProvider implements DownloadUrlProvider {
@@ -569,26 +572,24 @@ public class LocalfsDownloadUrlProvider implements DownloadUrlProvider {
 
 ```
 
-Here is the configuration to enable the `Storage` module
+下面是如何启用文件存储模块（在前面的模块化章节有更详细的描述）
 
 ```java
+@Import(StorageModuleConfiguration.class)
 public class SpringBootApplication extends SpringBootServletInitializer {
 
-    public static void main(String[] args) { 
-        StorageModuleConfiguration.class,
+    public static void main(String[] args) {
         ...
-        SpringBootApplication.class
     }
 }
 ```
 
-## Message
+## 基于事件的消息
 
-The [daas-edm](https://github.com/melthaw/spring-event-driven-message) is a lightweight event driven message framework based on reactor.
-Please go https://github.com/melthaw/spring-event-driven-message to get more detail about it. Here we only explain what we extended and customized.
+[daas-edm](https://github.com/melthaw/spring-event-driven-message) 是一个基于spring reactor实现的事件驱动消息的框架 ,
+我们在本项目中集成了该框架, 关于如何集成, 请查看 https://github.com/melthaw/spring-event-driven-message , 里面有详细的使用说明.
 
-
-### SMS
+### 短信通知
 
 In the boilerplate we choose the [aliyun SMS](https://www.aliyun.com/product/sms) as example .
 It's simple and easy to integrate your SMS provider , just implement the following interface.
@@ -631,7 +632,7 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 }
 ```
 
-# Configuration
+# 附录 - 配置示例
 
 
 ## application.properties
@@ -645,6 +646,7 @@ in.clouthink.daas.sbb.account.administrator.username=
 in.clouthink.daas.sbb.account.administrator.cellphone=
 in.clouthink.daas.sbb.account.administrator.password=
 ```
+
 ### storage
 
 ```ini
