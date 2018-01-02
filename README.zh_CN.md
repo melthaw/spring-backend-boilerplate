@@ -218,36 +218,50 @@ public class StorageRestModuleConfiguration {
 
 ## 安全
 
-### Foundation
+### 基础
 
 Spring Security is a powerful security framework , it's easy to customize and extend . 
 Based on the flexibility provided by Spring Security , we add more interesting feature to it like
 multi-factor authentication, user device, audit and pluggable account system.
 
+`Spring Security`是一个功能全面而且非常强大的安全框架, 在设计上充分考虑了定制化和扩展性.
+基于`Spring Security`提供的弹性设计, 我们在此基础上增加了一些非常有缺的特征:
 
-### Context 
+* 用户管理
+* 设备管理
+* 多因子认证
+* 审计系统
+* 可插拔的账户系统
 
-Yes, Spring Security provides the context named `org.springframework.security.core.context.SecurityContext` and 
-the corresponding helper class `org.springframework.security.core.context.SecurityContextHolder`. 
 
-Why we need another one? 
+### 安全上下文
+
+`Spring Security`通过 `org.springframework.security.core.context.SecurityContext` 和 `org.springframework.security.core.context.SecurityContextHolder`
+为使用者提供安全上下文（也就是获取当前的认证信息）.
+
+**为什么我们又重复发明轮子 - 重新设计了一个新的安全上下文?**
+
+首先我们看看一个常见的代码:
 
 ```java
 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//now check the authentication
 if (authentication == null) {
     throw some exception here?
 }
 
 ```
 
-Every time we retrieve the authentication , we must check the authentication , duplicated code everywhere.
+如果基于`Spring Security`提供的上下文, 我们每次获取了认证信息后, 还需要去检查认证信息 , 基本上是一次编写, 四处拷贝粘贴.
 
-What we supposed is that an exception is thrown automatically if no authentication found in the context,  
-not check it and throw it by manual.
+我们希望的是, 如果获取的上下文不满足我们的要求, 自动抛出异常 , 而不是每次都要手工编写代码去判断.
 
-So we provide one new generic interface in module(:security/core)
+我们对这个需求抽象成代码(该代码在`:security/core`模块中), 如下:
+
 
 ```java
+package in.clouthink.daas.sbb.security;
+
 public interface SecurityContext<T> {
 
 	/**
@@ -264,40 +278,50 @@ public interface SecurityContext<T> {
 }
 ```
 
-And we provide one helper named `SecurityContexts` to load the implementation. Here is the sample: 
+这个接口定义了两个方法
+
+方法 | 描述
+---|---
+currentUser() | 保留了对Spring Security Context的支持
+requireUser() | 这个方法非常有趣, 表示在应用里面我需要一个用户, 它的返回结果和`currentUser()`完全一样, 但是如果当前上下文没有已认证的用户,就会抛出一个`AuthenticationRequiredException`异常
+
+下面我们给出一段使用示例代码:
 
 ```java
 User user = (User)SecurityContexts.getContext().requireUser();
 ```
 
-As you see, `requireUser()` is invoked which means if no authenticated user found in the context, it will throw one AuthenticationRequiredException.
+`SecurityContexts` 是一个抽象接口, 只要遵循Java SPI规范, 就可以很轻松提供用户自己的实现（当然, 我们提供了一套默认实现）
 
+> META-INF/services/in.clouthink.daas.sbb.security.SecurityContext
 
-The `SecurityContexts` requires that the implementation must follow the Java SPI  Spec and provide it in the file as follow
+内容如下:
 
 ```
-META-INF/services/in.clouthink.daas.sbb.security.SecurityContext
+#spring-backend-boilerplate/security/spring/src/main/resources/META-INF/services/in.clouthink.daas.sbb.security.SecurityContext
+in.clouthink.daas.sbb.security.impl.spring.SecurityContextImpl
 ```
 
-### Authentication & Authorization
 
-First let's list the extension points what we implemented for Spring Security.
+### 认证与授权
 
-`User`
+首先,我们列出我们扩展的`Spring Security`的清单:
+
+**User - 用户**
 
 * org.springframework.security.authentication.AuthenticationProvider
     * org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider
 * org.springframework.security.core.userdetails.User
 * org.springframework.security.core.userdetails.UserDetailsService
 
-`Login & Logout`
+**Login & Logout - 登录和登出**
 
 * org.springframework.security.web.AuthenticationEntryPoint
 * org.springframework.security.web.authentication.AuthenticationFailureHandler
 * org.springframework.security.web.authentication.AuthenticationSuccessHandler
 * org.springframework.security.web.authentication.logout.LogoutSuccessHandler
 
-`Access`
+**Access Control - 访问控制**
 
 * org.springframework.security.web.access.AccessDeniedHandler
     * org.springframework.security.web.access.AccessDeniedHandlerImpl
@@ -305,34 +329,36 @@ First let's list the extension points what we implemented for Spring Security.
     * org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler
 * org.springframework.security.web.access.expression.WebSecurityExpressionRoot
 
+我们对后端的定义是作为REST服务提供者. 因此安全基础设置必须保护所有的REST请求, 而不是传统的控制到页面菜单,按钮一级.
 
-The backend is designed as a restful service provider, 
-so the security foundation must has the ability to process the restful request and response , 
-not only the web page request and response.
+对于前面提到的`Spring Security`扩展, 我们提供的实现如下:
 
-And our implementations are listed as follow: 
+**User - 用户**
 
-`User`
 * in.clouthink.daas.sbb.security.impl.spring.UserDetailsAuthenticationProviderImpl
 * in.clouthink.daas.sbb.security.impl.spring.UserDetails
 * in.clouthink.daas.sbb.security.impl.spring.UserDetailsServiceImpl
 
-`Login & Logout`
+**Login & Logout - 登录和登出**
+
 * in.clouthink.daas.sbb.security.impl.spring.rest.AuthenticationEntryPointRestImpl
 * in.clouthink.daas.sbb.security.impl.spring.rest.AuthenticationFailureHandlerRestImpl
 * in.clouthink.daas.sbb.security.impl.spring.rest.AuthenticationSuccessHandlerRestImpl
 * in.clouthink.daas.sbb.security.impl.spring.rest.LogoutSuccessHandlerRestImpl
 
-`Access`
+**Access Control - 访问控制**
+
 * in.clouthink.daas.sbb.security.impl.spring.rest.AccessDeniedHandlerRestImpl
 * in.clouthink.daas.sbb.rbac.impl.spring.security.RbacWebSecurityExpressionHandler
 * in.clouthink.daas.sbb.rbac.impl.spring.security.RbacWebSecurityExpressionRoot
 
-#### How to configure Spring Security 
+> 即使你不需要这么完整的扩展, 这里面的实现方式应该也具有一定的参考价值.
 
-Please refer to `in.clouthink.daas.sbb.openapi.OpenApiSecurityConfigurer`. 
+#### 配置`Spring Security`
 
-First , export the Spring Security extension points implementation. 
+详情请参考实现 `in.clouthink.daas.sbb.openapi.OpenApiSecurityConfigurer`.
+
+首先, 我们需要导出我们的`Spring Security`实现（ 以Spring Bean的形式 ）.
 
 ```java
 
@@ -401,7 +427,10 @@ First , export the Spring Security extension points implementation.
 
 ```
 
-Then configure the authentication part
+
+接下来在`Spring Security`中集成这些扩展实现.
+
+认证示例:
 
 ```java
 	private void configLogin(HttpSecurity http) throws Exception {
@@ -429,7 +458,7 @@ Then configure the authentication part
 
 ```
 
-Finally configure the authorization part
+授权示例:
 
 ```java
 	private void configAccess(HttpSecurity http) throws Exception {
