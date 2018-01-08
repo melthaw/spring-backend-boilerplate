@@ -27,7 +27,29 @@
 
 > 首先请提前在自己开发机上准备开发环境, 包括 Java 8, Gradle 2.x 和 Mongodb Server等.
 
-## 启动API服务器
+## 代码构建
+
+目前支持支持gradle
+
+```
+gradle clean build
+```
+
+## 启动 - docker
+
+* 记得先用gradle进行代码构建
+* 确保的你的开发环境已经安装了docker和docker comose
+
+```
+docker-compose build
+docker-compose up -d
+```
+
+## 启动 - 传统方式
+
+下面我们介绍怎么用传统的方式启动服务
+
+### 启动API服务器
 
 API服务器负责将业务服务通过REST API的形式发布出来, 首先我们演示一下如何启动API服务器.
 
@@ -79,7 +101,7 @@ spring.data.mongodb.uri=mongodb://localhost:27017/spring-backend-boilerplate
 > gradle clean bootRun  -PjvmArgs="-Dspring.config.location=the_full_path_of_the_application.properties"
 ```
 
-## 启动API文档服务器
+### 启动API文档服务器
 
 我们使用swagger2来生成API说明文档,下面是启动API文档服务器的最小配置`application.properties`
 

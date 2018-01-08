@@ -10,11 +10,29 @@ We hope this boilerplate can help the users to focus on their business part . Be
 [用户使用指南-中文版](./README.zh_CN.md)
 
 # Get Started
+
+> Please make sure the Java 8, Gradle 2.x and Mongodb are installed on your development machine.
+
+## Build
+
+Build using `Gradle`
+
+```
+gradle clean build
+```
+
+## Start up - by Docker
+
+```
+docker-compose build
+docker-compose up -d
+```
+
+## Start up - by Manual
+
+### Start API Server
   
-## Start API Server  
-  
-Please make sure the Java 8, Gradle 2.x and Mongodb are installed on your development machine.  
-And here is the minimized application.properties to start the boilerplate. 
+And here is the minimized application.properties to start the boilerplate.
   
 ```ini
 app.name=spring-backend-boilerplate
