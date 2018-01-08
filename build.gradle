@@ -1,31 +1,28 @@
-apply from: "$rootDir/dependencies.gradle"
+apply from: "$rootDir/gradle/dependencies.gradle"
 apply plugin: 'idea'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.10'
+    gradleVersion = '2.14.1'
 }
 
 allprojects {
 
-    repositories {
-        mavenLocal()
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
-        mavenCentral()
-        maven { url "http://repo.spring.io/release" }
-        maven { url "http://repo.spring.io/snapshot" }
-        maven { url "http://repo.spring.io/milestone" }
-        maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2/" }
-    }
-
     buildscript {
         repositories {
             mavenLocal()
-            maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
             mavenCentral()
             maven { url "http://repo.spring.io/release" }
             maven { url "http://repo.spring.io/snapshot" }
             maven { url "http://repo.spring.io/milestone" }
         }
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "http://repo.spring.io/release" }
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
     }
 
     tasks.withType(JavaCompile) {
@@ -36,8 +33,6 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'base'
-    apply plugin: 'eclipse'
     apply plugin: 'idea'
 
     sourceCompatibility = JavaVersion.VERSION_1_8
