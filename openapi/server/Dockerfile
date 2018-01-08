@@ -5,6 +5,7 @@ ADD container_files/ /
 
 RUN chmod +x /*.sh
 
-EXPOSE 8081
+EXPOSE 8080
+EXPOSE 8090
 WORKDIR /
 ENTRYPOINT /docker-entrypoint.sh

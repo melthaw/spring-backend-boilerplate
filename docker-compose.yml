@@ -8,7 +8,10 @@ services:
     links:
       - mongodb-server:mongodb
     ports:
-      - "8081:8081"
+      - "8080:8080"
+      - "8090:8090"
+    environment:
+      JAVA_OPTS: -Xdebug -Xmx1024m -Xms256m -Xrunjdwp:server=y,transport=dt_socket,address=8190,suspend=n
   mongodb-server:
     container_name: mongodb-server
     image: mongo
