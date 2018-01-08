@@ -1,0 +1,17 @@
+version: '2'
+services:
+  openapi-server:
+    container_name: openapi-server
+    build:
+      context: ./openapi/server
+      dockerfile: Dockerfile
+    links:
+      - mongodb-server:mongodb
+    ports:
+      - "8081:8081"
+  mongodb-server:
+    container_name: mongodb-server
+    image: mongo
+    ports:
+      - "22017:22017"
+

@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Configuration
 @ComponentScan({"in.clouthink.daas.sbb.setting.service"})
 @EnableMongoRepositories({"in.clouthink.daas.sbb.setting.repository"})
-@EnableConfigurationProperties({SettingConfigurationProperties.class})
 public class SettingServiceModuleConfiguration {
 
 }
