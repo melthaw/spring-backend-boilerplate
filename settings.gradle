@@ -60,3 +60,4 @@ include 'sample/attachment/starter'
 
 include 'openapi/server'
 include 'openapi/doc'
+include 'openapi/eureka'

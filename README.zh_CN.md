@@ -29,7 +29,7 @@
 
 ## 代码构建
 
-目前支持支持gradle
+目前只支持gradle
 
 ```
 gradle clean build
