@@ -1,0 +1,66 @@
+app:
+  name: sbb
+  description: spring backend boilerplate
+
+in:
+  clouthink:
+    daas:
+      sbb:
+        account:
+          password:
+            salt: '@account.sbb.daas.clouthink.in'
+          administrator:
+            email: 'administrator@sbb.daas.clouthink.in'
+            username: administrator
+            cellphone: 13000000000
+            password: Please_change_me
+        setting:
+          system:
+            name: spring-backend-boilerplate
+            contactEmail: 'support-team@sbb.daas.clouthink.in'
+            contactPhone: 13000000000
+
+logging:
+  file: /Users/dz/var/sbb/log/openapi.eureka.log
+  level:
+    in.clouthink.daas: DEBUG
+
+server:
+  port: 8081
+  address: 0.0.0.0
+  session:
+    timeout: 360000
+
+spring:
+  mvc:
+    date-format: yyyy-MM-dd
+    favicon:
+      enabled: false
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  jackson:
+    date-format: yyyy-MM-dd'T'HH:mm:ss.sss'Z'
+    serialization:
+      write-dates-as-timestamps: true
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/spring-backend-boilerplate
+
+multipart:
+  enabled: true
+  max-file-size: 20Mb
+  max-request-size: 20Mb
+
+####################### eureka configuration #######################
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+#    instance-id: ${app.name}:${spring.application.name}:${server.port}
+  client:
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
