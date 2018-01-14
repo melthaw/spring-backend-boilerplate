@@ -26,7 +26,7 @@ logging:
     in.clouthink.daas: DEBUG
 
 server:
-  port: 8081
+  port: 8080
   address: 0.0.0.0
   session:
     timeout: 360000
@@ -47,7 +47,7 @@ spring:
       write-dates-as-timestamps: true
   data:
     mongodb:
-      uri: mongodb://localhost:27017/spring-backend-boilerplate
+      uri: mongodb://${MONGODB_HOST:localhost}:${MONGODB_PORT:27017}/spring-backend-boilerplate
 
 multipart:
   enabled: true
@@ -57,10 +57,10 @@ multipart:
 ####################### eureka configuration #######################
 eureka:
   instance:
-    hostname: localhost
+    hostname: ${EUREKA_SERVER_HOST:localhost}
     prefer-ip-address: true
 #    instance-id: ${app.name}:${spring.application.name}:${server.port}
   client:
     registerWithEureka: true
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+      defaultZone: http://${eureka.instance.hostname}:${EUREKA_SERVER_PORT:8761}/eureka/

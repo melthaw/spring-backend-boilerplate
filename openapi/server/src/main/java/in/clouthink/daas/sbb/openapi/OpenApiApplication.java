@@ -18,7 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
-@Import({OpenApiSecurityConfigurer.class, OpenApiWebMvcConfigurer.class})
+@Import({OpenApiWebMvcConfigurer.class})
 @EnableAsync
 @EnableAudit
 public class OpenApiApplication extends SpringBootServletInitializer {

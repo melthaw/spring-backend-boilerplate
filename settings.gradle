@@ -58,7 +58,10 @@ include 'sample/attachment/impl'
 include 'sample/attachment/rest'
 include 'sample/attachment/starter'
 
-include 'openapi/cors'
+include 'support/cors'
+include 'support/security'
+
 include 'openapi/server'
 include 'openapi/doc'
-include 'openapi/eureka'
+
+include 'cloud/eureka'

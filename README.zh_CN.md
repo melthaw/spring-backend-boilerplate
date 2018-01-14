@@ -41,6 +41,7 @@ gradle clean build
 * 确保的你的开发环境已经安装了docker和docker comose
 
 ```
+cd openapi
 docker-compose build
 docker-compose up -d
 ```

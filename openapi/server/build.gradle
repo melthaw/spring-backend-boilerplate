@@ -23,7 +23,6 @@ dependencies {
     compile libs.daas
 
     compile project(':shared')
-    compile project(':security/spring')
     compile project(':account/starter')
     compile project(':audit/starter')
     compile project(':menu/starter')
@@ -33,7 +32,8 @@ dependencies {
     compile project(':sample/setting/starter')
     compile project(':message/sms/starter')
     compile project(':storage/starter')
-    compile project(':openapi/cors')
+    compile project(':support/cors')
+    compile project(':support/security')
 }
 
 bootRun {

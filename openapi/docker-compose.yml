@@ -3,18 +3,19 @@ services:
   openapi-server:
     container_name: openapi-server
     build:
-      context: ./openapi/server
-      dockerfile: Dockerfile
+      context: ./server
+      dockerfile: docker/Dockerfile
+    depends_on:
+      - mongodb-server
     links:
-      - mongodb-server:mongodb
+      - mongodb-server:${MONGODB_HOST}
     ports:
-      - "8080:8080"
-      - "8090:8090"
+      - "8081:8080"
+      - "8190:8190"
     environment:
+      MONGODB_HOST: ${MONGODB_HOST}
+      MONGODB_PORT: ${MONGODB_PORT}
       JAVA_OPTS: -Xdebug -Xmx1024m -Xms256m -Xrunjdwp:server=y,transport=dt_socket,address=8190,suspend=n
   mongodb-server:
     container_name: mongodb-server
     image: mongo
-    ports:
-      - "22017:22017"
-

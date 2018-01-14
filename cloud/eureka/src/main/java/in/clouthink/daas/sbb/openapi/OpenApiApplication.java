@@ -19,7 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
-@Import({OpenApiWebMvcConfigurer.class, OpenApiSecurityConfigurer.class})
+@Import({OpenApiWebMvcConfigurer.class})
 @EnableEurekaClient
 @EnableAsync
 @EnableAudit

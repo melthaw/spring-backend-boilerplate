@@ -135,7 +135,7 @@ public class OpenApiSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
             .accessDecisionManager(accessDecisionManager())
-            .antMatchers("/", "/static/**", "/login**", "/guest/**", "/info", "/health")
+            .antMatchers("/", "/static/**", "/login**", "/guest/**")
             .permitAll()
             .antMatchers("/api/shared/**")
             .hasRole("USER")

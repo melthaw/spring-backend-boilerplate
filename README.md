@@ -24,6 +24,7 @@ gradle clean build
 ## Start up - by Docker
 
 ```
+cd openapi
 docker-compose build
 docker-compose up -d
 ```
