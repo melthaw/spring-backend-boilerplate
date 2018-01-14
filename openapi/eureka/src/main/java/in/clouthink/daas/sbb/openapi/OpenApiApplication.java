@@ -3,7 +3,6 @@ package in.clouthink.daas.sbb.openapi;
 import in.clouthink.daas.audit.annotation.EnableAudit;
 import in.clouthink.daas.audit.configure.AuditConfigurer;
 import in.clouthink.daas.audit.spi.AuditEventPersister;
-import in.clouthink.daas.sbb.openapi.support.EurekaRestController;
 import in.clouthink.daas.sbb.security.impl.audit.AuditEventPersisterImpl;
 import in.clouthink.daas.sbb.security.impl.audit.SecurityContextAuditImpl;
 import org.springframework.boot.SpringApplication;
@@ -16,8 +15,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootApplication
@@ -27,11 +24,6 @@ import org.springframework.web.context.WebApplicationContext;
 @EnableAsync
 @EnableAudit
 public class OpenApiApplication extends SpringBootServletInitializer {
-
-    @Bean
-    public EurekaRestController eurekaRestController() {
-        return new EurekaRestController();
-    }
 
     @Bean
     public AuditEventPersister auditEventPersisterImpl() {

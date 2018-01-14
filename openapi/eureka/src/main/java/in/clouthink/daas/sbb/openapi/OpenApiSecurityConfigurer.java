@@ -29,7 +29,6 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Configuration
 @EnableWebSecurity
 public class OpenApiSecurityConfigurer extends WebSecurityConfigurerAdapter {

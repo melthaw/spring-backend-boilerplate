@@ -33,6 +33,7 @@ dependencies {
     compile project(':sample/setting/starter')
     compile project(':message/sms/starter')
     compile project(':storage/starter')
+    compile project(':openapi/cors')
 }
 
 bootRun {
