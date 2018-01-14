@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @ComponentScan({"in.clouthink.daas.sbb.account.rest.controller", "in.clouthink.daas.sbb.account.rest.support.impl"})
 @Import({AccountServiceModuleConfiguration.class, AccountMenuConfiguration.class})
-@EnableConfigurationProperties(AccountAdministratorConfigurationProperties.class)
+@EnableConfigurationProperties(AdministratorAccountProperties.class)
 public class AccountRestModuleConfiguration {
 
-	@Bean
-	public AccountInitializingBean accountInitializingBean() {
-		return new AccountInitializingBean();
-	}
+    @Bean
+    public AccountInitializingBean accountInitializingBean() {
+        return new AccountInitializingBean();
+    }
 
 }
