@@ -9,16 +9,6 @@ in:
         account:
           password:
             salt: '@account.sbb.daas.clouthink.in'
-          administrator:
-            email: 'administrator@sbb.daas.clouthink.in'
-            username: administrator
-            cellphone: 13000000000
-            password: Please_change_me
-        setting:
-          system:
-            name: spring-backend-boilerplate
-            contactEmail: 'support-team@sbb.daas.clouthink.in'
-            contactPhone: 13000000000
 
 logging:
   file: /Users/dz/var/sbb/log/openapi.eureka.log
@@ -57,9 +47,15 @@ multipart:
 ####################### eureka configuration #######################
 eureka:
   instance:
-    hostname: ${EUREKA_SERVER_HOST:localhost}
-    prefer-ip-address: true
-#    instance-id: ${app.name}:${spring.application.name}:${server.port}
+    hostname: ${EUREKA_INSTANCE_HOST:localhost}
+    non-secure-port: ${EUREKA_INSTANCE_PORT:8080}
+    prefer-ip-address: false
+#    statusPageUrlPath: ${server.servletPath}/info
+#    healthCheckUrlPath: ${server.servletPath}/health
+#    statusPageUrl: https://${eureka.instance.hostname}/info
+#    healthCheckUrl: https://${eureka.instance.hostname}/health
+#    homePageUrl: https://${eureka.instance.hostname}/
+    instance-id: ${spring.application.name}:${eureka.instance.hostname}:${eureka.instance.non-secure-port}:${random.value}
   client:
     registerWithEureka: true
     serviceUrl:
