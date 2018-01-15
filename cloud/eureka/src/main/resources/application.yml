@@ -38,6 +38,17 @@ spring:
   data:
     mongodb:
       uri: mongodb://${MONGODB_HOST:localhost}:${MONGODB_PORT:27017}/spring-backend-boilerplate
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    pool:
+      max-active: 100
+      max-idle: 8
+      max-wait: 60000
+  session:
+    store-type: redis
+    redis:
+      namespace: openapi
 
 multipart:
   enabled: true

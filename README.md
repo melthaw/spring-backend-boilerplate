@@ -7,11 +7,13 @@ And we also provide the CRUD sample to show how manage the item list , add new o
 
 We hope this boilerplate can help the users to focus on their business part . Before that ,  we will explain how it is designed and implemented.
 
-[用户使用指南-中文版](./README.zh_CN.md)
+* [用户使用指南-中文版](./README.zh_CN.md)
 
 # Get Started
 
 > Please make sure the Java 8, Gradle 2.x and Mongodb are installed on your development machine.
+
+We support Spring Cloud now, here is the [User Guide - Spring Cloud Support](./cloud/README.md)
 
 ## Build
 
