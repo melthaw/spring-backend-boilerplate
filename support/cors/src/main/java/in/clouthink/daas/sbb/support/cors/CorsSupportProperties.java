@@ -3,6 +3,8 @@ package in.clouthink.daas.sbb.support.cors;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
+ * How to use the CorsConfiguration & CorsSupportProperties
+ *
  * <code>
  * corsConfiguration.setAllowCredentials(true);
  * corsConfiguration.addAllowedOrigin("http://localhost:8090");

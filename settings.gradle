@@ -61,6 +61,7 @@ include 'sample/attachment/starter'
 include 'support/session'
 include 'support/cors'
 include 'support/security'
+include 'support/webhook'
 
 include 'openapi/server'
 include 'openapi/doc'

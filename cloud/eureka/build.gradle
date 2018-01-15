@@ -40,6 +40,7 @@ dependencies {
     compile project(':storage/starter')
     compile project(':support/session')
     compile project(':support/cors')
+    compile project(':support/webhook')
     compile project(':support/security')
 
 }
