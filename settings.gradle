@@ -58,6 +58,7 @@ include 'sample/attachment/impl'
 include 'sample/attachment/rest'
 include 'sample/attachment/starter'
 
+include 'support/session'
 include 'support/cors'
 include 'support/security'
 
