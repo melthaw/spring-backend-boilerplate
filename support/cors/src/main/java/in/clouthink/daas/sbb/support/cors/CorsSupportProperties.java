@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * How to use the CorsConfiguration & CorsSupportProperties
- *
+ * <p>
  * <code>
  * corsConfiguration.setAllowCredentials(true);
  * corsConfiguration.addAllowedOrigin("http://localhost:8090");
@@ -19,43 +19,53 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "in.clouthink.daas.sbb.support.cors")
 public class CorsSupportProperties {
 
-	private boolean allowCredentials = true;
+    private boolean allowCredentials = true;
 
-	private String allowOrigin = "*";
+    private String allowOrigin = "*";
 
-	private String allowHeader = "*";
+    private String allowHeader = "*";
 
-	private String allowMethod = "*";
+    private String allowMethod = "*";
 
-	public boolean isAllowCredentials() {
-		return allowCredentials;
-	}
+    private int order = Integer.MIN_VALUE;
 
-	public void setAllowCredentials(boolean allowCredentials) {
-		this.allowCredentials = allowCredentials;
-	}
+    public boolean isAllowCredentials() {
+        return allowCredentials;
+    }
 
-	public String getAllowOrigin() {
-		return allowOrigin;
-	}
+    public void setAllowCredentials(boolean allowCredentials) {
+        this.allowCredentials = allowCredentials;
+    }
 
-	public void setAllowOrigin(String allowOrigin) {
-		this.allowOrigin = allowOrigin;
-	}
+    public String getAllowOrigin() {
+        return allowOrigin;
+    }
 
-	public String getAllowHeader() {
-		return allowHeader;
-	}
+    public void setAllowOrigin(String allowOrigin) {
+        this.allowOrigin = allowOrigin;
+    }
 
-	public void setAllowHeader(String allowHeader) {
-		this.allowHeader = allowHeader;
-	}
+    public String getAllowHeader() {
+        return allowHeader;
+    }
 
-	public String getAllowMethod() {
-		return allowMethod;
-	}
+    public void setAllowHeader(String allowHeader) {
+        this.allowHeader = allowHeader;
+    }
 
-	public void setAllowMethod(String allowMethod) {
-		this.allowMethod = allowMethod;
-	}
+    public String getAllowMethod() {
+        return allowMethod;
+    }
+
+    public void setAllowMethod(String allowMethod) {
+        this.allowMethod = allowMethod;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
 }
