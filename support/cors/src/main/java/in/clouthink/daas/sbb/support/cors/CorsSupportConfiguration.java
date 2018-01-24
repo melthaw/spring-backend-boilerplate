@@ -2,6 +2,8 @@ package in.clouthink.daas.sbb.support.cors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +24,8 @@ public class CorsSupportConfiguration {
 
     //refer to : http://spring.io/blog/2015/06/08/cors-support-in-spring-framework
     @Bean
-    @ConditionalOnBean(CorsSupportProperties.class)
-    @Autowired(required = false)
+    @ConditionalOnExpression("${in.clouthink.daas.sbb.support.cors.enabled:true}")
+    @Autowired
     public FilterRegistrationBean filterRegistrationBean(CorsSupportProperties corsSupportProperties) {
         final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 
