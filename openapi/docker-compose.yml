@@ -4,7 +4,7 @@ services:
     container_name: openapi-server
     build:
       context: ./server
-      dockerfile: docker/Dockerfile
+      dockerfile: src/docker/Dockerfile
     depends_on:
       - mongodb-server
     links:
