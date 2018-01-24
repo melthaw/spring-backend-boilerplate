@@ -34,6 +34,7 @@ public class AccountInitializingBean implements InitializingBean {
             logger.debug("The administrator user is not pre-configured, we will skip it");
             return;
         }
+
         // initialize System Administrator
         User adminUser = accountService.findByUsername(administratorAccountProperties.getUsername());
         if (adminUser != null) {
