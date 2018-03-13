@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-in.clouthink.daas.sbb.openapi.OpenApiSecurityConfigurer
+in.clouthink.daas.sbb.support.security.OpenApiSecurityConfigurer

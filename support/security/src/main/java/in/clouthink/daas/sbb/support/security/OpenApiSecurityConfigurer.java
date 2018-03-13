@@ -1,4 +1,4 @@
-package in.clouthink.daas.sbb.openapi;
+package in.clouthink.daas.sbb.support.security;
 
 import in.clouthink.daas.sbb.rbac.impl.spring.security.RbacWebSecurityExpressionHandler;
 import in.clouthink.daas.sbb.security.impl.spring.UserDetailsAuthenticationProviderImpl;
